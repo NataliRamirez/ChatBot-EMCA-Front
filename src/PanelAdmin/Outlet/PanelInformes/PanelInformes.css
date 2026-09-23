@@ -1,0 +1,168 @@
+.panelInformes{
+    width: 100%;
+    height: 89vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.headerInformes{
+    margin-bottom:30px;
+}
+
+h1{
+     text-align: center;
+     color: #000;
+     margin: 10px;
+     font-size: 25px;
+}
+
+p{
+    
+    color: #000;
+    margin: 10px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.cardInforme{
+    background: #3B76FB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    box-shadow: 0px 4px 10px #000;
+}
+
+.grupo{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.grupo label{
+    font-size: 25px;
+    color: #fff;
+
+}
+
+.grupo input,
+.grupo select{
+    padding:12px;
+    color: #000;
+    margin: 20px;
+    width: 530px;
+    height: 50px;
+    border-radius:6px;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.botonesInforme{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    gap:15px;
+}
+
+.btnCrear{
+   background: #3B76FB;
+    min-width:130px;
+    height:48px;
+    border:none;
+    height: 50px;
+    width: 70px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnCrear:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnPDF{
+    background:#c62828;
+    min-width:130px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnPDF:hover{
+    background:linear-gradient(90deg,#ff4545,#ff0909);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px #000;
+}
+
+.btnExcel{
+    background:#2e7d32;
+    min-width:130px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnExcel:hover{
+    background:linear-gradient(90deg,#49c550,#36ce10);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px #000;
+}
+
+.contenedor-scroll{
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+
+/* Contenedor principal con scroll vertical */
+.panelInformesContainer {
+  max-height: 100vh; /* Ajusta según el espacio disponible en tu Dashboard */
+  overflow-y: auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Personalización opcional de la barra de scroll */
+.panelInformesContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.panelInformesContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.panelInformesContainer::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.panelInformesContainer::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}

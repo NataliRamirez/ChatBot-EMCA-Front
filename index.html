@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Meta CSP corregida para Vite HMR, WebSockets y Backend local -->
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="
+        default-src 'self' http://127.0.0.1:* http://localhost:*; 
+        script-src 'self' 'unsafe-eval' 'unsafe-inline'; 
+        worker-src 'self' blob:; 
+        style-src 'self' 'unsafe-inline'; 
+        connect-src 'self' http://127.0.0.1:4000 http://127.0.0.1:3008 ws://localhost:* ws://127.0.0.1:*; 
+        img-src 'self' http://127.0.0.1:4000 http://localhost:5173 data: blob:; 
+        media-src 'self' http://127.0.0.1:4000 blob:;
+      "
+    >
+    <title>EMCA</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

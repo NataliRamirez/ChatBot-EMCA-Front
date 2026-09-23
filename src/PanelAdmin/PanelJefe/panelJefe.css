@@ -1,0 +1,428 @@
+/* =========================================
+   RESET
+========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:#f4f6f9;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.panel{
+  display:flex;
+  min-height:100vh;
+  background:#f4f6f9;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar{
+  width:260px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  padding:20px 16px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  overflow:hidden;
+  box-shadow:4px 0 12px rgba(0,0,0,0.15);
+  z-index:100;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.logo{
+  text-align:center;
+  margin-bottom:24px;
+  flex-shrink:0;
+}
+
+.logo h2{
+  font-size:32px;
+  font-weight:800;
+  color: #fff;
+  letter-spacing:1px;
+}
+
+.logo span{
+  display:block;
+  font-size:20px;
+  color:#cbd5e1;
+  margin-top:4px;
+}
+
+
+
+/* =========================================
+   MENÚ
+========================================= */
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  height:60px;
+  width: 230px;
+  flex:1;
+  overflow-y:auto;
+  padding-right:6px;
+  border-radius: 10px;
+}
+
+
+
+/* Scroll bonito */
+
+.menu::-webkit-scrollbar{
+  width:6px;
+}
+
+.menu::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.menu::-webkit-scrollbar-thumb{
+  background:#475569;
+  border-radius:10px;
+}
+
+.menu::-webkit-scrollbar-thumb:hover{
+  background:#64748b;
+}
+
+/* =========================================
+   BOTONES DEL MENÚ
+========================================= */
+
+.menu-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  border:none;
+  background-color: #3672ff;
+  color: #fff;
+  padding:14px 16px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:all .25s ease;
+  font-size:15px;
+  text-align:left;
+  flex-shrink:0;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.menu-btn span{
+  font-weight:500;
+   font-size: 20px;
+}
+
+.menu-btn:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.menu-btn.active{
+  color:#ffff;
+  font-weight:700;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.menu-divider{
+  height:1px;
+  background:#334155;
+  margin:14px 0;
+  flex-shrink:0;
+}
+
+.logout-btn{
+  background:#ef4444;
+  color:white;
+  margin-top:10px;
+}
+
+.logout-btn:hover{
+  background:#dc2626;
+  transform:none;
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.principal{
+  flex:1;
+  margin-left:260px;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header_admin{
+  background: #3B76FB;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #e5e7eb;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.header_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header_left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.header_title h2{
+  font-size:22px;
+  color: #fff;
+  font-weight:700;
+}
+
+.header_title span{
+  font-size:20px;
+  color: #ffff;
+}
+
+/* =========================================
+   ACCIONES HEADER
+========================================= */
+
+.header_actions{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.notification-btn{
+  position:relative;
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:12px;
+  background:#f8fafc;
+  cursor:pointer;
+  font-size:18px;
+  transition:.2s;
+}
+
+.notification-btn:hover{
+  background:#e2e8f0;
+}
+
+.notification-badge{
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  background:#ef4444;
+  color:white;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+/* =========================================
+   USUARIO
+========================================= */
+
+.user-info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  padding:8px 12px;
+  border-radius:16px;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#22c55e;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:14px;
+}
+
+.user-text{
+  display:flex;
+  flex-direction:column;
+}
+
+.user-text strong{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.user-text span{
+  font-size:12px;
+  color:#64748b;
+}
+
+/* =========================================
+   CONTENIDO
+========================================= */
+
+.contenido{
+  flex:1;
+  padding:24px;
+  background:#f4f6f9;
+}
+
+/* Tarjetas opcionales */
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  border:1px solid #eef2f7;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer_admin{
+  background:white;
+  border-top:1px solid #e5e7eb;
+  padding:14px 24px;
+  text-align:center;
+  font-size:13px;
+  color:#64748b;
+}
+
+
+
+
+.header-btn{
+  border:none;
+  background:#3B76FB;
+  color: #fff;
+  padding:10px 16px;
+  border-radius:12px;
+  font-size: 20px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .2s ease;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.header-btn:hover{
+  background: #3672ff;
+  transform:translateY(-1px);
+  box-shadow:  0px 4px 10px #000;
+}
+
+.logout-header{
+  background:#ef4444;
+  color:white;
+}
+
+.logout-header:hover{
+  background:#dc2626;
+}
+
+/* Responsive */
+@media (max-width:576px){
+
+  .header_actions{
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+  }
+
+  .header-btn{
+    width:100%;
+    text-align:center;
+  }
+}
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 992px){
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+  }
+
+  .sidebar.show{
+    transform:translateX(0);
+  }
+
+  .principal{
+    margin-left:0;
+  }
+
+  .header_admin{
+    padding:16px;
+  }
+
+  .header_title h2{
+    font-size:18px;
+  }
+
+  .contenido{
+    padding:16px;
+  }
+}
+
+@media (max-width: 576px){
+
+  .header_actions{
+    gap:10px;
+  }
+
+  .user-text{
+    display:none;
+  }
+
+  .logo h2{
+    font-size:28px;
+  }
+
+  .menu-btn{
+    padding:12px 14px;
+    font-size:14px;
+  }
+}

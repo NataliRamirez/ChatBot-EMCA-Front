@@ -1,0 +1,370 @@
+/* =======================
+   VARIABLES GLOBALES
+========================== */
+:root {
+  --bg-primary: #005dca;
+  --bg-primary-dark: #0048a0;
+  --bg-input: #ffffff;
+  --text-main: #ffffff;
+  --text-dark: #1e293b;
+  --btn-blue: #3b76fb;
+  --btn-red: #ff1100;
+  --btn-red-hover: #ce0303;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.25);
+  --shadow-input: 0 2px 6px rgba(0, 0, 0, 0.12);
+  --radius-lg: 16px;
+  --radius-md: 8px;
+}
+
+/* =======================
+   FONDO DEL MODAL
+========================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 26, 56, 0.88);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* =======================
+   MODAL CREAR, EDITAR Y VER
+========================== */
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-lg);
+  color: var(--text-dark);
+  background-color: #3B76FB;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh; 
+  padding: 28px 24px;
+  box-shadow: var(--shadow-soft);
+  box-sizing: border-box;
+}
+
+.modals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  color: var(--text-dark);
+  background-color:#3B76FB;
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  box-sizing: border-box;
+}
+
+/* =======================
+   TITULOS Y CAMPOS DE TEXTO
+========================== */
+h2 {
+  color: var(--text-main);
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.campos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  width: 100%;
+  margin-bottom: 14px;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.campos strong {
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.campos p {
+  background-color: var(--bg-input);
+  text-align: left;
+  color: var(--text-dark);
+  min-height: 42px;
+  height: auto; 
+  width: 100%; 
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* =======================
+   LABELS, INPUTS, SELECTS Y TEXTAREA
+========================== */
+.contenidos_crear,
+.contenidos_editar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.contenidos_crear label,
+.contenidos_editar label {
+  width: 100%;
+  color: var(--text-main);
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+
+/*CONTENIDO GENERAL DE LOS CAMPOS DEL MODULO DEL MODAL*/
+.contenidos_crear input,
+.contenidos_editar input,
+.contenidos_crear select,
+.contenidos_editar select,
+.contenidos_crear textarea,
+.contenidos_editar textarea {
+  width: 100%; 
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 15px;
+  background-color: var(--bg-input);
+  padding: 10px 14px;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 16px;
+  color: var(--text-dark);
+  box-shadow: var(--shadow-input);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*ACTIVACION DEL FOCUS DE LOS CONTENIDOS*/
+.contenidos_crear input:focus,
+.contenidos_editar input:focus,
+.contenidos_crear select:focus,
+.contenidos_editar select:focus,
+.contenidos_crear textarea:focus,
+.contenidos_editar textarea:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.contenidos_crear input,
+.contenidos_editar input,
+.contenidos_crear select,
+.contenidos_editar select {
+  height: 44px;
+}
+
+.contenidos_crear select,
+.contenidos_editar select {
+  cursor: pointer;
+}
+
+.contenidos_crear textarea{
+  height: 110px;
+  resize: vertical;
+}
+
+.contenidos_editar textarea {
+  height: 110px;
+  resize: vertical;
+}
+
+/* =======================
+   BOTONES
+========================== */
+.Containers_modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Contentino_edit{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.btns_Guardar{
+  background-color: #3B76FB;
+  min-width: 160px;
+  height: 44px;
+  margin: 10px;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  transition: var(--transition-fast);
+  box-shadow: 0px 4px 10px #000;
+  margin-top: 10px;
+}
+.btns_Actualizar{
+    background-color: #3B76FB;
+    min-width:160px ;
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    transition: var(--transition-fast);
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btns_Cancelar{
+    background-color: #3B76FB;
+    min-width:160px ;
+    height: 44px;
+    border: none;
+    margin: 10px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    transition: var(--transition-fast);
+    box-shadow: 0px 4px 10px #000;
+    margin-top: 10px;
+}
+
+.btnEliminarSi{
+  min-width: 120px;
+  height: 42px;
+  padding: 0 16px;
+  margin: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--btn-blue);
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px #000;
+}
+
+.btnEliminarNo {
+  min-width: 120px;
+  height: 42px;
+  padding: 0 16px;
+  margin: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--btn-blue);
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btns_Guardar:hover{
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+
+.btns_Actualizar:hover{
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+.btns_Cancelar:hover{
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+.btnEliminarNo:hover {
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+.btnEliminarSi {
+  background: var(--btn-red);
+  margin: 10px;
+}
+
+.btnEliminarSi:hover {
+  background: var(--btn-red-hover);
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 10px #000;
+}
+
+/* =======================
+   TEXTO MODAL ELIMINAR
+========================== */
+.contenido_Eliminar p {
+  color: var(--text-main);
+  font-size: 16px;
+  text-align: center;
+  margin: 16px 0 24px 0;
+  line-height: 1.5;
+}
+
+/* =======================
+   RESPONSIVE & SCROLLBAR
+========================== */
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+@media(max-width: 700px) {
+  .modal,
+  .modals,
+  .modal_crear,
+  .modals_editar {
+    width: 100%;
+    padding: 20px 16px;
+  }
+
+  .botones,
+  .Container_modal,
+  .Content_edit {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .btnGuardar,
+  .btnActualizar,
+  .btnCancelar,
+  .btnEliminarSi,
+  .btnEliminarNo {
+    width: 100%;
+  }
+}

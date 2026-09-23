@@ -1,0 +1,102 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+.page-container{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.auth-form{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.Content_recuperacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:600px;
+    height: 600px;
+    border-radius:22px;
+    background-color: #005dca;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 15px 35px rgba(0,0,0,.45);
+}
+
+.Content_recuperacion h2{
+    color: #fff;
+    text-align:center;
+    font-size:30px;
+    margin-bottom:30px;
+}
+
+.Content_recuperacion label{
+    display:block;
+    color: #ffff;
+    font-size:30px;
+}
+
+.btn_input{
+    width: 500px;
+    height:48px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    padding:0 18px;
+    margin-bottom:25px;
+    background:#fff;
+    color:#000;
+}
+
+.container_botones{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+
+.btn_enviarCorreo{
+    width:230px;
+    height: 50px;
+    color: #fff;
+    font-size: 18px;
+    border-radius:22px;
+    background-color: #3B76FB;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #000;
+}
+
+
+.btn_enviarCorreo:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+
+.btn_cancelar{
+    width: 230px;
+    height: 50px;
+    border-radius:22px;
+    color: #fff;
+    font-size: 17px;
+    background-color: #3B76FB;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_cancelar:hover{
+    background:linear-gradient(90deg,#2155ff,#3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
