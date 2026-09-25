@@ -138,6 +138,30 @@ export default function BitacorasJefe() {
   });
 
   // ===============================================
+<<<<<<< HEAD
+  // GENERAR PDF
+  // ===============================================
+  const handleGenerarPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      doc.setFontSize(14);
+      doc.text('EMCA E.S.P. - Reporte de Bitácoras', 14, 15);
+
+      const columnas = [
+        'Título', 'Nombre', 'Fecha Inicio', 'Fecha Final', 'Cargo', 'Estado'
+      ];
+
+      const filas = bitacorasFiltradas.map((bit) => {
+        const valores = obtenerValoresBitacora(bit);
+        return [
+          valores.titulo,
+          valores.nombre,
+          valores.fechaInicio,
+          valores.fechaFinal,
+          valores.cargo,
+          valores.estado
+=======
   // GENERAR PDF AUTOMÁTICO
   // ===============================================
   const generarPDF = () => {
@@ -171,10 +195,24 @@ export default function BitacorasJefe() {
           data.cargo,
           data.estado,
           data.descripcion
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         ];
       });
 
       autoTable(doc, {
+<<<<<<< HEAD
+        head: [columnas],
+        body: filas,
+        startY: 25,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [0, 51, 102] }
+      });
+
+      doc.save('Reporte_Bitacoras_EMCA.pdf');
+    } catch (error) {
+      console.error('Error al generar el PDF local:', error);
+      alert('Error al generar el PDF');
+=======
         startY: 22,
         head: [columnas],
         body: filas,
@@ -186,10 +224,39 @@ export default function BitacorasJefe() {
     } catch (error) {
       console.error('Error al generar PDF:', error);
       alert('Ocurrió un error al generar el archivo PDF.');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     }
   };
 
   // ===============================================
+<<<<<<< HEAD
+  // GENERAR EXCEL
+  // ===============================================
+  const handleGenerarExcel = () => {
+    try {
+      const datosExcel = bitacorasFiltradas.map((bit, index) => {
+        const valores = obtenerValoresBitacora(bit);
+        return {
+          ID: bit.id || index + 1,
+          'Título': valores.titulo,
+          'Nombre': valores.nombre,
+          'Fecha Inicio': valores.fechaInicio,
+          'Fecha Final': valores.fechaFinal,
+          'Cargo': valores.cargo,
+          'Estado': valores.estado,
+          'Descripción': valores.descripcion
+        };
+      });
+
+      const hoja = XLSX.utils.json_to_sheet(datosExcel);
+      const libro = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(libro, hoja, 'Bitacoras');
+
+      XLSX.writeFile(libro, `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`);
+    } catch (error) {
+      console.error('Error al generar el Excel local:', error);
+      alert('Error al generar el Excel');
+=======
   // GENERAR EXCEL AUTOMÁTICO
   // ===============================================
   const generarExcel = () => {
@@ -224,6 +291,7 @@ export default function BitacorasJefe() {
     } catch (error) {
       console.error('Error al generar Excel:', error);
       alert('Ocurrió un error al generar el archivo Excel.');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     }
   };
 
@@ -327,7 +395,10 @@ export default function BitacorasJefe() {
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
    
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       <div className="contenedor-scroll">
         <div className="tabla-card">
           <div className="tabla-header">
@@ -405,27 +476,42 @@ export default function BitacorasJefe() {
             </tbody>
           </table>
 
+<<<<<<< HEAD
+          <div className="ContainerBotonesGenerar">
+            <button className="btnGenerar_PDF" onClick={handleGenerarPDF}>
+              Generar PDF
+            </button>
+            <button className="btnGenerar_EXCEL" onClick={handleGenerarExcel}>
+=======
           
           <div className="ContainerBotonesGenerar">
             <button className="btnGenerar_PDF" onClick={generarPDF}>
               Generar PDF
             </button>
             <button className="btnGenerar_EXCEL" onClick={generarExcel}>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               Generar Excel
             </button>
           </div>
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
       
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       {bitacoraSeleccionada && (() => {
         const modalData = obtenerValoresBitacora(bitacoraSeleccionada);
         return (
           <div className="modal-overlay">
             <div className="modals-content">
               <div className="modal-header">
+<<<<<<< HEAD
+                <div className="btnCerrarContenido"></div>
+=======
                 <div className="btnCerrarContenido">
                 </div>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
                 <h3>Detalle de Bitácora</h3>
               </div>
 

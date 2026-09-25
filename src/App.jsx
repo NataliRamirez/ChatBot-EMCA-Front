@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+import React from 'react';
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './AuthContext/AuthContext';
 
@@ -16,7 +20,11 @@ import { Login } from './Components/Formularios/Login/Login';
 import PanelInformes from './PanelAdmin/Outlet/PanelInformes/PanelInformes';
 import PanelSolicitudes from './PanelAdmin/Outlet/Solicitudes/PanelSolicitudes';
 import PanelRespuestas from './PanelAdmin/Outlet/Respuestas/PanelRespuestas';
+<<<<<<< HEAD
+import dasboardAdmin from './PanelAdmin/dasboarAdmin'; // Requiere export default en dasboarAdmin.jsx
+=======
 import  dashboardAdmin  from './PanelAdmin/dasboarAdmin';
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 import Bitacoras from './PanelAdmin/Outlet/Bitacoras/Bitacoras';
 import PanelBitacoras from './PanelAdmin/Outlet/Bitacoras/PanelBitacoras';
 import Perfil from './PanelAdmin/Outlet/Perfil/Perfil';
@@ -38,21 +46,36 @@ function App() {
       <Router>
         <Routes>
 
+<<<<<<< HEAD
+          {/* ===================== AUTH & PUBLIC ===================== */}
+=======
           {/* ===================== LOGIN ===================== */}
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
           <Route path="/" element={<Login />} />
           <Route path="/registro" element={<Register />} />
           <Route path="/recuperar" element={<Recuperacion />} />
           <Route path="/restablecer" element={<Restablecer />} />
 
+<<<<<<< HEAD
+          {/* ===================== PANEL USUARIO / OPERADOR ===================== */}
+=======
           {/* ===================== PANEL USUARIO ===================== */}
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
           <Route path="/panel-usuario" element={<Panelusuario />} />
 
           {/* ===================== PANEL ADMIN ===================== */}
           <Route path="/panel-admin" element={<PanelAdmin />}>
 
             {/* Dashboard principal del admin */}
+<<<<<<< HEAD
+            <Route index element={<dasboardAdmin />} />
+            <Route path="dasboard-admin" element={<dasboardAdmin />} />
+
+           
+=======
             <Route index element={<DashboardJefe />} />
             <Route path="dasboar-admin" element={<DashboardJefe />} />
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 
             {/* Perfil */}
             <Route path="perfil/:id" element={<Perfil />} />

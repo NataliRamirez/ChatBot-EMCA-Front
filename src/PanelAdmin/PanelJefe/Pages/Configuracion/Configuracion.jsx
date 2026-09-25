@@ -28,13 +28,21 @@ export default function Configuracion() {
   return (
     <div className="config-page">
       <div className="config-header">
+<<<<<<< HEAD
+        <h2>Configuración del Sistema</h2>
+=======
         <h2>⚙️ Configuración del Sistema</h2>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         <p>Administra las preferencias del panel del jefe</p>
       </div>
 
       <div className="contenedor-scroll"> 
         <div className="config-card">
+<<<<<<< HEAD
+          <h3>Configuración general</h3>
+=======
           <h3>🏢 Configuración general</h3>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 
           <div className="form-grid">
             <div className="Campo">
@@ -77,7 +85,11 @@ export default function Configuracion() {
 
        
         <div className="config-card">
+<<<<<<< HEAD
+          <h3>Notificaciones</h3>
+=======
           <h3>🔔 Notificaciones</h3>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
           <div className="switch-group">
             <div className="switch-item">
               <div>
@@ -107,7 +119,11 @@ export default function Configuracion() {
 
   
         <div className="config-card">
+<<<<<<< HEAD
+          <h3>Seguridad</h3>
+=======
           <h3>🔒 Seguridad</h3>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 
           <div className="form-grid">
             <div className="Campo">
@@ -134,7 +150,11 @@ export default function Configuracion() {
 
   
         <div className="config-card">
+<<<<<<< HEAD
+          <h3>Apariencia</h3>
+=======
           <h3>🎨 Apariencia</h3>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 
           <div className="form-grid">
             <div className="Campo">
@@ -155,7 +175,11 @@ export default function Configuracion() {
 
         
         <div className="config-card">
+<<<<<<< HEAD
+          <h3>Información del sistema</h3>
+=======
           <h3>ℹ️ Información del sistema</h3>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 
           <div className="info-grid">
             <div className="info-item">
@@ -181,8 +205,13 @@ export default function Configuracion() {
         </div>
 
         <div className="acciones-finales">
+<<<<<<< HEAD
+          <button className="btn-secundarios">Restablecer</button>
+          <button className="btn-primarys">Guardar configuración</button>
+=======
           <button className="btn-secundarios">🔄 Restablecer</button>
           <button className="btn-primarys">💾 Guardar configuración</button>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         </div>
       </div>
     </div>

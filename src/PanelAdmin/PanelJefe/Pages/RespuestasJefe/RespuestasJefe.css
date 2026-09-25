@@ -222,8 +222,13 @@
    justify-content: center;
    align-items: center;
    flex-direction: column;
+<<<<<<< HEAD
+   height: 790px;
+   width: 600px;
+=======
    height: 990px;
    width: 650px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
    border-radius: 10px;
    background-color: #3B76FB;
    box-shadow: 0px 4px 10px #000;

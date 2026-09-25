@@ -51,6 +51,10 @@ th,
 td{
     padding:12px;
     border:1px solid #ddd;
+<<<<<<< HEAD
+    font-size: 27px;
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     color: #000;
     text-align:center;
 }

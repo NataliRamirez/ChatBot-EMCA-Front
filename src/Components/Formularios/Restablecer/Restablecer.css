@@ -31,10 +31,14 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
     background-color: #005dca;
+<<<<<<< HEAD
+  
+=======
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 /* Título */
@@ -47,6 +51,31 @@ body {
 }
 
 /* Grupos de entradas */
+<<<<<<< HEAD
+.input-group label{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin: 10px;
+}
+
+/* Etiquetas alineadas con los inputs */
+.Contenido_email{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.Contenido_email label {
+    width: 400px;
+    display: block;
+    color: #fff;
+    text-align: center;
+    margin: 10px;
+    font-size: 22px;
+=======
 .input-group {
     width: 100%;
     display: flex;
@@ -63,6 +92,7 @@ body {
     color: #fff;
     margin-bottom: 8px;
     font-size: 18px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight: 600;
     text-align: left;
 }

@@ -84,7 +84,11 @@ body {
     border-radius: 12px;
     padding: 0 18px;
     color: #000;
+<<<<<<< HEAD
+    font-size: 19px;
+=======
     font-size: 15px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     transition: 0.3s;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -131,7 +135,11 @@ body {
     border: none;
     border-radius: 12px;
     cursor: pointer;
+<<<<<<< HEAD
+    font-size: 19px;
+=======
     font-size: 16px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight: 700;
     transition: 0.3s;
     background: linear-gradient(90deg, #2155ff, #3d8cff);

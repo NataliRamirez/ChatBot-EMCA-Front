@@ -37,7 +37,11 @@ export default function RespuestasJefe() {
   }, []);
 
   // ==========================
+<<<<<<< HEAD
+  // MAPEO DE VALORES
+=======
   // MAPEO DE VALORES (Extrae los datos sin importar la estructura del JSON backend)
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   // ==========================
   const obtenerValoresRespuesta = (bit) => {
     const Nradicado = bit.Nradicado || bit.radicado || 'N/A';
@@ -83,7 +87,11 @@ export default function RespuestasJefe() {
   };
 
   // =========================
+<<<<<<< HEAD
+  // FILTRO GLOBAL UNIFICADO
+=======
   // FILTRO GLOBAL UNIFICADO (Usa la variable 'busqueda')
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   // =========================
   const filtradas = respuestas.filter((bit) => {
     const texto = busqueda.toLowerCase().trim();
@@ -103,6 +111,31 @@ export default function RespuestasJefe() {
   });
 
   // ===============================================
+<<<<<<< HEAD
+  // GENERAR PDF
+  // ===============================================
+  const handleGenerarPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      doc.setFontSize(14);
+      doc.text('EMCA E.S.P. - Reporte de Respuestas', 14, 15);
+
+      const columnas = [
+        'Radicado', 'Título', 'Nombre', 'Teléfono', 'Tipo', 'Estado', 'Fecha Inicio'
+      ];
+
+      const filas = filtradas.map((bit) => {
+        const valores = obtenerValoresRespuesta(bit);
+        return [
+          valores.Nradicado,
+          valores.titulo,
+          valores.nombre,
+          valores.telefono,
+          valores.tipoRespuesta,
+          valores.estados,
+          valores.fechaInicio
+=======
   // GENERAR PDF AUTOMÁTICO
   // ===============================================
   const generarPDF = () => {
@@ -136,10 +169,31 @@ export default function RespuestasJefe() {
           data.tipoRespuesta,
           data.estados,
           data.fechaInicio
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         ];
       });
 
       autoTable(doc, {
+<<<<<<< HEAD
+        head: [columnas],
+        body: filas,
+        startY: 25,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [0, 51, 102] }
+      });
+
+      doc.save('Reporte_Respuestas_EMCA.pdf');
+    } catch (error) {
+      console.error('Error al generar el PDF local:', error);
+      alert('Error al generar el PDF');
+    }
+  };
+
+  // ============================
+  // GENERAR EXCEL
+  // ============================
+  const handleGenerarExcel = () => {
+=======
         startY: 22,
         head: [columnas],
         body: filas,
@@ -163,6 +217,7 @@ export default function RespuestasJefe() {
       return;
     }
 
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     try {
       const datosExcel = filtradas.map((bit, index) => {
         const data = obtenerValoresRespuesta(bit);
@@ -286,10 +341,17 @@ export default function RespuestasJefe() {
         </table>
 
         <div className="containerBotones">
+<<<<<<< HEAD
+          <button className="btn_PDFdescargar" onClick={handleGenerarPDF}>
+            Descargar PDF
+          </button>
+          <button className="btn_EXCELdescargar" onClick={handleGenerarExcel}>
+=======
           <button className="btn_PDFdescargar" onClick={generarPDF}>
             Descargar PDF
           </button>
           <button className="btn_EXCELdescargar" onClick={generarExcel}>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
             Descargar EXCEL
           </button>
         </div>
@@ -300,8 +362,12 @@ export default function RespuestasJefe() {
         <div className="modal-overlay">
           <div className="modals-contents">
             <div className="modal-header">
+<<<<<<< HEAD
+              <div className="btnCerrar"></div>
+=======
               <div className="btnCerrar">
               </div>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               <h3>Respuesta #{respuestaSeleccionada.Nradicado}</h3>
             </div>
 
@@ -326,14 +392,22 @@ export default function RespuestasJefe() {
               <p>
                 <strong>Estado:</strong> {respuestaSeleccionada.estados}
               </p>
+<<<<<<< HEAD
+
+=======
   
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               <p>
                 <strong>Descripción:</strong>
               </p>
               <div className="box-detalle">
                 {respuestaSeleccionada.descripcion}
               </div>
+<<<<<<< HEAD
+
+=======
           
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               <p>
                 <strong>Fecha Inicio:</strong>{' '}
                 {respuestaSeleccionada.fechaInicio}

@@ -91,6 +91,10 @@ h2 {
 .campos strong {
   margin-bottom: 6px;
   font-weight: 600;
+<<<<<<< HEAD
+  font-size: 20px;
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   letter-spacing: 0.2px;
 }
 
@@ -103,10 +107,15 @@ h2 {
   width: 100%; 
   padding: 10px 14px;
   border-radius: var(--radius-md);
+<<<<<<< HEAD
+  margin: 0;
+  font-size: 20px;
+=======
   box-shadow: var(--shadow-input);
   box-sizing: border-box;
   margin: 0;
   font-size: 15px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   line-height: 1.4;
   word-break: break-word;
 }
@@ -143,7 +152,11 @@ h2 {
   width: 100%; 
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.3);
+<<<<<<< HEAD
+  font-size: 20px;
+=======
   font-size: 15px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   background-color: var(--bg-input);
   padding: 10px 14px;
   box-sizing: border-box;
@@ -218,6 +231,10 @@ h2 {
   border-radius: var(--border-radius-md);
   cursor: pointer;
   font-weight: 600;
+<<<<<<< HEAD
+  font-size: 20px;
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   color: #fff;
   transition: var(--transition-fast);
   box-shadow: 0px 4px 10px #000;
@@ -231,7 +248,11 @@ h2 {
     border: none;
     border-radius: var(--border-radius-md);
     cursor: pointer;
+<<<<<<< HEAD
+    font-size: 20px;
+=======
     font-size: 17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight: 600;
     color: #fff;
     transition: var(--transition-fast);
@@ -247,6 +268,10 @@ h2 {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     font-weight: 600;
+<<<<<<< HEAD
+    font-size: 20px;
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     color: #fff;
     transition: var(--transition-fast);
     box-shadow: 0px 4px 10px #000;
@@ -262,7 +287,11 @@ h2 {
   border-radius: var(--radius-md);
   background: var(--btn-blue);
   color: var(--text-main);
+<<<<<<< HEAD
+  font-size: 20px;
+=======
   font-size: 15px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
@@ -278,7 +307,11 @@ h2 {
   border-radius: var(--radius-md);
   background: var(--btn-blue);
   color: var(--text-main);
+<<<<<<< HEAD
+  font-size: 20px;
+=======
   font-size: 15px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
@@ -326,7 +359,11 @@ h2 {
 ========================== */
 .contenido_Eliminar p {
   color: var(--text-main);
+<<<<<<< HEAD
+  font-size: 20px;
+=======
   font-size: 16px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   text-align: center;
   margin: 16px 0 24px 0;
   line-height: 1.5;

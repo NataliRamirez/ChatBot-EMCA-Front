@@ -194,6 +194,32 @@ const solicitudesFiltradas = solicitudes.filter((bit) =>{
 //============================
 //Generar PDF
 //============================
+<<<<<<< HEAD
+// ============================
+  // Generar PDF desde el Frontend (jsPDF + AutoTable)
+  // ============================
+  const generarPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      doc.setFontSize(14);
+      doc.text('EMCA E.S.P. - Reporte de Solicitudes', 14, 15);
+
+      const columnas = [
+        'Título', 'Nombre', 'Radicado', 'Tipo', 'Asunto', 'Fecha Inicio', 'Estado'
+      ];
+
+      const filas = solicitudesFiltradas.map((sol) => {
+        const valores = obtenerValoresSolicitudes(sol);
+        return [
+          valores.titulo,
+          valores.nombre,
+          valores.radicado,
+          valores.tipo,
+          valores.asunto,
+          valores.fechaInicio,
+          valores.estado
+=======
 
 const generarPDF = () => {
     if (solicitudesFiltradas.length === 0) {
@@ -234,10 +260,57 @@ const generarPDF = () => {
           data.cargo,
           data.estado,
           data.observacion
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         ];
       });
 
       autoTable(doc, {
+<<<<<<< HEAD
+        head: [columnas],
+        body: filas,
+        startY: 25,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [0, 51, 102] }
+      });
+
+      doc.save('Reporte_Solicitudes_EMCA.pdf');
+    } catch (error) {
+      console.error('Error al generar el PDF local:', error);
+      alert('Error al generar el PDF');
+    }
+  };
+
+  // ============================
+  // Generar Excel desde el Frontend (SheetJS XLSX)
+  // ============================
+  const generarExcel = () => {
+    try {
+      const datosExcel = solicitudesFiltradas.map((sol) => {
+        const valores = obtenerValoresSolicitudes(sol);
+        return {
+          'Título': valores.titulo,
+          'Nombre': valores.nombre,
+          'Radicado': valores.radicado,
+          'Tipo': valores.tipo,
+          'Usuario': valores.usuario,
+          'Asunto': valores.asunto,
+          'Fecha Inicio': valores.fechaInicio,
+          'Fecha Final': valores.fechaFinal,
+          'Cargo': valores.cargo,
+          'Estado': valores.estado,
+          'Observaciones': valores.observacion
+        };
+      });
+
+      const hoja = XLSX.utils.json_to_sheet(datosExcel);
+      const libro = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(libro, hoja, 'Solicitudes');
+
+      XLSX.writeFile(libro, 'Reporte_Solicitudes_EMCA.xlsx');
+    } catch (error) {
+      console.error('Error al generar el Excel local:', error);
+      alert('Error al generar el Excel');
+=======
         startY: 22,
         head: [columnas],
         body: filas,
@@ -291,6 +364,7 @@ const generarPDF = () => {
     } catch (error) {
       console.error('Error al generar Excel:', error);
       alert('Ocurrió un error al generar el archivo Excel.');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     }
   };
   return (

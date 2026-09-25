@@ -4,7 +4,11 @@
     align-items: center;
     height: 120px;
     width: 450px;
+<<<<<<< HEAD
+    background-color: #ccc;
+=======
     background-color: #004884;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     border-radius: 10px;
     box-shadow: 0px 4px 10px #0000;
 }

@@ -44,7 +44,10 @@
    margin: 1px;
    color: #000;
    background-color: #fff;
+<<<<<<< HEAD
+=======
    box-shadow: 0px 4px 10px #000;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .Modal textarea{
@@ -53,8 +56,11 @@
      margin: 1px;
      color: #000;
      background-color: #fff;
+<<<<<<< HEAD
+=======
      box-shadow: 0px 4px 10px #000;
 
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .Modal select{
@@ -63,7 +69,10 @@
      color: #000;
      margin: 1px;
      background-color: #fff;
+<<<<<<< HEAD
+=======
      box-shadow: 0px 4px 10px #000;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .Modal_eliminarRespuesta{
@@ -81,7 +90,11 @@
 .Modal_eliminarRespuesta p, h2{
     color: #fff;
     margin: 10px;
+<<<<<<< HEAD
+    font-size: 20px;
+=======
     font-size: 17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     text-align: center;
 }
 
@@ -93,7 +106,11 @@
     border-radius:12px;
     cursor:pointer;
     margin: 10px;
+<<<<<<< HEAD
+    font-size:20px;
+=======
     font-size:17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight:600;
     color: #fff;
     transition:.3s;
@@ -164,7 +181,11 @@
     border:none;
     border-radius:12px;
     cursor:pointer;
+<<<<<<< HEAD
+    font-size:20px;
+=======
     font-size:17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     margin: 10px;
     font-weight:600;
     color: #fff;
@@ -185,7 +206,11 @@
     border:none;
     border-radius:12px;
     cursor:pointer;
+<<<<<<< HEAD
+    font-size:20px;
+=======
     font-size:18px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight:600;
     color: #fff;
     transition:.3s;
@@ -210,7 +235,11 @@
   height: 44px;
   padding: 0 20px;
   border: none;
+<<<<<<< HEAD
+  font-size: 20px;
+=======
   font-size: 17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   border-radius: var(--border-radius-md);
   cursor: pointer;
   font-weight: 600;
@@ -234,7 +263,11 @@
     border: none;
     border-radius: var(--border-radius-md);
     cursor: pointer;
+<<<<<<< HEAD
+    font-size: 20px;
+=======
     font-size: 17px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     font-weight: 600;
     color: #fff;
     transition: var(--transition-fast);

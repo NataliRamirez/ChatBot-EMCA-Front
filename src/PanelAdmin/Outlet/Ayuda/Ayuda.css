@@ -23,17 +23,34 @@
     box-shadow: 0px 4px 10px #000;
 }
 
+<<<<<<< HEAD
+.modal_help h2{
+    color: #fff;
+    margin: 10px;
+    font-size: 35px;
+}
+
+.modal_help p{
+  color: #fff;
+  margin: 10px;
+  font-size: 22px;
+=======
 .modal_help p{
   color: #ccc;
   margin: 10px;
   font-size: 20px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   text-align: center;
 }
 
 
 .modal_help h4{
    color: #fff;
+<<<<<<< HEAD
+   font-size: 26px;
+=======
    font-size: 20px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
    margin: 10px;
    text-align: center;
 }
