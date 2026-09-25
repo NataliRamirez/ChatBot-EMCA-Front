@@ -332,9 +332,16 @@
 
 .modal-content{
   background-color: #3B76FB;
+<<<<<<< HEAD
   margin: 10px;
   height: 620px;
   width: 500px;
+=======
+  color: #fff;
+  margin: 10px;
+  height: 820px;
+  width: 600px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   margin: 40px;
   text-align: center;
   font-size: 25px;
@@ -344,7 +351,11 @@
 
 .modal-body p{
   color: #fff;
+<<<<<<< HEAD
   margin: 10px;
+=======
+  margin: 20px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .Contenido_Cerrar{

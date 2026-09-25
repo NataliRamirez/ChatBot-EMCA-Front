@@ -18,7 +18,11 @@
   background-color: #3B76FB;
     color: #fff;
     margin: 10px;
+<<<<<<< HEAD
     height: 620px;
+=======
+    height: 790px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     width: 550px;
     text-align: center;
     font-size: 25px;
@@ -150,7 +154,11 @@
   padding:16px 20px;
   border-bottom:1px solid #f1f5f9;
   color: #000;
+<<<<<<< HEAD
   font-size: 23px;
+=======
+  font-size: 20px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .tabla-bitacoras tbody tr:hover{

@@ -81,10 +81,16 @@ body{
     box-shadow: 0px 4px 10px #000;
 }
 
+<<<<<<< HEAD
 .menus-btn span{
     flex:1;
     text-align:left;
     color:#fff;
+=======
+.menu-btn span{
+    flex:1;
+    text-align:left;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .menus-btn:hover{

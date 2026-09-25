@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+<<<<<<< HEAD
 import { Eye, EyeOff } from 'lucide-react';
+=======
+import { Eye, EyeOff } from 'lucide-react'; // Importamos los iconos
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 import './Restablecer.css';
 
 export default function Restablecer() {
@@ -8,19 +12,32 @@ export default function Restablecer() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') || '';
 
+<<<<<<< HEAD
   const [formData, setFormData] = useState({
     email: '',
+=======
+  const [passwords, setPasswords] = useState({
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     nuevaPassword: '',
     confirmarPassword: ''
   });
 
+<<<<<<< HEAD
   // Estados para alternar visibilidad de las contraseñas
+=======
+  // 👁️ Estados para alternar visibilidad independientemente en cada campo
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   const [showNuevaPassword, setShowNuevaPassword] = useState(false);
   const [showConfirmarPassword, setShowConfirmarPassword] = useState(false);
 
   const handleChange = (e) => {
+<<<<<<< HEAD
     setFormData({
       ...formData,
+=======
+    setPasswords({
+      ...passwords,
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       [e.target.name]: e.target.value
     });
   };
@@ -33,6 +50,7 @@ export default function Restablecer() {
       return;
     }
 
+<<<<<<< HEAD
     // 1. Validar formato de correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
@@ -50,6 +68,10 @@ export default function Restablecer() {
     // 3. Validar coincidencia de contraseñas
     if (formData.nuevaPassword !== formData.confirmarPassword) {
       alert('Las contraseñas no coinciden.');
+=======
+    if (passwords.nuevaPassword !== passwords.confirmarPassword) {
+      alert('Las contraseñas no coinciden');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       return;
     }
 
@@ -57,11 +79,15 @@ export default function Restablecer() {
       const res = await fetch('http://127.0.0.1:4000/v1/recuperacion/restablecer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD
         body: JSON.stringify({
           token,
           email: formData.email,
           nuevaPassword: formData.nuevaPassword
         })
+=======
+        body: JSON.stringify({ token, nuevaPassword: passwords.nuevaPassword })
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       });
 
       const data = await res.json();
@@ -104,6 +130,7 @@ export default function Restablecer() {
       <form onSubmit={handleSubmit} className="Containers_login">
         <h2>Restablecimiento</h2>
 
+<<<<<<< HEAD
         {/* Campo Correo Electrónico */}
         <div className="Contenido_email">
           <label htmlFor="email">Ingrese el correo electrónico:</label>
@@ -116,6 +143,18 @@ export default function Restablecer() {
             onChange={handleChange} 
             required
           />
+=======
+        <div className='Contenido_email'>
+          <label htmlFor="email">Ingrese el correo electronico:</label>
+           <input 
+               type="text" 
+               id='email' 
+               name='email' 
+               placeholder='Ingrese el correo' 
+               onChange={handleChange} 
+               required
+              />
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         </div>
 
         {/* Campo Nueva Contraseña */}
@@ -126,8 +165,12 @@ export default function Restablecer() {
               type={showNuevaPassword ? 'text' : 'password'}
               id="nuevaPassword"
               name="nuevaPassword"
+<<<<<<< HEAD
               value={formData.nuevaPassword}
               placeholder="Mínimo 8 caracteres, 1 mayúscula, 1 número"
+=======
+              placeholder="Ingrese su contraseña nueva"
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               onChange={handleChange}
               required
             />
@@ -150,8 +193,12 @@ export default function Restablecer() {
               type={showConfirmarPassword ? 'text' : 'password'}
               id="confirmarPassword"
               name="confirmarPassword"
+<<<<<<< HEAD
               value={formData.confirmarPassword}
               placeholder="Repite tu nueva contraseña"
+=======
+              placeholder="Confirme su contraseña nueva"
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               onChange={handleChange}
               required
             />

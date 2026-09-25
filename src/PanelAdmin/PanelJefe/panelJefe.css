@@ -130,7 +130,10 @@ body{
 .menu-btn span{
   font-weight:500;
    font-size: 20px;
+<<<<<<< HEAD
    color: #fff;
+=======
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 }
 
 .menu-btn:hover{

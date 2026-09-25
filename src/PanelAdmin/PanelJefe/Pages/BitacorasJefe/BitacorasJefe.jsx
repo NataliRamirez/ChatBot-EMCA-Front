@@ -138,6 +138,7 @@ export default function BitacorasJefe() {
   });
 
   // ===============================================
+<<<<<<< HEAD
   // GENERAR PDF
   // ===============================================
   const handleGenerarPDF = () => {
@@ -160,10 +161,46 @@ export default function BitacorasJefe() {
           valores.fechaFinal,
           valores.cargo,
           valores.estado
+=======
+  // GENERAR PDF AUTOMÁTICO
+  // ===============================================
+  const generarPDF = () => {
+    if (bitacorasFiltradas.length === 0) {
+      alert('No hay registros de bitácoras para descargar.');
+      return;
+    }
+
+    try {
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text('Reporte de Bitácoras del Sistema', 14, 15);
+
+      const columnas = [
+        'Titulo',
+        'Nombre',
+        'FechaInicio',
+        'FechaFinal',
+        'Cargo',
+        'Estado',
+        'Descripcion'
+      ];
+
+      const filas = bitacorasFiltradas.map((bit) => {
+        const data = obtenerValoresBitacora(bit);
+        return [
+          data.titulo,
+          data.nombre,
+          data.fechaInicio,
+          data.fechaFinal,
+          data.cargo,
+          data.estado,
+          data.descripcion
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
         ];
       });
 
       autoTable(doc, {
+<<<<<<< HEAD
         head: [columnas],
         body: filas,
         startY: 25,
@@ -175,10 +212,24 @@ export default function BitacorasJefe() {
     } catch (error) {
       console.error('Error al generar el PDF local:', error);
       alert('Error al generar el PDF');
+=======
+        startY: 22,
+        head: [columnas],
+        body: filas,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [41, 128, 185] }
+      });
+
+      doc.save(`Bitacoras_${new Date().toISOString().split('T')[0]}.pdf`);
+    } catch (error) {
+      console.error('Error al generar PDF:', error);
+      alert('Ocurrió un error al generar el archivo PDF.');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     }
   };
 
   // ===============================================
+<<<<<<< HEAD
   // GENERAR EXCEL
   // ===============================================
   const handleGenerarExcel = () => {
@@ -205,6 +256,42 @@ export default function BitacorasJefe() {
     } catch (error) {
       console.error('Error al generar el Excel local:', error);
       alert('Error al generar el Excel');
+=======
+  // GENERAR EXCEL AUTOMÁTICO
+  // ===============================================
+  const generarExcel = () => {
+    if (bitacorasFiltradas.length === 0) {
+      alert('No hay registros de bitácoras para descargar.');
+      return;
+    }
+
+    try {
+      const datosExcel = bitacorasFiltradas.map((bit, index) => {
+        const data = obtenerValoresBitacora(bit);
+        return {
+          ID: bit.id || index + 1,
+          Titulo: data.titulo,
+          Nombre: data.nombre,
+          FechaInicio: data.fechaInicio,
+          FechaFinal: data.fechaFinal,
+          Cargo: data.cargo,
+          Estado: data.estado,
+          Descripcion: data.descripcion
+        };
+      });
+
+      const hojaTrabajo = XLSX.utils.json_to_sheet(datosExcel);
+      const libroTrabajo = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(libroTrabajo, hojaTrabajo, 'Bitácoras');
+
+      XLSX.writeFile(
+        libroTrabajo,
+        `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`
+      );
+    } catch (error) {
+      console.error('Error al generar Excel:', error);
+      alert('Ocurrió un error al generar el archivo Excel.');
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
     }
   };
 
@@ -308,6 +395,10 @@ export default function BitacorasJefe() {
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       <div className="contenedor-scroll">
         <div className="tabla-card">
           <div className="tabla-header">
@@ -385,24 +476,42 @@ export default function BitacorasJefe() {
             </tbody>
           </table>
 
+<<<<<<< HEAD
           <div className="ContainerBotonesGenerar">
             <button className="btnGenerar_PDF" onClick={handleGenerarPDF}>
               Generar PDF
             </button>
             <button className="btnGenerar_EXCEL" onClick={handleGenerarExcel}>
+=======
+          
+          <div className="ContainerBotonesGenerar">
+            <button className="btnGenerar_PDF" onClick={generarPDF}>
+              Generar PDF
+            </button>
+            <button className="btnGenerar_EXCEL" onClick={generarExcel}>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
               Generar Excel
             </button>
           </div>
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
       {bitacoraSeleccionada && (() => {
         const modalData = obtenerValoresBitacora(bitacoraSeleccionada);
         return (
           <div className="modal-overlay">
             <div className="modals-content">
               <div className="modal-header">
+<<<<<<< HEAD
                 <div className="btnCerrarContenido"></div>
+=======
+                <div className="btnCerrarContenido">
+                </div>
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
                 <h3>Detalle de Bitácora</h3>
               </div>
 

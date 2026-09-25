@@ -44,7 +44,11 @@
 }
 
 .Campo label{
+<<<<<<< HEAD
   font-size:20px;
+=======
+  font-size:14px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   font-weight:600;
   color:#334155;
 }
@@ -57,7 +61,11 @@
   padding:14px 16px;
   border:1px solid #d1d5db;
   border-radius:14px;
+<<<<<<< HEAD
   font-size:20px;
+=======
+  font-size:14px;
+>>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
   margin-bottom: 5px;
   outline:none;
   transition:border-color .2s, box-shadow .2s;
