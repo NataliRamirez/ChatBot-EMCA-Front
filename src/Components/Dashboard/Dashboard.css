@@ -1,0 +1,32 @@
+.dashboard{
+
+    padding:30px;
+    background:#f4f7fc;
+    min-height:100vh;
+
+}
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+
+}
+
+.card{
+
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+.card span{
+
+    font-size:35px;
+    color:#1D4ED8;
+    font-weight:bold;
+
+}

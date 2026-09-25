@@ -1,0 +1,114 @@
+/*CAMPOS TABLAS*/
+.tablaContainer{
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+table{
+    width:100%;
+    
+}
+
+thead{
+    background:#3B76FB;
+    color: #fff;
+}
+
+tr{
+  width: 150%;
+  border-radius: 10px;
+}
+
+th{
+    padding:16px;
+    text-align:left;
+}
+
+td{
+    padding:16px;
+    font-size: 20px;
+}
+
+
+tbody {
+    background-color: #005dca;
+}
+
+/*BOTONES*/
+
+.modals_btnBitacoras{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btnVer{
+    background-color: #3B76FB;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin: 10px;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnVer:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnEditar{
+     background-color: #3B76FB;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin: 10px;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnEditar:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnEliminar{
+    background:#bd0e20;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin: 10px;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btnEliminar:hover{
+     background:linear-gradient(90deg,#ff4040,#ff3c00);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}
+
+.acciones button{
+    border:none;
+    color: #fff;
+    cursor:pointer;
+    padding:8px 14px;
+    border-radius:6px;
+}

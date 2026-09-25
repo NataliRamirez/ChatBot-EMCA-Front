@@ -1,0 +1,338 @@
+.reportes-page{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  padding:10px;
+}
+
+/* HEADER */
+
+.reportes-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+}
+
+.reportes-header h2{
+  font-size:28px;
+  color:#0f172a;
+  margin-bottom:4px;
+}
+
+.reportes-header p{
+  color:#64748b;
+}
+
+.acciones-header{
+  display:flex;
+  gap:12px;
+}
+
+/* BOTONES */
+
+.btn-primary,
+.btn-secundario{
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn-primary{
+  background: #006aff;
+  color: #fff;
+}
+
+.btn-primary:hover{
+  background:#0011fa;
+}
+
+.btn-secundario{
+  background: #025aff;
+  color:#fff;
+}
+
+.btn-secundario:hover{
+  background: #0011fa;
+   
+}
+
+.btn-primaryFull{
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+  background: #025aff;
+  color:#fff;
+}
+
+.btn-primaryFull:hover{
+  background: #0011fa;
+}
+/* TARJETAS */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.stat-card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  border:1px solid #eef2f7;
+}
+
+.stat-card span{
+  font-size:32px;
+}
+
+.stat-card h3{
+  font-size:24px;
+  color:#0f172a;
+}
+
+.stat-card p{
+  color:#64748b;
+  font-size:14px;
+}
+
+/* FILTROS */
+
+.filtros-card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+
+.filtros-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  justify-content: center;
+  align-items: center;
+  gap:18px;
+  align-items:end;
+}
+
+.campo{
+  display: flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.campo label{
+  font-size:14px;
+  font-weight:600;
+  color:#334155;
+}
+
+.campo input,
+.campo select{
+  padding:12px 14px;
+  border:1px solid #d1d5db;
+  margin-bottom: 20px;
+  border-radius:12px;
+  background-color: #fff;
+  color: #000;
+  margin-bottom: 20px;
+  font-size:14px;
+  outline:none;
+}
+
+.campo input:focus,
+.campo select:focus{
+  border-color:#000;
+  box-shadow: 0px 4px 10px #000;
+}
+
+/* GRÁFICO */
+
+.grafico-card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+
+.grafico-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.grafico-header h3{
+  color:#0f172a;
+}
+
+.grafico-header span{
+  color:#64748b;
+  font-size:14px;
+}
+
+.grafico-placeholder{
+  height:280px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.barras{
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  gap:16px;
+  padding:10px 0;
+}
+
+.barra{
+  width:42px;
+  background:linear-gradient(180deg,#2a1cee,#0331ff);
+  border-radius:12px 12px 0 0;
+  transition:.3s;
+}
+
+.barra:hover{
+  opacity:.85;
+}
+
+.meses{
+  display:flex;
+  justify-content:space-around;
+  margin-top:16px;
+  color:#64748b;
+  font-size:14px;
+}
+
+/* TABLA */
+
+.tabla-card{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+
+.tabla-header{
+  padding:20px 24px;
+  border-bottom:1px solid #eef2f7;
+}
+
+.tabla-header h3{
+  color:#0f172a;
+}
+
+.tabla-reportes{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.tabla-reportes th{
+  background:#f8fafc;
+  text-align:left;
+  padding:16px 20px;
+  color:#475569;
+  font-size:14px;
+}
+
+.tabla-reportes td{
+  padding:16px 20px;
+  border-bottom:1px solid #f1f5f9;
+  color:#334155;
+}
+
+.tabla-reportes tbody tr:hover{
+  background:#f8fafc;
+}
+
+tbody{
+  background-color: #fff;
+}
+
+
+.BotonesDescargas{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_PDF{
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #3672ff;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_PDF:hover{
+  background:linear-gradient(90deg, #3377c5,#044085);
+  color: #fff;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btnEXCEL{
+   margin:10px;
+   color: #fff;
+   background-color: #3672ff;
+   text-align: center;
+   width: 150px;
+   height: 50px;
+   font-size: 20px;
+   border-radius: 10px;
+   box-shadow: 0px 4px 10px #000;
+}
+
+.btnEXCEL:hover{
+   background:linear-gradient(90deg, #3377c5,#044085);
+  color: #fff;
+  box-shadow: 0px 4px 10px #000;
+}
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+  .reportes-header{
+    align-items:flex-start;
+  }
+
+  .acciones-header{
+    width:100%;
+  }
+
+  .acciones-header button{
+    flex:1;
+  }
+
+  .grafico-placeholder{
+    height:220px;
+  }
+
+  .barra{
+    width:28px;
+  }
+
+  .tabla-card{
+    overflow-x:auto;
+  }
+
+  .tabla-reportes{
+    min-width:600px;
+  }
+}

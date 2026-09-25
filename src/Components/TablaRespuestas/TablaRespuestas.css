@@ -1,0 +1,197 @@
+.contenidoRespuestas{
+    width: 690px;
+    height:820px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    border-radius: 15px;
+    background: #3B76FB;
+}
+
+.modal_respuesta{
+    width: 690px;
+    height: 820px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    background: #3B76FB;
+}
+
+.modal_respuesta h2{
+    color: #fff;
+    margin: 10px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.tabla-scroll{
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead th{
+    position:sticky;
+    top:0;
+    background:#0d6efd;
+    color:white;
+    z-index:10;
+}
+
+th,
+td{
+    padding:12px;
+    border:1px solid #ddd;
+    font-size: 27px;
+    color: #000;
+    text-align:center;
+}
+
+.FuncionalidadesRespuestas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.acciones{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+.acciones button{
+    border:none;
+    border-radius:6px;
+    padding:8px 15px;
+    cursor:pointer;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.btn_verRespuesta{
+    background: #3B76FB;
+    width:150px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin: 10px;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_verRespuesta:hover{
+    background:linear-gradient(90deg, #3377c5,#044085);
+    transform:translateY(-3px);
+    box-shadow:0 4px 10px #000;
+}
+
+.btn_EditarRespuesta{
+    background: #3B76FB;
+    width:150px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_EditarRespuesta:hover{
+    background:linear-gradient(90deg, #3377c5,#044085);
+    transform:translateY(-3px);
+    box-shadow:0 4px 10px #000;
+}
+
+.btn_EliminarRespuesta{
+    background:#bd0e20;
+    width:150px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_EliminarRespuesta:hover{
+    background:linear-gradient(90deg,#ff3838,#ff0202);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}
+
+.btn_descargas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.btn_DescargarPDF{
+    background:#17a2b8;
+    width:150px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_DescargarPDF:hover{
+    background:linear-gradient(90deg,#17b5ce,#0e758f);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}
+
+.btn_GenerarExcel{
+    background: #3B76FB;
+    width:150px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    margin: 10px;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_GenerarExcel:hover{
+    background:linear-gradient(90deg,#161d88,#02269b);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}
+

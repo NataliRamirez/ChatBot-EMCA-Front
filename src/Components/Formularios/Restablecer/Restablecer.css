@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pantalla de fondo completo */
+.auth-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #3B76FB;
+}
+
+/* Tarjeta contenedora */
+.Containers_login {
+    width: 480px;
+    padding: 40px;
+    border-radius: 22px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
+    background-color: #005dca;
+  
+}
+
+/* Título */
+.Containers_login h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Grupos de entradas */
+.input-group label{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin: 10px;
+}
+
+/* Etiquetas alineadas con los inputs */
+.Contenido_email{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.Contenido_email label {
+    width: 400px;
+    display: block;
+    color: #fff;
+    text-align: center;
+    margin: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Envolvente para posicionar el input y el ojo juntos */
+.password-wrapper {
+    position: relative;
+    width: 400px;
+    display: flex;
+    align-items: center;
+}
+
+/* Campo de texto */
+.Containers_login input {
+    width: 850px;
+    height: 48px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    padding: 0 45px 0 18px; /* Espacio reservado para el ojo a la derecha */
+    margin-bottom: 0;
+    color: #000;
+    font-size: 15px;
+    transition: 0.3s;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón del ojo centrado verticalmente */
+.toggle-password-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    margin: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: color 0.2s ease;
+}
+
+.toggle-password-btn:hover {
+    color: #000;
+}
+
+/* Contenedor y Botón Principal */
+.contenedor_principal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn_entrar {
+    width: 270px;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: 0.3s;
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn_entrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #1b4be0, #347ce6);
+}

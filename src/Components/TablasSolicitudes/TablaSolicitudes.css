@@ -1,0 +1,122 @@
+/*CAMPOS TABLA*/
+.tablaContainer{
+   display: flex;
+   justify-content: center;
+}
+
+thead{
+    background: #3B76FB;
+    color: #fff;
+    height: 50px;
+}
+
+tr{
+    width: 150%;
+    border-radius: 20px;
+}
+
+th,td{
+    text-align:left;
+}
+
+tbody{
+    color: #fff;
+    width: 150px;
+}
+
+/*BOTONES*/
+
+.acciones{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+.acciones button{
+    border:none;
+    border-radius:6px;
+    padding:8px 15px;
+    cursor:pointer;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_Ver{
+    background: #3B76FB;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_Ver:hover{
+   background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+
+.btn_Editar{
+    background: #3B76FB;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+    
+}
+
+.btn_Editar:hover{
+    background: linear-gradient(90deg, #2155ff, #3d8cff);
+    color: #fff;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_Historial{
+    background:#28a745;
+    width:170px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    color: #fff;
+    transition:.3s;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_Historial:hover{
+    background:linear-gradient(90deg,#4dff56,#48da0f);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}
+
+.pendiente{
+    color:#ffc107;
+    font-weight:bold;
+}
+
+.proceso{
+    color:#fff;
+    font-weight:bold;
+}
+
+.respondida{
+    color:#28a745;
+    font-weight:bold;
+}

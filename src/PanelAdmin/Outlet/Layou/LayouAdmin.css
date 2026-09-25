@@ -1,0 +1,41 @@
+.panel{
+    display:flex;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+/*CONTENEDOR PRINCIPAL*/
+
+.sidebar{
+    width:270px;
+    min-width:270px;
+    height:100vh;
+    background-color: #005dca;
+    display:flex;
+    flex-direction:column;
+}
+
+.principal{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    min-width:0;
+}
+
+.header_admin{
+    width:100%;
+    height:80px;
+    flex-shrink:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    background-color: #005dca;
+}
+
+.contenido{
+    flex:1;
+    padding:20px;
+    background-color: #fff;
+}

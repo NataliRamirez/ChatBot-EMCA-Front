@@ -1,0 +1,246 @@
+/* ==========================================================================
+   ESTILOS GENERALES Y CONTENEDORES
+   ========================================================================== */
+.respuestas-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+
+
+.respuestas-page h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/*CONTENIDO DE BUS  QUEDAD*/
+.filtros-bar input{
+   border-radius: 10px;
+   color: #000;
+   margin: 20px;
+   height: 50px;
+   width: 550px;
+}
+/* ==========================================================================
+   ESTRUCTURA DEL FORMULARIO
+   ========================================================================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   ENTRADAS DE TEXTO, SELECTS Y DATES (INPUTS CLEAN)
+   ========================================================================== */
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #1e293b;
+  background-color: #ffffff; 
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: #94a3b8;
+}
+
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: #3b76fb;
+  box-shadow: 0px 0px 0px 4px rgba(59, 118, 251, 0.15);
+}
+
+
+.form-grid textarea {
+  grid-column: 1 / -1;
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ==========================================================================
+   BOTÓN DE ENVÍO
+   ========================================================================== */
+.form-grid button[type="submit"] {
+  grid-column: 1 / -1;
+  height: 48px;
+  background-color: #3b76fb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0px 4px 10px rgba(59, 118, 251, 0.3);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.form-grid button[type="submit"]:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.tabla-respuestas td{
+  color: #000;
+}
+
+.box-detalle{
+  color: #fff;
+  text-align: center;
+}
+
+.btn-ver{
+  background-color: #3B76FB;
+  color: #fff;
+  margin: 10px;
+  width: 240px;
+  height: 60px;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btn-ver:hover{
+    background:linear-gradient(90deg,#2155ff,#3e8bff);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px #000;
+}
+
+
+.btn-cerrar{
+  
+  background-color: #3B76FB;
+  color: #fff;
+  margin: 10px;
+  width: 40px;
+  height: 50px;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btn-cerrar:hover{
+    background:linear-gradient(90deg,#2155ff,#3e8bff);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px #000;
+}
+
+.btn_segundario{
+  background-color: #3B76FB;
+  color: #fff;
+  margin: 10px;
+  width: 240px;
+  height: 60px;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btn_segundario:hover{
+    background:linear-gradient(90deg,#2155ff,#3e8bff);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px #000;
+}
+
+.containerBotones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_PDFdescargar{
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #3672ff;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_PDFdescargar:hover{
+  background:linear-gradient(90deg, #3377c5,#044085);
+  color: #fff;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btn_EXCELdescargar{
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #3672ff;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.btn_EXCELdescargar:hover{
+  background:linear-gradient(90deg, #3377c5,#044085);
+  color: #fff;
+  box-shadow: 0px 4px 10px #000;
+}
+
+
+.modals-contents{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   height: 790px;
+   width: 600px;
+   border-radius: 10px;
+   background-color: #3B76FB;
+   box-shadow: 0px 4px 10px #000;
+}
+
+
+.modal-body{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD (MÓVILES Y TABLERO PEQUEÑO)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; 
+  }
+}

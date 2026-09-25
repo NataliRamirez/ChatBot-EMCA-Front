@@ -1,0 +1,456 @@
+/* ===========================================
+   VARIABLES GLOBALES
+=========================================== */
+:root {
+  --bg-modal: #005dca;
+  --bg-modal-dark: #004090;
+  --bg-input: #ffffff;
+  --text-light: #ffffff;
+  --text-dark: #1e293b;
+  --border-radius-lg: 16px;
+  --border-radius-md: 10px;
+  --shadow-main: 0px 10px 25px rgba(0, 0, 0, 0.3);
+  --shadow-input: 0px 3px 8px rgba(0, 0, 0, 0.15);
+  --transition-fast: all 0.25s ease;
+}
+
+/* ===========================================
+   OVERLAY
+=========================================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* ===========================================
+   MODAL PRINCIPAL Y MODAL VER
+=========================================== */
+.Modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  background-color: #3B76FB;
+  border-radius: var(--border-radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-main);
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+
+/**MODAL CREAR SOLICITUD*/
+.Modal_crear{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 820px;
+  max-height: 998px;
+  background-color: #3B76FB;
+  border-radius: var(--border-radius-lg);
+  padding: 18px 20px;
+  box-shadow: 0px 4px 10px #000;
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+.Modal_crear h2{
+  color: #ffff;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.Modal_crear label{
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: #ffff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.Modal_crear input{
+  width: 570px;
+  height: 70px;
+  background-color: #ffff;
+  color: var(--text-dark);
+  font-size: 23px;
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.Modal_crear select{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.Modal_crear textarea{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 20px;
+  padding: 20px 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+
+
+
+.modals_ver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  background-color: #3B76FB;
+  border-radius: var(--border-radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-main);
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+/* ===========================================
+   TÍTULOS Y LABELS
+=========================================== */
+.Modal h2{
+  color: var(--text-light);
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+
+.modals_ver h2 {
+  color: var(--text-light);
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+
+.modals_ver label {
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: var(--text-light);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* ===========================================
+   INPUTS, SELECTS Y TEXTAREAS
+=========================================== */
+.Modal input{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: #000;
+  font-size: 20px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.Modal label{
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: var(--text-light);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.Modal select{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 20px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.Modal textarea{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 20px;
+  padding: 20px 20px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.modals_ver input{
+  width: 100%;
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.modals_ver select{
+   width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.modals_ver textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-input);
+  color: var(--text-dark);
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.Modal input{
+    height: 44px;
+}
+
+.Modal select{
+  height: 44px;
+}
+
+.modals_ver input{
+    height: 44px;
+}
+
+.modals_ver select {
+  height: 44px;
+}
+
+.Modal textarea{
+  height: 110px;
+  width: 70px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.modals_ver textarea {
+  height: 110px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.Modal input:focus{
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.Modal select:focus{
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.Modal textarea:focus{
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.modals_ver input:focus{
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.modals_ver select:focus{
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.modals_ver textarea:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+/* ===========================================
+   CAMPOS DE VISUALIZACIÓN (.campo)
+=========================================== */
+.Campos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.Campos label {
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 600;
+    color:#fff;
+    margin-bottom: 6px;
+}
+
+.Campos p {
+  background-color: #fff;
+  min-height: 42px;
+  height: auto;
+  width: 100%;
+  color: #000;
+  font-size: 20px;
+  padding: 10px 14px;
+  margin: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+/* ===========================================
+   TIMELINE Y EVENTOS
+=========================================== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.evento {
+  color: var(--text-dark);
+  background-color: var(--bg-input);
+  width: 100%;
+  min-height: 100px;
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  box-shadow: 0px 4px 10px #000;
+  box-sizing: border-box;
+}
+
+h4{
+  color: #000;
+  font-size: 20px;
+}
+
+span{
+  font-size: 20px;
+  color: #000;
+}
+
+/* ===========================================
+   BOTONES Y ACCIONES
+=========================================== */
+.Containers_modal{
+   display: flex;
+   justify-content: center;
+   margin: 10px;
+}
+
+.Botones{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btnCancelarSolicitudes {
+  background-color: #3B76FB;
+  min-width: 160px;
+  height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  transition: var(--transition-fast);
+  box-shadow: 0px 4px 10px #000;
+  margin: 10px;
+}
+
+.btnCancelarSolicitudes:hover {
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+.btn_Guardar{
+  background-color: #3B76FB;
+  min-width: 160px;
+  height: 44px;
+  border: none;
+  margin: 10px;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  transition: var(--transition-fast);
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btn_Guardar:hover{
+  background: linear-gradient(90deg, #2155ff, #3d8cff);
+  box-shadow: 0px 4px 10px #000;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .Modal,
+  .modals_ver {
+    width: 100%;
+    padding: 20px 16px;
+  }
+
+  .btnCancelarSolicitudes {
+    width: 100%;
+  }
+}

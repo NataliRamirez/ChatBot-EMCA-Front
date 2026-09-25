@@ -1,0 +1,102 @@
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal{
+    width:650px;
+    background:white;
+    border-radius:10px;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.modal h2{
+    color:#0c2d83;
+    margin-bottom:10px;
+}
+
+.modal input{
+     width:100%;
+    padding:12px;
+    border:1px solid #d9d9d9;
+    border-radius:6px;
+    outline:none;
+    font-size:15px;
+}
+
+.modal textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d9d9d9;
+    border-radius:6px;
+    outline:none;
+    font-size:15px;
+}
+
+.modal textarea{
+    min-height:150px;
+    resize:none;
+}
+
+.botones{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+.botones button{
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btnGuardar{
+    background: #3B76FB;
+    color:white;
+}
+
+.btnCancelar{
+    background:#6c757d;
+    color:white;
+}
+
+.timeline{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.evento{
+    padding:15px;
+    border-left:5px solid #0c2d83;
+    background:#f7f9fc;
+    border-radius:6px;
+}
+
+.evento h4{
+    margin:0;
+    color:#0c2d83;
+}
+
+.evento p{
+    margin:6px 0;
+    color:#555;
+}
+
+.evento span{
+    font-size:14px;
+    color:#888;
+}

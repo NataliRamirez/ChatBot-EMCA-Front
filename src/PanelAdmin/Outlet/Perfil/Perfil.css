@@ -1,0 +1,88 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.Container_perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 600px;
+    height: 790px;
+    color:#fff;
+    background-color: #005dca;
+    box-shadow: 0px 4px 7px #000;
+}
+
+label{
+    display:block;
+    color:#fff;
+    font-size: 20px;
+}
+
+.container_perfilFormulario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #005dca;
+    width: 550px;
+    height: 720px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px #000;
+}
+
+.container_perfilFormulario input{
+    width: 390px;
+    height: 60px;
+    border:none;
+    margin-bottom: 5px;
+    outline:none;
+    border-radius:12px;
+    color:#000;
+    background-color: #fff;
+    font-size:20px;
+    transition:.3s;
+}
+
+input:hover,
+input:focus{
+    background-color: #ffff;
+}
+
+
+.text{
+    font-size: 25px;
+    margin: 10px;
+    color: #fff;
+}
+
+.btn_editarInfo{
+    border-radius: 10px;
+    margin: 10px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    background-color: #3B76FB;
+    height: 90px;
+    width: 130px;
+    box-shadow: 0px 4px 10px #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn_editarInfo:hover{
+    background:linear-gradient(90deg,#3888ff,#095ad3);
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(33,85,255,.35);
+}

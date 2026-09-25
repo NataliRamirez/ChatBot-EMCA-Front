@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.chart-title{
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.chart-container{
+    height:340px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#0e123e;
+    border-radius:20px;
+    padding:20px;
+    margin: 10px;
+}
+
+
