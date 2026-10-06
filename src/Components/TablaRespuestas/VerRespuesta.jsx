@@ -1,48 +1,112 @@
-import './Modal.css';
+import "./Modal.css";
 
 export default function VerRespuesta({ datos, cerrar }) {
     if (!datos) return null;
 
     return (
-        <div className="overlay">
-            <div className="Modal">
-                <h2>Información de la Respuesta</h2>
+        <div className="respuesta-modal-overlay">
+            <div className="respuesta-modal respuesta-modal-ver">
 
-                <label>Número de Radicado</label>
-                <input type="text" value={datos.Nradicado || ""} readOnly />
+                <div className="respuesta-modal-header">
+                    <h2>Información de la Respuesta</h2>
 
-                <label>Título</label>
-                <input type="text" value={datos.titulo || ""} readOnly />
+                    <button
+                        className="respuesta-modal-close"
+                        onClick={cerrar}
+                        title="Cerrar"
+                        type="button"
+                    >
+                        ✕
+                    </button>
+                </div>
 
-                <label>Nombre</label>
-                <input type="text" value={datos.nombre || ""} readOnly />
+                <div className="respuesta-modal-body">
+                    <div className="respuesta-form-grid">
 
-                <label>Teléfono</label>
-                <input type="text" value={datos.telefono || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Número de Radicado</label>
+                            <p className="respuesta-form-value">
+                                {datos.Nradicado || "-"}
+                            </p>
+                        </div>
 
-                <label>Teléfono Empresa</label>
-                <input type="text" value={datos.telefonoEmpresa || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Título</label>
+                            <p className="respuesta-form-value">
+                                {datos.titulo || "-"}
+                            </p>
+                        </div>
 
-                <label>Tipo de Respuesta</label>
-                <input type="text" value={datos.tipoRespuesta || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Nombre</label>
+                            <p className="respuesta-form-value">
+                                {datos.nombre || "-"}
+                            </p>
+                        </div>
 
-                <label>Estado</label>
-                <input type="text" value={datos.estados || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Teléfono</label>
+                            <p className="respuesta-form-value">
+                                {datos.telefono || "-"}
+                            </p>
+                        </div>
 
-                <label>Descripción</label>
-                <textarea value={datos.descripcion || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Teléfono Empresa</label>
+                            <p className="respuesta-form-value">
+                                {datos.telefonoEmpresa || "-"}
+                            </p>
+                        </div>
 
-                <label>Fecha Inicio</label>
-                <input type="date" value={datos.fechaInicio || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Tipo de Respuesta</label>
+                            <p className="respuesta-form-value">
+                                {datos.tipoRespuesta || "-"}
+                            </p>
+                        </div>
 
-                <label>Fecha Fin</label>
-                <input type="date" value={datos.fechaFinal || ""} readOnly />
+                        <div className="respuesta-form-field">
+                            <label>Estado</label>
+                            <p className="respuesta-form-value">
+                                {datos.estados || "-"}
+                            </p>
+                        </div>
 
-               <div className='content'>
-                    <button className="btn_CerrarModal" onClick={cerrar}>
-                       Cerrar
-                   </button>
-               </div>
+                        <div className="respuesta-form-field">
+                            <label>Fecha Inicio</label>
+                            <p className="respuesta-form-value">
+                                {datos.fechaInicio || "-"}
+                            </p>
+                        </div>
+
+                        <div className="respuesta-form-field">
+                            <label>Fecha Fin</label>
+                            <p className="respuesta-form-value">
+                                {datos.fechaFinal || "-"}
+                            </p>
+                        </div>
+
+                        <div className="respuesta-form-field respuesta-form-field-full">
+                            <label>Descripción</label>
+
+                            <p className="respuesta-form-value respuesta-form-value-large">
+                                {datos.descripcion || "-"}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="respuesta-modal-footer">
+                    <button
+                        className="respuesta-btn respuesta-btn-primary"
+                        onClick={cerrar}
+                        type="button"
+                    >
+                        Cerrar
+                    </button>
+                </div>
+
             </div>
         </div>
     );

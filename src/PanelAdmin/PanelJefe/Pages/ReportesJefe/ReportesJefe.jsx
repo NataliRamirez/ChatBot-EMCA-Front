@@ -1,8 +1,5 @@
 import './ReportesJefe.css';
 import { useEffect, useState } from 'react';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import * as XLSX from 'xlsx';
 
 export default function ReportesJefe() {
   const [reportes, setReportes] = useState([]);
@@ -138,94 +135,61 @@ export default function ReportesJefe() {
     );
   });
 
-  //================================
-  // GENERAR PDF
-  //================================
-  const generarPDF = () => {
-    if (reportesFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
-
+  //=============================
+  // DESCARGAR PDF DESDE EL BACKEND
+  //=============================
+  const generarPDF = async () => {
     try {
-      const doc = new jsPDF();
-      doc.setFontSize(14);
-      doc.text('Reporte de Bitácoras del Sistema', 14, 15);
-
-      const columnas = [
-        'Empleado',
-        'Nombre',
-        'Tipo',
-        'Fecha Inicio',
-        'Fecha Final',
-        'Estado',
-        'Acciones'
-      ];
-
-      const filas = reportesFiltradas.map((bit) => {
-        const data = obtenerValoresReportes(bit);
-        return [
-          data.empleado,
-          data.nombre,
-          data.tipo,
-          data.fechaInicio,
-          data.fechaFinal,
-          data.estado,
-          data.acciones
-        ];
+      const res = await fetch('http://127.0.0.1:4000/v1/informes/pdf', {
+        method: 'GET',
+        headers: {
+          'x-api-key': 'EmcaSecret2026'
+        }
       });
 
-      autoTable(doc, {
-        startY: 22,
-        head: [columnas],
-        body: filas,
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [41, 128, 185] }
-      });
+      if (!res.ok) throw new Error('Error al generar el PDF en el servidor');
 
-      doc.save(`Bitacoras_${new Date().toISOString().split('T')[0]}.pdf`);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Reporte_Bitacoras_EMCA.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error(error);
-      alert('Error al generar el PDF');
+      console.error('Error al generar PDF:', error);
+      alert('Error al obtener el archivo PDF desde el servidor.');
     }
   };
 
-  //==============================
-  // GENERAR EXCEL
   //=============================
-  const generarExcel = () => {
-    if (reportesFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
-
+  // DESCARGAR EXCEL DESDE EL BACKEND
+  //=============================
+  const generarExcel = async () => {
     try {
-      const datosExcel = reportesFiltradas.map((bit, index) => {
-        const data = obtenerValoresReportes(bit);
-
-        return {
-          ID: bit.id || index + 1,
-          Empleado: data.empleado,
-          Nombre: data.nombre,
-          Tipo: data.tipo,
-          FechaInicio: data.fechaInicio,
-          FechaFinal: data.fechaFinal,
-          Estado: data.estado,
-          Acciones: data.acciones
-        };
+      const res = await fetch('http://127.0.0.1:4000/v1/informes/excel', {
+        method: 'GET',
+        headers: {
+          'x-api-key': 'EmcaSecret2026'
+        }
       });
 
-      const hojaTrabajo = XLSX.utils.json_to_sheet(datosExcel);
-      const libroTrabajo = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libroTrabajo, hojaTrabajo, 'Bitácoras');
+      if (!res.ok) throw new Error('Error al generar el archivo Excel en el servidor');
 
-      XLSX.writeFile(
-        libroTrabajo,
-        `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`
-      );
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Reporte_Bitacoras_EMCA.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error al generar Excel:', error);
-      alert('Ocurrió un error al generar el archivo Excel.');
+      alert('Error al obtener el archivo Excel desde el servidor.');
     }
   };
 

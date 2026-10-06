@@ -6,6 +6,7 @@ const BACKEND_URL = 'http://127.0.0.1:4000';
 const API_KEY = 'EmcaSecret2026';
 
 export default function Panelusuario() {
+
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [activePhone, setActivePhone] = useState('');
@@ -15,383 +16,1258 @@ export default function Panelusuario() {
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  // Cargar lista de usuarios desde el backend
+  // =========================================================
+  // OBTENER TIPO DE MULTIMEDIA
+  // =========================================================
+
+  const obtenerTipoMultimedia = (file) => {
+
+    if (!file?.type) {
+      return 'ADMIN_DOCUMENTO';
+    }
+
+    if (file.type.startsWith('image/')) {
+      return 'ADMIN_IMAGEN';
+    }
+
+    if (file.type.startsWith('audio/')) {
+      return 'ADMIN_AUDIO';
+    }
+
+    if (file.type.startsWith('video/')) {
+      return 'ADMIN_VIDEO';
+    }
+
+    return 'ADMIN_DOCUMENTO';
+  };
+
+  // =========================================================
+  // NORMALIZAR HISTORIAL
+  // =========================================================
+
+  const normalizarHistorial = (respuesta) => {
+
+    let lista = [];
+
+    if (Array.isArray(respuesta)) {
+      lista = respuesta;
+    } else if (Array.isArray(respuesta?.data)) {
+      lista = respuesta.data;
+    } else if (Array.isArray(respuesta?.mensajes)) {
+      lista = respuesta.mensajes;
+    } else if (Array.isArray(respuesta?.historial)) {
+      lista = respuesta.historial;
+    } else if (Array.isArray(respuesta?.resultados)) {
+      lista = respuesta.resultados;
+    }
+
+    return lista.map((msg) => {
+
+      let media = msg.media || null;
+
+      // -----------------------------------------------------
+      // SI EL BACKEND DEVUELVE URL_MEDIA DIRECTAMENTE
+      // -----------------------------------------------------
+
+      if (!media && msg.url_media) {
+
+        media = {
+          archivoUrl: msg.url_media,
+          downloadUrl:
+            msg.downloadUrl ||
+            `${BACKEND_URL}/v1/download/${String(
+              msg.url_media
+            ).split('/').pop()}`,
+          tipoMedia:
+            msg.tipoMedia ||
+            msg.tipo_mensaje ||
+            '',
+          nombre:
+            msg.nombre ||
+            String(msg.url_media).split('/').pop()
+        };
+
+      }
+
+      // -----------------------------------------------------
+      // SI VIENE ARCHIVO_URL
+      // -----------------------------------------------------
+
+      if (!media && msg.archivoUrl) {
+
+        media = {
+          archivoUrl: msg.archivoUrl,
+          downloadUrl:
+            msg.downloadUrl ||
+            msg.archivoUrl,
+          tipoMedia:
+            msg.tipoMedia ||
+            msg.tipo_mensaje ||
+            '',
+          nombre:
+            msg.nombre ||
+            String(msg.archivoUrl).split('/').pop()
+        };
+
+      }
+
+      return {
+        ...msg,
+        media
+      };
+    });
+  };
+
+  // =========================================================
+  // CARGAR USUARIOS
+  // =========================================================
+
   const fetchUsers = async () => {
+
     try {
-      const res = await fetch(`${BACKEND_URL}/v1/users`, {
-        headers: { 'x-api-key': API_KEY }
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setUsers(Array.isArray(data) ? data : []);
+
+      const res = await fetch(
+        `${BACKEND_URL}/v1/users`,
+        {
+          headers: {
+            'x-api-key': API_KEY
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          `HTTP ${res.status}`
+        );
+      }
+
+      const data =
+        await res.json();
+
+      const lista =
+        Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+            ? data.data
+            : Array.isArray(data?.users)
+              ? data.users
+              : [];
+
+      setUsers(lista);
+
     } catch (error) {
-      console.error('Error cargando usuarios:', error);
+
+      console.error(
+        'Error cargando usuarios:',
+        error
+      );
+
     }
   };
 
-  // Cargar historial de chat del usuario activo
+  // =========================================================
+  // CARGAR HISTORIAL
+  // =========================================================
+
   const fetchHistory = async (phone) => {
-    if (!phone) return;
+
+    if (!phone) {
+      return;
+    }
+
     try {
-      const res = await fetch(`${BACKEND_URL}/v1/history/${phone}`, {
-        headers: { 'x-api-key': API_KEY }
-      });
 
-      if (!res.ok) return;
+      const res = await fetch(
+        `${BACKEND_URL}/v1/history/${encodeURIComponent(
+          phone
+        )}`,
+        {
+          headers: {
+            'x-api-key': API_KEY
+          }
+        }
+      );
 
-      const data = await res.json();
-      setMessages(Array.isArray(data) ? data : []);
+      if (!res.ok) {
+        throw new Error(
+          `HTTP ${res.status}`
+        );
+      }
+
+      const data =
+        await res.json();
+
+      const historial =
+        normalizarHistorial(data);
+
+      setMessages(historial);
+
     } catch (error) {
-      console.error('Error cargando historial:', error);
+
+      console.error(
+        'Error cargando historial:',
+        error
+      );
+
     }
   };
 
-  // Desplazamiento automático al final de la ventana de chat
+  // =========================================================
+  // SCROLL
+  // =========================================================
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+    messagesEndRef.current?.scrollIntoView({
+      behavior: 'smooth'
+    });
+
   }, [messages]);
 
-  // Selección de usuario de la barra lateral
+  // =========================================================
+  // SELECCIONAR USUARIO
+  // =========================================================
+
   const handleSelectUser = (phone) => {
+
     setActivePhone(phone);
     setMessages([]);
+
     fetchHistory(phone);
+
   };
 
-  // Envío de mensaje de texto por el Asesor Humano hacia el Bot
+  // =========================================================
+  // ENVIAR TEXTO
+  // =========================================================
+
   const sendMessage = async () => {
-    const text = inputValue.trim();
-    if (!text || !activePhone) return;
+
+    const text =
+      inputValue.trim();
+
+    if (
+      !text ||
+      !activePhone ||
+      isUploading
+    ) {
+      return;
+    }
 
     setInputValue('');
 
     try {
-      const resBot = await fetch(BOT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          number: activePhone,
-          message: text
-        })
-      });
 
-      if (!resBot.ok) throw new Error('Error al enviar mensaje desde el bot');
+      const resBot =
+        await fetch(
+          BOT_URL,
+          {
+            method: 'POST',
 
-      fetchHistory(activePhone);
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            body: JSON.stringify({
+              number: activePhone,
+              message: text,
+              tipoMensaje:
+                'ADMIN_TEXTO'
+            })
+          }
+        );
+
+      const responseText =
+        await resBot.text();
+
+      let data = {};
+
+      try {
+        data = responseText
+          ? JSON.parse(responseText)
+          : {};
+      } catch {
+        data = {
+          error: responseText
+        };
+      }
+
+      if (!resBot.ok) {
+
+        throw new Error(
+          data.error ||
+          data.message ||
+          `Error HTTP ${resBot.status}`
+        );
+
+      }
+
+      await fetchHistory(
+        activePhone
+      );
+
     } catch (error) {
-      console.error('Error enviando mensaje:', error);
-      alert('No se pudo enviar el mensaje');
+
+      console.error(
+        'Error enviando mensaje:',
+        error
+      );
+
+      alert(
+        error.message ||
+        'No se pudo enviar el mensaje'
+      );
+
     }
   };
 
-  // Finalizar atención humana y reactivar la respuesta automática del Bot
+  // =========================================================
+  // REACTIVAR BOT
+  // =========================================================
+
   const reactivarBot = async () => {
-    if (!activePhone) return;
-    const confirmar = window.confirm('¿Finalizar asesoría y reactivar BOT?');
-    if (!confirmar) return;
+
+    if (!activePhone) {
+      return;
+    }
+
+    const confirmar =
+      window.confirm(
+        '¿Finalizar asesoría y reactivar BOT?'
+      );
+
+    if (!confirmar) {
+      return;
+    }
 
     try {
-      await fetch(`${BACKEND_URL}/v1/reactivar`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY
-        },
-        body: JSON.stringify({ telefono: activePhone })
-      });
 
-      await fetch(BOT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          number: activePhone,
-          message: '✅ Atención personalizada finalizada.'
-        })
-      });
+      const res =
+        await fetch(
+          `${BACKEND_URL}/v1/reactivar`,
+          {
+            method: 'POST',
 
-      alert('BOT reactivado');
+            headers: {
+              'Content-Type':
+                'application/json',
+              'x-api-key':
+                API_KEY
+            },
+
+            body: JSON.stringify({
+              telefono:
+                activePhone
+            })
+          }
+        );
+
+      const responseText =
+        await res.text();
+
+      if (!res.ok) {
+
+        throw new Error(
+          responseText ||
+          `Error HTTP ${res.status}`
+        );
+
+      }
+
+      // -----------------------------------------------------
+      // NOTIFICAR AL USUARIO
+      // -----------------------------------------------------
+
+      const resBot =
+        await fetch(
+          BOT_URL,
+          {
+            method: 'POST',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            body: JSON.stringify({
+              number:
+                activePhone,
+              message:
+                '✅ Atención personalizada finalizada.',
+              tipoMensaje:
+                'ADMIN_TEXTO'
+            })
+          }
+        );
+
+      if (!resBot.ok) {
+
+        const errorText =
+          await resBot.text();
+
+        throw new Error(
+          errorText ||
+          'No se pudo notificar al usuario'
+        );
+      }
+
+      alert(
+        'BOT reactivado correctamente'
+      );
+
       setMessages([]);
       setActivePhone('');
-      fetchUsers();
+
+      await fetchUsers();
+
     } catch (error) {
-      console.error('Error reactivando BOT:', error);
+
+      console.error(
+        'Error reactivando BOT:',
+        error
+      );
+
+      alert(
+        error.message ||
+        'No se pudo reactivar el bot'
+      );
+
     }
   };
 
-  // Subir archivo multimedia al backend y enviarlo a WhatsApp mediante el Bot
-  const uploadMultimedia = async (file) => {
-    if (!file || !activePhone) return;
+  // =========================================================
+  // SUBIR Y ENVIAR MULTIMEDIA
+  // =========================================================
 
-    const formData = new FormData();
-    formData.append('archivo', file);
-    formData.append('telefono', activePhone);
+  const uploadMultimedia = async (file) => {
+
+    if (!file || !activePhone) {
+
+      throw new Error(
+        'Debes seleccionar un usuario y un archivo.'
+      );
+
+    }
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      'archivo',
+      file
+    );
+
+    formData.append(
+      'telefono',
+      activePhone
+    );
 
     setIsUploading(true);
 
     try {
-      // 1. Subir al Backend API
-      const res = await fetch(`${BACKEND_URL}/v1/multimedia`, {
-        method: 'POST',
-        body: formData
-      });
 
-      if (!res.ok) throw new Error('Error al cargar contenido multimedia en el servidor');
-      const data = await res.json();
+      // -----------------------------------------------------
+      // SUBIR AL BACKEND
+      // -----------------------------------------------------
 
-      // Extraer la URL pública del archivo retornada por el servidor
-      const mediaUrl = data.archivoUrl || data.url || data.path;
+      const res =
+        await fetch(
+          `${BACKEND_URL}/v1/multimedia`,
+          {
+            method: 'POST',
+
+            headers: {
+              'x-api-key':
+                API_KEY
+            },
+
+            body: formData
+          }
+        );
+
+      const responseText =
+        await res.text();
+
+      let data = {};
+
+      try {
+
+        data = responseText
+          ? JSON.parse(responseText)
+          : {};
+
+      } catch {
+
+        data = {
+          error:
+            responseText
+        };
+
+      }
+
+      if (!res.ok) {
+
+        throw new Error(
+          data.error ||
+          data.mensaje ||
+          data.message ||
+          `Error HTTP ${res.status}`
+        );
+
+      }
+
+      // -----------------------------------------------------
+      // URL
+      // -----------------------------------------------------
+
+      const mediaUrl =
+        data.archivoUrl ||
+        data.url_media ||
+        data.url ||
+        data.path ||
+        data.datos?.archivoUrl ||
+        data.datos?.url_media ||
+        data.datos?.url;
 
       if (!mediaUrl) {
-        throw new Error('El backend no retornó una URL de archivo válida');
+
+        throw new Error(
+          'El backend no devolvió una URL válida para el archivo.'
+        );
+
       }
 
-      // 2. Enviar el archivo a WhatsApp usando BuilderBot
-      const resBot = await fetch(BOT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          number: activePhone,
-          media: mediaUrl, // Pasa la URL directa para que BuilderBot envíe el archivo a WhatsApp
-          message: ''
-        })
-      });
+      // -----------------------------------------------------
+      // TIPO
+      // -----------------------------------------------------
+
+      const tipoMensaje =
+        obtenerTipoMultimedia(file);
+
+      // -----------------------------------------------------
+      // ENVIAR A WHATSAPP
+      // -----------------------------------------------------
+
+      const payloadBot = {
+
+        number:
+          activePhone,
+
+        urlMedia:
+          mediaUrl,
+
+        message:
+          '',
+
+        tipoMensaje
+
+      };
+
+      console.log(
+        '📤 Enviando multimedia:',
+        payloadBot
+      );
+
+      const resBot =
+        await fetch(
+          BOT_URL,
+          {
+            method: 'POST',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            body:
+              JSON.stringify(
+                payloadBot
+              )
+          }
+        );
+
+      const botResponseText =
+        await resBot.text();
+
+      let botData = {};
+
+      try {
+
+        botData =
+          botResponseText
+            ? JSON.parse(
+                botResponseText
+              )
+            : {};
+
+      } catch {
+
+        botData = {
+          error:
+            botResponseText
+        };
+
+      }
 
       if (!resBot.ok) {
-        throw new Error('Error al despachar el archivo a WhatsApp a través del Bot');
+
+        throw new Error(
+          botData.error ||
+          botData.message ||
+          botData.mensaje ||
+          `El bot no pudo enviar el archivo (HTTP ${resBot.status})`
+        );
+
       }
 
-      return data;
+      return {
+        ...data,
+        bot:
+          botData,
+        mediaUrl,
+        tipoMensaje
+      };
+
     } catch (error) {
-      console.error('Error en proceso multimedia:', error);
+
+      console.error(
+        'Error en multimedia:',
+        error
+      );
+
       throw error;
+
     } finally {
+
       setIsUploading(false);
+
     }
   };
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // =========================================================
+  // SELECCIONAR ARCHIVO
+  // =========================================================
 
-    try {
-      await uploadMultimedia(file);
-      fetchHistory(activePhone);
-    } catch (error) {
-      alert('Error al adjuntar o enviar el archivo multimedia.');
-    } finally {
-      e.target.value = '';
-    }
-  };
+  const handleFileChange =
+    async (e) => {
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+      const file =
+        e.target.files?.[0];
 
-  // Polling periódico para la lista de usuarios (cada 5 seg)
+      if (!file) {
+        return;
+      }
+
+      if (!activePhone) {
+
+        alert(
+          'Selecciona primero un usuario.'
+        );
+
+        e.target.value = '';
+
+        return;
+      }
+
+      try {
+
+        await uploadMultimedia(
+          file
+        );
+
+        await new Promise(
+          (resolve) =>
+            setTimeout(
+              resolve,
+              300
+            )
+        );
+
+        await fetchHistory(
+          activePhone
+        );
+
+        alert(
+          'Archivo enviado correctamente.'
+        );
+
+      } catch (error) {
+
+        console.error(
+          'Error multimedia:',
+          error
+        );
+
+        alert(
+          error.message ||
+          'Error enviando multimedia.'
+        );
+
+      } finally {
+
+        e.target.value = '';
+
+      }
+    };
+
+  // =========================================================
+  // ENTER
+  // =========================================================
+
+  const handleKeyDown =
+    (e) => {
+
+      if (
+        e.key === 'Enter'
+      ) {
+
+        e.preventDefault();
+
+        sendMessage();
+
+      }
+    };
+
+  // =========================================================
+  // POLLING USUARIOS
+  // =========================================================
+
   useEffect(() => {
+
     fetchUsers();
-    const usersInterval = setInterval(fetchUsers, 5000);
-    return () => clearInterval(usersInterval);
+
+    const interval =
+      setInterval(
+        fetchUsers,
+        5000
+      );
+
+    return () =>
+      clearInterval(
+        interval
+      );
+
   }, []);
 
-  // Polling periódico para el historial de chat (cada 2 seg)
+  // =========================================================
+  // POLLING HISTORIAL
+  // =========================================================
+
   useEffect(() => {
-    if (!activePhone) return;
 
-    fetchHistory(activePhone);
-    const chatInterval = setInterval(() => fetchHistory(activePhone), 2000);
+    if (!activePhone) {
+      return;
+    }
 
-    return () => clearInterval(chatInterval);
+    fetchHistory(
+      activePhone
+    );
+
+    const interval =
+      setInterval(
+        () =>
+          fetchHistory(
+            activePhone
+          ),
+        2000
+      );
+
+    return () =>
+      clearInterval(
+        interval
+      );
+
   }, [activePhone]);
 
-  return (
-    <div className="app-container">
-      <aside id="chat-list">
-        <div className="sidebar-header">EMCA Admin</div>
-        <hr/>
-        <div id="users-container">
-          {users.map((user) => {
-            const isActive = user.telefono === activePhone;
-            const isHuman = Number(user.bot_activo) === 0;
+  // =========================================================
+  // RENDER
+  // =========================================================
 
-            return (
-              <div
-                key={user.telefono}
-                className={`chat-item ${isActive ? 'active' : ''}`}
-                onClick={() => handleSelectUser(user.telefono)}
-              >
-                <div className="chat-info">
-                  <b>{user.nombres || user.nombre || user.telefono}</b>
-                  <small>{user.telefono}</small>
-                </div>
-                {isHuman && <span className="status-badge">● Humano</span>}
-              </div>
-            );
-          })}
+  return (
+
+    <div className="app-container">
+
+      <aside id="chat-list">
+
+        <div className="sidebar-header">
+          EMCA Admin
         </div>
+
+        <hr />
+
+        <div id="users-container">
+
+          {users.map(
+            (user) => {
+
+              const isActive =
+                user.telefono ===
+                activePhone;
+
+              const isHuman =
+                Number(
+                  user.bot_activo
+                ) === 0;
+
+              return (
+
+                <div
+                  key={
+                    user.telefono
+                  }
+                  className={
+                    `chat-item ${
+                      isActive
+                        ? 'active'
+                        : ''
+                    }`
+                  }
+                  onClick={() =>
+                    handleSelectUser(
+                      user.telefono
+                    )
+                  }
+                >
+
+                  <div className="chat-info">
+
+                    <b>
+                      {
+                        user.nombres ||
+                        user.nombre ||
+                        user.telefono
+                      }
+                    </b>
+
+                    <small>
+                      {
+                        user.telefono
+                      }
+                    </small>
+
+                  </div>
+
+                  {isHuman && (
+
+                    <span className="status-badge">
+                      ● Humano
+                    </span>
+
+                  )}
+
+                </div>
+
+              );
+            }
+          )}
+
+        </div>
+
       </aside>
 
       <main id="chat-window">
+
         <header className="chat-header">
+
           <div className="chat-header__info">
+
             <h3>
-              {activePhone
-                ? `Chat activo: ${activePhone}`
-                : 'Seleccione un chat para comenzar'}
+              {
+                activePhone
+                  ? `Chat activo: ${activePhone}`
+                  : 'Seleccione un chat para comenzar'
+              }
             </h3>
+
           </div>
+
           {activePhone && (
-            <button id="btn-finish" onClick={reactivarBot}>
+
+            <button
+              id="btn-finish"
+              onClick={
+                reactivarBot
+              }
+            >
               Finalizar Asesoría
             </button>
+
           )}
+
         </header>
 
         <section id="messages">
-          {messages.map((msg, index) => {
-            const role = (msg.emisor || 'USUARIO').toUpperCase();
-            const media = msg.media; // DTO Multimedia retornado por el backend
 
-            let botones = [];
-            if (msg.botones) {
-              try {
-                botones = typeof msg.botones === 'string' ? JSON.parse(msg.botones) : msg.botones;
-              } catch (e) {
-                botones = [];
+          {messages.map(
+            (msg, index) => {
+
+              const role =
+                (
+                  msg.emisor ||
+                  'USUARIO'
+                ).toUpperCase();
+
+              const media =
+                msg.media;
+
+              let botones =
+                [];
+
+              if (
+                msg.botones
+              ) {
+
+                try {
+
+                  botones =
+                    typeof msg.botones ===
+                    'string'
+                      ? JSON.parse(
+                          msg.botones
+                        )
+                      : msg.botones;
+
+                } catch {
+
+                  botones = [];
+
+                }
+
               }
-            }
 
-            const isGenericText =
-              msg.mensaje === 'Archivo adjunto' ||
-              msg.mensaje === 'Nota de voz' ||
-              (msg.mensaje && msg.mensaje.startsWith('_event_'));
+              const isGenericText =
+                msg.mensaje ===
+                  'Archivo adjunto' ||
+                msg.mensaje ===
+                  'Nota de voz' ||
+                (
+                  msg.mensaje &&
+                  msg.mensaje.startsWith(
+                    '_event_'
+                  )
+                );
 
-            return (
-              <div key={msg.id || index} className={`msg ${role}`}>
-                <div className="msg-bubble">
+              let tipoMedia =
+                String(
+                  media?.tipoMedia ||
+                  msg.tipo_mensaje ||
+                  ''
+                ).toUpperCase();
 
-                  {/* MEDIA PROCESADA */}
-                  {media && media.archivoUrl && (
-                    <div className="media-container" style={{ marginBottom: '6px' }}>
-                      
-                      {media.tipoMedia === 'IMAGE' && (
-                        <img
-                          src={media.archivoUrl}
-                          alt={media.nombre || 'Fotografía'}
-                          style={{ maxWidth: '250px', borderRadius: '8px', cursor: 'pointer', display: 'block' }}
-                          onClick={() => window.open(media.archivoUrl, '_blank')}
-                        />
+              if (
+                tipoMedia.includes(
+                  'IMAGEN'
+                ) ||
+                tipoMedia ===
+                  'IMAGE' ||
+                tipoMedia ===
+                  'FOTO'
+              ) {
+
+                tipoMedia =
+                  'IMAGE';
+
+              } else if (
+                tipoMedia.includes(
+                  'AUDIO'
+                ) ||
+                tipoMedia ===
+                  'VOICE' ||
+                tipoMedia ===
+                  'NOTA_VOZ'
+              ) {
+
+                tipoMedia =
+                  'AUDIO';
+
+              } else if (
+                tipoMedia.includes(
+                  'VIDEO'
+                )
+              ) {
+
+                tipoMedia =
+                  'VIDEO';
+
+              } else if (
+                tipoMedia.includes(
+                  'DOCUMENT'
+                ) ||
+                tipoMedia.includes(
+                  'DOCUMENTO'
+                ) ||
+                tipoMedia ===
+                  'ARCHIVO'
+              ) {
+
+                tipoMedia =
+                  'DOCUMENT';
+              }
+
+              return (
+
+                <div
+                  key={
+                    msg.id ||
+                    index
+                  }
+                  className={
+                    `msg ${role}`
+                  }
+                >
+
+                  <div className="msg-bubble">
+
+                    {media?.archivoUrl && (
+
+                      <div
+                        className="media-container"
+                      >
+
+                        {tipoMedia ===
+                          'IMAGE' && (
+
+                          <img
+                            src={
+                              media.archivoUrl
+                            }
+                            alt={
+                              media.nombre ||
+                              'Imagen'
+                            }
+                            className="chat-image"
+                            onClick={() =>
+                              window.open(
+                                media.archivoUrl,
+                                '_blank'
+                              )
+                            }
+                          />
+
+                        )}
+
+                        {tipoMedia ===
+                          'AUDIO' && (
+
+                          <audio
+                            controls
+                            preload="metadata"
+                          >
+                            <source
+                              src={
+                                media.archivoUrl
+                              }
+                            />
+                            Tu navegador no soporta audio.
+                          </audio>
+
+                        )}
+
+                        {tipoMedia ===
+                          'VIDEO' && (
+
+                          <video
+                            controls
+                            preload="metadata"
+                            className="chat-video"
+                          >
+                            <source
+                              src={
+                                media.archivoUrl
+                              }
+                            />
+                            Tu navegador no soporta video.
+                          </video>
+
+                        )}
+
+                        {tipoMedia ===
+                          'DOCUMENT' && (
+
+                          <a
+                            href={
+                              media.downloadUrl ||
+                              media.archivoUrl
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="chat-document"
+                          >
+                            📄{' '}
+                            {
+                              media.nombre ||
+                              'Descargar documento'
+                            }
+                          </a>
+
+                        )}
+
+                      </div>
+
+                    )}
+
+                    {msg.mensaje &&
+                      !isGenericText && (
+
+                      <div
+                        className="chat-text"
+                      >
+                        {
+                          msg.mensaje
+                        }
+                      </div>
+
+                    )}
+
+                    {Array.isArray(
+                      botones
+                    ) &&
+                      botones.length >
+                        0 && (
+
+                        <div className="botones-chat">
+
+                          {botones.map(
+                            (b, i) => (
+
+                              <button
+                                key={i}
+                                className="btn-chat"
+                                disabled
+                              >
+                                {
+                                  typeof b ===
+                                  'object'
+                                    ? b.body ||
+                                      b.title
+                                    : b
+                                }
+                              </button>
+
+                            )
+                          )}
+
+                        </div>
+
                       )}
 
-                      {media.tipoMedia === 'AUDIO' && (
-                        <audio controls preload="metadata" style={{ maxWidth: '260px', display: 'block' }}>
-                          <source src={media.archivoUrl} />
-                          Navegador no soporta audio.
-                        </audio>
-                      )}
+                  </div>
 
-                      {media.tipoMedia === 'VIDEO' && (
-                        <video controls preload="metadata" style={{ maxWidth: '280px', borderRadius: '8px', display: 'block' }}>
-                          <source src={media.archivoUrl} />
-                          Navegador no soporta video.
-                        </video>
-                      )}
+                  <small className="msg-time">
 
-                      {media.tipoMedia === 'DOCUMENT' && (
-                        <a
-                          href={media.downloadUrl || media.archivoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: '#0066cc', fontWeight: 'bold', textDecoration: 'underline', display: 'inline-block' }}
-                        >
-                          📄 Descargar Documento ({media.nombre || 'Archivo'})
-                        </a>
-                      )}
-                    </div>
-                  )}
+                    {msg.fecha
+                      ? new Date(
+                          msg.fecha
+                        ).toLocaleTimeString(
+                          [],
+                          {
+                            hour:
+                              '2-digit',
+                            minute:
+                              '2-digit'
+                          }
+                        )
+                      : ''}
 
-                  {/* TEXTO DEL MENSAJE */}
-                  {msg.mensaje && !isGenericText && (
-                    <div style={{ wordBreak: 'break-word' }}>{msg.mensaje}</div>
-                  )}
-
-                  {/* BOTONES INTERACTIVOS */}
-                  {Array.isArray(botones) && botones.length > 0 && (
-                    <div className="botones-chat" style={{ marginTop: '6px' }}>
-                      {botones.map((b, i) => (
-                        <button key={i} className="btn-chat" disabled style={{ opacity: 0.8, margin: '2px' }}>
-                          {typeof b === 'object' ? b.body || b.title : b}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                  </small>
 
                 </div>
 
-                <small className="msg-time">
-                  {msg.fecha
-                    ? new Date(msg.fecha).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })
-                    : ''}
-                </small>
-              </div>
-            );
-          })}
-          <div ref={messagesEndRef} />
+              );
+            }
+          )}
+
+          <div
+            ref={
+              messagesEndRef
+            }
+          />
+
         </section>
 
         <footer className="input-area">
+
           <input
             type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
+            ref={
+              fileInputRef
+            }
+            style={{
+              display:
+                'none'
+            }}
+            onChange={
+              handleFileChange
+            }
+            accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx"
           />
 
           <button
             type="button"
             className="btn-attach"
-            disabled={!activePhone || isUploading}
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '20px',
-              cursor: activePhone && !isUploading ? 'pointer' : 'not-allowed',
-              marginRight: '8px',
-              opacity: isUploading ? 0.5 : 1
-            }}
-            title="Adjuntar archivo para enviar a WhatsApp"
+            disabled={
+              !activePhone ||
+              isUploading
+            }
+            onClick={() =>
+              fileInputRef.current?.click()
+            }
+            title="Adjuntar archivo"
           >
-            {isUploading ? '⏳' : '📎'}
+            {
+              isUploading
+                ? '⏳'
+                : '📎'
+            }
           </button>
 
           <input
             type="text"
             id="adminInput"
-            placeholder={isUploading ? 'Enviando archivo...' : 'Escribe un mensaje aquí...'}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={!activePhone || isUploading}
+            placeholder={
+              isUploading
+                ? 'Enviando archivo...'
+                : 'Escribe un mensaje aquí...'
+            }
+            value={
+              inputValue
+            }
+            onChange={(e) =>
+              setInputValue(
+                e.target.value
+              )
+            }
+            onKeyDown={
+              handleKeyDown
+            }
+            disabled={
+              !activePhone ||
+              isUploading
+            }
           />
 
           <div className="Content_enviar">
+
             <button
               className="btn-send"
-              onClick={sendMessage}
-              disabled={!activePhone || isUploading}
+              onClick={
+                sendMessage
+              }
+              disabled={
+                !activePhone ||
+                isUploading
+              }
             >
               Enviar
             </button>
+
           </div>
+
         </footer>
+
       </main>
+
     </div>
   );
 }

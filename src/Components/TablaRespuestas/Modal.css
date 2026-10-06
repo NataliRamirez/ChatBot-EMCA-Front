@@ -1,282 +1,543 @@
-/*==========================
-  OVERLAY
-==========================*/
+/* =========================================================
+   MODALES DE RESPUESTAS - EMCA
+   ESTILOS COMPLETAMENTE AISLADOS
+========================================================= */
 
-.overlay{
+:root {
+    --respuesta-bg-header: #3B76FB;
+    --respuesta-bg-body: #ffffff;
+    --respuesta-bg-input: #ffffff;
+    --respuesta-text-dark: #1e293b;
+    --respuesta-text-label: #475569;
+    --respuesta-border: #e2e8f0;
+
+    --respuesta-radius-lg: 16px;
+    --respuesta-radius-md: 10px;
+    --respuesta-radius-sm: 6px;
+
+    --respuesta-shadow:
+        0px 10px 25px rgba(0, 0, 0, 0.15);
+
+    --respuesta-transition:
+        all 0.25s ease;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.respuesta-modal-overlay {
     position: fixed;
     inset: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(18,26,56,.92);
-    z-index: 999;
-}
 
-.Modal{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   height: 910px;
-   width: 650px;
-   border-radius: 10px;
-   background-color: #3B76FB;
-   box-shadow: 0px 4px 10px #000;
+    z-index: 9999;
+
+    padding: 16px;
+
+    background: rgba(15, 23, 42, 0.75);
+
+    backdrop-filter: blur(4px);
+
+    box-sizing: border-box;
 }
 
 
-.Modal h2{
-    color: #fff;
-    text-align: center;
-    margin: 20px;
-    font-size: 30px;
-}
+/* =========================================================
+   MODAL BASE
+========================================================= */
 
-.Modal label{
-    text-align: center;
-    color: #fff;
-    font-size: 20px;
-}
-
-.Modal input{
-   height: 30px;
-   width: 450px;
-   margin: 1px;
-   color: #000;
-   background-color: #fff;
-<<<<<<< HEAD
-=======
-   box-shadow: 0px 4px 10px #000;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-}
-
-.Modal textarea{
-     height: 90px;
-     width: 450px;
-     margin: 1px;
-     color: #000;
-     background-color: #fff;
-<<<<<<< HEAD
-=======
-     box-shadow: 0px 4px 10px #000;
-
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-}
-
-.Modal select{
-     height: 60px;
-     width: 450px;
-     color: #000;
-     margin: 1px;
-     background-color: #fff;
-<<<<<<< HEAD
-=======
-     box-shadow: 0px 4px 10px #000;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-}
-
-.Modal_eliminarRespuesta{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   height: 320px;
-   width: 450px;
-   border-radius: 10px;
-   background-color: #3B76FB;
-   box-shadow: 0px 4px 10px #000;
-}
-
-.Modal_eliminarRespuesta p, h2{
-    color: #fff;
-    margin: 10px;
-<<<<<<< HEAD
-    font-size: 20px;
-=======
-    font-size: 17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    text-align: center;
-}
-
-.btn_CerrarModal{
-    background-color: #3B76FB;
-    width:170px;
-    height:50px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin: 10px;
-<<<<<<< HEAD
-    font-size:20px;
-=======
-    font-size:17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-
-.btn_CerrarModal:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-
-.btn_GuardarRespuesta{
-    background-color: #3B76FB;
-    width:170px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin: 10px;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-
-.btn_GuardarRespuesta:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-
-.btn_CancelarModals{
-    background-color: #3B76FB;
-    min-width: 160px;
-    height: 44px;
-    padding: 0 20px;
-    border: none;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    font-weight: 600;
-    color: #fff;
-    transition: var(--transition-fast);
-    box-shadow: 0px 4px 10px #000;
-    margin-top: 10px;
-}
-
-.btn_CancelarModals:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-.Contenido_btnRespuestas{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn_eliminarRespuestas{
-    background-color: #ff1515;
-    width:130px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-<<<<<<< HEAD
-    font-size:20px;
-=======
-    font-size:17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    margin: 10px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-.btn_eliminarRespuestas:hover{
-    background:linear-gradient(90deg, #b92525,#bb0000);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-.btn_cerrarRespuesta{
-    background-color: #3B76FB;
-    width:130px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-<<<<<<< HEAD
-    font-size:20px;
-=======
-    font-size:18px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-.btn_cerrarRespuesta:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-.btn_botones{
+.respuesta-modal {
     display: flex;
+    flex-direction: column;
+
+    width: 750px;
+    max-width: 620px;
+    max-height: 99vh;
+
+    overflow: hidden;
+
+    background: var(--respuesta-bg-body);
+
+    border-radius: var(--respuesta-radius-lg);
+
+    box-shadow: var(--respuesta-shadow);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.respuesta-modal-header {
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 24px;
+
+    background-color: var(--respuesta-bg-header);
+
+    color: #ffffff;
+}
+
+.respuesta-modal-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR
+========================================================= */
+
+.respuesta-modal-close {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin: 10px;
-}
 
-.btn_Guardar{
-  background-color: #3B76FB;
-  min-width: 160px;
-  height: 44px;
-  padding: 0 20px;
-  border: none;
-<<<<<<< HEAD
-  font-size: 20px;
-=======
-  font-size: 17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  font-weight: 600;
-  color: #fff;
-  transition: var(--transition-fast);
-  box-shadow: 0px 4px 10px #000;
-  margin-top: 10px;
-}
+    padding: 0;
 
-.btn_Guardar:hover{
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-  transform: translateY(-1px);
-}
-
-.btn_Cerrar{
-    background-color: #3B76FB;
-    min-width: 160px;
-    height: 44px;
-    padding: 0 20px;
     border: none;
-    border-radius: var(--border-radius-md);
+
+    border-radius: var(--respuesta-radius-sm);
+
+    background: rgba(255, 255, 255, 0.2);
+
+    color: #ffffff;
+
+    font-size: 18px;
+
     cursor: pointer;
-<<<<<<< HEAD
-    font-size: 20px;
-=======
-    font-size: 17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    font-weight: 600;
-    color: #fff;
-    transition: var(--transition-fast);
-    box-shadow: 0px 4px 10px #000;
-    margin-top: 10px;
+
+    transition: var(--respuesta-transition);
 }
 
-.btn_Cerrar:hover{
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-  transform: translateY(-1px);
+.respuesta-modal-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   CUERPO
+========================================================= */
+
+.respuesta-modal-body {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 24px;
+
+    background-color: var(--respuesta-bg-body);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.respuesta-form-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 16px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.respuesta-form-field {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    box-sizing: border-box;
+}
+
+.respuesta-form-field-full {
+    grid-column: 1 / -1;
+}
+
+.respuesta-form-field label {
+    margin: 0;
+
+    color: var(--respuesta-text-label);
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS / SELECT / TEXTAREA
+========================================================= */
+
+.respuesta-form-field input,
+.respuesta-form-field select,
+.respuesta-form-field textarea {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 0 14px;
+
+    background-color: var(--respuesta-bg-input);
+
+    color: var(--respuesta-text-dark);
+
+    font-family: inherit;
+    font-size: 15px;
+
+    border: 1px solid var(--respuesta-border);
+
+    border-radius: var(--respuesta-radius-md);
+
+    box-shadow:
+        0px 2px 6px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
+
+    outline: none;
+
+    transition: var(--respuesta-transition);
+}
+
+
+.respuesta-form-field input,
+.respuesta-form-field select {
+    height: 44px;
+}
+
+
+.respuesta-form-field textarea {
+    min-height: 100px;
+
+    padding: 10px 14px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.respuesta-form-field input:focus,
+.respuesta-form-field select:focus,
+.respuesta-form-field textarea:focus {
+    border-color: var(--respuesta-bg-header);
+
+    box-shadow:
+        0 0 0 3px rgba(59, 118, 251, 0.15);
+}
+
+
+/* =========================================================
+   VALORES - VER RESPUESTA
+========================================================= */
+
+.respuesta-form-value {
+    width: 100%;
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+
+    padding: 10px 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid var(--respuesta-border);
+
+    border-radius: var(--respuesta-radius-md);
+
+    color: var(--respuesta-text-dark);
+
+    line-height: 1.5;
+
+    box-sizing: border-box;
+
+    word-break: break-word;
+
+    box-shadow:
+        0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.respuesta-form-value-large {
+    min-height: 80px;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.respuesta-modal-footer {
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 24px;
+
+    background-color: var(--respuesta-bg-body);
+
+    border-top: 1px solid var(--respuesta-border);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.respuesta-btn {
+    min-width: 140px;
+
+    height: 44px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: var(--respuesta-radius-md);
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    font-size: 15px;
+
+    transition: var(--respuesta-transition);
+}
+
+.respuesta-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+========================================================= */
+
+.respuesta-btn-primary {
+    background-color: var(--respuesta-bg-header);
+
+    color: #ffffff;
+}
+
+.respuesta-btn-primary:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            90deg,
+            #2155ff,
+            #3d8cff
+        );
+
+    box-shadow:
+        0 4px 12px rgba(59, 118, 251, 0.3);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÓN SECUNDARIO
+========================================================= */
+
+.respuesta-btn-secondary {
+    background-color: #3B76FB;
+
+    color: #ffffff;
+}
+
+.respuesta-btn-secondary:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            90deg,
+            #2155ff,
+            #3d8cff
+        );
+
+    box-shadow:
+        0 4px 12px rgba(59, 118, 251, 0.3);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÓN ELIMINAR
+========================================================= */
+
+.respuesta-btn-danger {
+    background-color: #ef4444;
+
+    color: #ffffff;
+}
+
+.respuesta-btn-danger:hover {
+    background-color: #dc2626;
+
+    box-shadow:
+        0 4px 12px rgba(239, 68, 68, 0.3);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CONFIRMACIÓN DE ELIMINACIÓN
+========================================================= */
+
+.respuesta-modal-body-confirmacion {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 130px;
+}
+
+.respuesta-confirmacion-texto {
+    margin: 0;
+
+    color: var(--respuesta-text-dark);
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+.respuesta-confirmacion-texto strong {
+    color: var(--respuesta-bg-header);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 640px) {
+
+    .respuesta-modal-overlay {
+        padding: 10px;
+    }
+
+    .respuesta-modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: 96vh;
+
+        border-radius: 12px;
+    }
+
+    .respuesta-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .respuesta-form-field-full {
+        grid-column: auto;
+    }
+
+    .respuesta-modal-header {
+        padding: 16px;
+    }
+
+    .respuesta-modal-header h2 {
+        font-size: 19px;
+    }
+
+    .respuesta-modal-body {
+        padding: 16px;
+    }
+
+    .respuesta-modal-footer {
+        padding: 16px;
+
+        flex-direction: column;
+    }
+
+    .respuesta-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .respuesta-modal-header h2 {
+        font-size: 17px;
+    }
+
+    .respuesta-modal-body {
+        padding: 13px;
+    }
+
+    .respuesta-modal-footer {
+        padding: 13px;
+    }
+
+    .respuesta-modal-close {
+        width: 32px;
+        height: 32px;
+    }
 }

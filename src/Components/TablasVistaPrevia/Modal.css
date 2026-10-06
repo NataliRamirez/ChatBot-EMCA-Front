@@ -1,182 +1,162 @@
-.overlay{
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.55);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+/* Fondo oscuro trasero */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-.modalInforme{
-    width: 490px;
-    height:830px;
-    display: flex;
+/* Modal Editar */
+.modalInforme {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 97vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal Eliminar */
+.modalInforme_eliminar {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.modalInforme h2,
+.modalInforme_eliminar h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.modalInforme_eliminar p {
+  font-size: 1rem;
+  color: #555;
+  margin: 1.5rem 0;
+}
+
+/* Grupos de campos */
+.gruposModal {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.gruposModal label {
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.9rem;
+}
+
+.gruposModal input,
+.gruposModal select,
+.gruposModal textarea {
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.gruposModal input:focus,
+.gruposModal select:focus,
+.gruposModal textarea:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+/* Errores de validación */
+.inputError {
+  border-color: #e74c3c !important;
+}
+
+.textoError {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+/* Contenedor de botones */
+.botonesModal {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Botones — TUS MISMAS CLASES */
+.btn_Guardar {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn_Guardar:hover {
+  background-color: #219653;
+}
+
+.btn_Eliminar {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn_Eliminar:hover {
+  background-color: #c0392b;
+}
+
+.btn_Cancelar {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn_Cancelar:hover {
+  background-color: #7f8c8d;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .modalInforme,
+  .modalInforme_eliminar {
+    padding: 1.5rem;
+  }
+
+  .botonesModal {
     flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    border-radius: 15px;
-    background: #3B76FB;
-}
+  }
 
-.modalInforme_eliminar{
-    width: 490px;
-    height:290px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    border-radius: 15px;
-    background: #3B76FB;
-}
-
-.gruposModal label{
-    width: 85%;
-    color: #f0f0f0;
-    font-weight: bold;
-}
-
-.modalInforme h2{
-  color: #fff;
-  font-size: 30px;
-}
-
-.gruposModal input{
-    width: 85%;
-    text-align: center;
-    color: #000;
-    background-color: #fff;
-    height: 40px;
-    width: 380px;
-    margin-top: 10px;
-}
-
-.modalInforme textarea,
-.modalInforme select{
-    width: 380px;
-    height: 50px;
-    border: 1px solid #dcdcdc;
-    color: #000;
-    margin-bottom: 10px;
-    outline: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,.25);
-}
-
-.grupoModal{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 350px;
-    height: 200px;
-}
-
-.btn_Eliminar{
-    background-color: #ff0000;
-    width:130px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:17px;
-    margin: 30px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-
-.btn_Eliminar:hover{
-    background:linear-gradient(90deg, #e6412c,#fc0101);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-.btn_Cancelar{
-    background-color: #3B76FB;
-    width:130px;
-    height:48px;
-    margin: 10px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-
-.btn_Cancelar:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-.modalInforme_eliminar h2{
-  color: #fff;
-  margin: 10px;
-  font-size: 25px;
-}
-
-
-.modalInforme_eliminar p{
-    color: #fff;
-    font-size: 20px;
-    margin: 10px;
-}
-
-
-p{
-    color: #000;
-    margin: 10px;
-}
-
-.botonesModal{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btns_Guardar{
-    background-color: #3B76FB;
-    width:130px;
-    height:48px;
-    margin: 10px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-
-.btns_Guardar:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
-}
-
-.btnCancelar{
-    background-color: #3B76FB;
-    width:160px;
-    height:48px;
-    margin: 10px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-.btnCancelar:hover{
-    background:linear-gradient(90deg, #3377c5,#044085);
-    transform:translateY(-3px);
-    box-shadow:0 4px 10px #000;
+  .botonesModal button {
+    width: 100%;
+  }
 }

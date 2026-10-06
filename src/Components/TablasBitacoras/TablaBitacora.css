@@ -1,120 +1,103 @@
-/*CAMPOS TABLAS*/
-.tablaContainer{
-    box-shadow:0 10px 20px rgba(0,0,0,.08);
+/* CAMPOS TABLAS */
+.tablaContainer {
+    width: 100%;
+    overflow-x: auto; /* Permite desplazamiento en pantallas pequeñas */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 10px; /* Redondea el contenedor general de la tabla */
 }
 
-table{
-    width:100%;
-    
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-thead{
-    background:#3B76FB;
-    color: #fff;
+thead {
+    background-color: #3B76FB;
+    color: #ffffff;
 }
 
-tr{
-  width: 150%;
-  border-radius: 10px;
+th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
 }
 
-th{
-    padding:16px;
-    text-align:left;
-}
-
-td{
-    padding:16px;
-<<<<<<< HEAD
-    font-size: 20px;
+tbody td {
+    padding: 20px;
+    font-size: 16px; 
+    color: #000
 }
 
 
-=======
-    border-bottom:1px solid #000;
-}
-
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
 tbody {
     background-color: #005dca;
+    color: #ffffff;
 }
 
-/*BOTONES*/
+/* Opcional: Separación y bordes de filas */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
 
-.modals_btnBitacoras{
+tbody tr:border-bottom {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* BOTONES */
+.modals_btnBitacoras {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.btnVer{
+/* Estilos base compartidos para todos los botones de acción */
+.btnVer,
+.btnEditar,
+.btnEliminar {
+    width: 170px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Botones Azules (Ver / Editar) */
+.btnVer,
+.btnEditar {
     background-color: #3B76FB;
-    width:170px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin: 10px;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
 }
 
-.btnVer:hover{
+.btnVer:hover,
+.btnEditar:hover {
     background: linear-gradient(90deg, #2155ff, #3d8cff);
-    color: #fff;
-    box-shadow: 0px 4px 10px #000;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 14px rgba(33, 85, 255, 0.3);
 }
 
-.btnEditar{
-     background-color: #3B76FB;
-    width:170px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin: 10px;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
+/* Botón Rojo (Eliminar) */
+.btnEliminar {
+    background-color: #bd0e20;
 }
 
-.btnEditar:hover{
-    background: linear-gradient(90deg, #2155ff, #3d8cff);
-    color: #fff;
-    box-shadow: 0px 4px 10px #000;
+.btnEliminar:hover {
+    background: linear-gradient(90deg, #ff4040, #ff3c00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(239, 68, 68, 0.35);
 }
 
-.btnEliminar{
-    background:#bd0e20;
-    width:170px;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin: 10px;
-    font-size:17px;
-    font-weight:600;
-    color: #fff;
-    transition:.3s;
-    box-shadow: 0px 4px 10px #000;
-}
-
-.btnEliminar:hover{
-     background:linear-gradient(90deg,#ff4040,#ff3c00);
-    transform:translateY(-3px);
-    box-shadow:0 8px 18px rgba(33,85,255,.35);
-}
-
-.acciones button{
-    border:none;
-    color: #fff;
-    cursor:pointer;
-    padding:8px 14px;
-    border-radius:6px;
+/* Acciones rápidas / secundarias */
+.acciones button {
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
 }

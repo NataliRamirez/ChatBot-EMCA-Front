@@ -1,352 +1,971 @@
-/*CONTENEDOR PRINCIPAL*/
-.bitacoras-page{
-  display:flex;
-  flex-direction:column;
-  gap:24px;
-  padding:10px;
+* {
+  box-sizing: border-box;
 }
 
-.bitacoras-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:16px;
+.bitacoras-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.modals-content{
-  background-color: #3B76FB;
-    color: #fff;
-    margin: 10px;
-<<<<<<< HEAD
-    height: 620px;
-=======
-    height: 790px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    width: 550px;
-    text-align: center;
-    font-size: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px #000;
+/* =========================================================
+   HEADER
+   ========================================================= */
 
+.bitacoras-header {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 22px 25px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
-.bitacoras-header h2{
-  font-size:28px;
-  color:#0f172a;
-  margin-bottom:4px;
+.bitacoras-header h2 {
+  margin: 0 0 6px;
+
+  font-size: 26px;
+  font-weight: 700;
+
+  color: #0f172a;
 }
 
-.bitacoras-header p{
-  color:#64748b;
+.bitacoras-header p {
+  margin: 0;
+
+  color: #64748b;
+  font-size: 15px;
 }
 
+/* =========================================================
+   BOTÓN PRINCIPAL / ACTUALIZAR
+   ========================================================= */
 
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
+.btn-primary {
+  min-width: 150px;
+  height: 46px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #22c55e;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  box-shadow: 0 4px 10px rgba(34, 197, 94, 0.25);
+
+  transition: all 0.2s ease;
 }
 
-.stat-card{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  display:flex;
-  align-items:center;
-  gap:18px;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
-  border:1px solid #eef2f7;
+.btn-primary:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 15px rgba(34, 197, 94, 0.3);
 }
 
-.stat-card span{
-  font-size:32px;
+.btn-primary:active {
+  transform: translateY(0);
 }
 
-.stat-card h3{
-  font-size:24px;
-  color:#0f172a;
+/* =========================================================
+   TARJETAS DE ESTADÍSTICAS
+   ========================================================= */
+
+.stats-grid {
+  width: 100%;
+  max-width: 1600px;
+
+  margin: 0 auto 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
 }
 
-.stat-card p{
-  color:#64748b;
-  font-size:14px;
+.stat-card {
+  min-height: 125px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+
+  transition: all 0.2s ease;
 }
 
-.filtros-card{
-  background:white;
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
 }
 
-.filtros-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
+.stat-card > span {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background: #eff6ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
 }
 
-/*CAMPOS FORMULARIOS DE CONTENIDO PRINCIPAL*/
+.stat-card h3 {
+  margin: 0 0 5px;
 
-.campo{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+  color: #0f172a;
+
+  font-size: 25px;
+  font-weight: 700;
 }
 
-.campo label{
-  font-size:14px;
-  font-weight:600;
-  color:#334155;
+.stat-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
 }
 
-.Campos input,
-.Campos select{
-  padding:12px 14px;
-  height: 60px;
-  width: 450px;
-  margin: 20px;
-  border:1px solid #d1d5db;
-  border-radius:12px;
-  font-size:14px;
-  margin-bottom: 10px;
-  outline:none;
-  box-shadow: 0px 4px 10px #000;
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.filtros-card {
+  width: 100%;
+  max-width: 1600px;
+
+  margin: 0 auto 25px;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.filtros-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  align-items: end;
+}
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.campo {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin: 0;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #334155;
+}
+
+/*
+   Importante:
+   Se usa .campo en minúscula.
+   En tu código anterior tenías .Campo y .campo mezclados.
+*/
+
+.campo input,
+.campo select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 14px;
+  outline: none;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.campo input::placeholder {
+  color: #94a3b8;
 }
 
 .campo input:focus,
-.campo select:focus{
-  border-color:#000;
-  box-shadow: 0px 4px 10px #000;
+.campo select:focus {
+  border-color: #3b76fb;
+
+  box-shadow:
+    0 0 0 4px rgba(59, 118, 251, 0.13);
 }
 
-.tabla-card{
-  background:white;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
+/* =========================================================
+   FECHA Y HORA
+   ========================================================= */
+
+.input-fecha-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
 }
 
-.tabla-header{
-  padding:20px 24px;
-  border-bottom:1px solid #eef2f7;
-}
+.input-fecha-wrapper input {
+  width: 100%;
 
-.tabla-header h3{
-  color:#0f172a;
-}
-
-.tabla-bitacoras{
-  width:100%;
-  border-collapse:collapse;
-}
-
-.tabla-bitacoras th{
-  background:#f8fafc;
-  text-align:left;
-  font-size: 25px;
-  padding:16px 20px;
-  color: #000;
-  font-size:14px;
-}
-
-.tabla-bitacoras td{
-  padding:16px 20px;
-  border-bottom:1px solid #f1f5f9;
-  color: #000;
-<<<<<<< HEAD
-  font-size: 23px;
-=======
-  font-size: 20px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-}
-
-.tabla-bitacoras tbody tr:hover{
-  background:#f8fafc;
-  color: #000;
-  font-size: 20px;
-}
-
-.empleado-info{
-  display:flex;
-  align-items:center;
-  font-size: 25px;
-  gap:14px;
+  padding-left: 42px;
 }
 
 
-/*BOTONES*/
-.btn-primary{
-  background:#22c55e;
-  color: #fff;
-  border:none;
-  padding:12px 18px;
-  border-radius:12px;
-  height: 60px;
-  width: 250px;
-  font-size: 25px;
-  cursor:pointer;
-  transition:.2s;
-  box-shadow: 0px 4px 10px #000;
-}
 
-.btn-primary:hover{
-  background:#16a34a;
-  color: #fff;
-}
-.avatar-sm{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#22c55e;
-  color: #fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:14px;
-}
+/* =========================================================
+   BOTÓN LIMPIAR
+   ========================================================= */
 
-.empleado-info strong{
-  display:block;
-  color:#0f172a;
-}
-
-.empleado-info p{
-  color:#64748b;
-  font-size:20px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.badge.completado{
-  background:#dcfce7;
-  color:#15803d;
-  font-size: 20px;
-}
-
-.badge.revision{
-  background:#fef3c7;
-  color:#92400e;
-  font-size: 20px;
-}
-
-.acciones{
-  display:flex;
-  gap:8px;
-}
-
-
-.btn_VerBitacoras{
-  background-color: #3B76FB;
-  color: #fff;
-  margin: 10px;
-  text-align: center;
-  height: 60px;
-  width: 220px;
-  font-size: 25px;
+.btn-segundario {
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  margin: 0;
+  border: none;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px #000;
+  background: #64748b;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.2s ease;
 }
 
-.btn_VerBitacoras:hover{
-    background:linear-gradient(90deg,#2155ff,#3e8bff);
-    transform:translateY(-3px);
-    box-shadow:0 8px 18px #000;
+.btn-segundario:hover {
+  background: #475569;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 5px 12px rgba(71, 85, 105, 0.25);
 }
 
-
-.btn-segundario{
-  background-color: #3B76FB;
-  color: #fff;
-  margin: 10px;
-  text-align: center;
-  height: 60px;
-  width: 220px;
-  font-size: 25px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px #000;
-}
-
-.btn-segundario:hover{
-    background:linear-gradient(90deg,#2155ff,#3e8bff);
-    transform:translateY(-3px);
-    box-shadow:0 8px 18px #000;
-}
+/* =========================================================
+   CONTENEDOR DE TABLA
+   ========================================================= */
 
 .contenedor-scroll {
-  max-height: 600px;
-  overflow-y: auto;  
-  overflow-x: hidden; 
-  padding: 10px;
+  width: 100%;
+  max-width: 1600px;
+
+  margin: 0 auto;
+
+  max-height: 650px;
+
+  overflow-x: auto;
+  overflow-y: auto;
+
+  border-radius: 16px;
 }
 
-.generar_botonesDescarga{
+/* =========================================================
+   TARJETA TABLA
+   ========================================================= */
+
+.tabla-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.tabla-header {
+  padding: 20px 24px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  background: #ffffff;
+}
+
+.tabla-header h3 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 18px;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.tabla-bitacoras {
+  width: 100%;
+
+  min-width: 1150px;
+
+  border-collapse: collapse;
+
+  color: #1e293b;
+}
+
+.tabla-bitacoras th {
+  padding: 14px 16px;
+
+  background: #3b76fb;
+
+  color: #ffffff;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.tabla-bitacoras td {
+  padding: 13px 16px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  text-align: center;
+
+  vertical-align: middle;
+
+  font-size: 14px;
+
+  color: #334155;
+}
+
+.tabla-bitacoras tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.tabla-bitacoras tbody tr:hover {
+  background: #f8fafc;
+}
+
+.tabla-bitacoras tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   COLUMNA DESCRIPCIÓN
+   ========================================================= */
+
+.tabla-bitacoras td:nth-child(7) {
+  max-width: 280px;
+
+  text-align: left;
+
+  white-space: normal;
+
+  word-break: break-word;
+
+  line-height: 1.4;
+}
+
+/* =========================================================
+   EMPLEADO
+   ========================================================= */
+
+.empleado-info {
+  min-width: 200px;
+
   display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 12px;
+
+  text-align: left !important;
+}
+
+.empleado-info strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 14px;
+}
+
+.empleado-info p {
+  margin: 3px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.avatar-sm {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 95px;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.badge.completado {
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.badge.revision {
+  background: #fef3c7;
+
+  color: #92400e;
+}
+
+.badge.cancelado {
+  background: #fee2e2;
+
+  color: #991b1b;
+}
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.acciones {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+}
+
+/* =========================================================
+   BOTÓN VER
+   ========================================================= */
+
+.btn_VerBitacoras {
+  width: 100px;
+  height: 42px;
+
+  margin: 0;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #3b76fb;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  transition: all 0.2s ease;
+
+  box-shadow:
+    0 3px 8px rgba(59, 118, 251, 0.25);
+}
+
+.btn_VerBitacoras:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 14px rgba(59, 118, 251, 0.3);
+}
+
+/* =========================================================
+   BOTONES DESCARGA
+   ========================================================= */
+
+.ContainerBotonesGenerar {
+  width: 100%;
+
+  padding: 20px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 15px;
+
+  flex-wrap: wrap;
+
+  border-top: 1px solid #e2e8f0;
+
+  background: #f8fafc;
+}
+
+.btnGenerar_PDF,
+.btnGenerar_EXCEL {
+  width: 170px;
+  height: 46px;
+
+  margin: 0;
+
+  border: none;
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  box-shadow:
+    0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+.btnGenerar_PDF {
+  background: #dc2626;
+}
+
+.btnGenerar_PDF:hover {
+  background: #b91c1c;
+
+  transform: translateY(-2px);
+}
+
+.btnGenerar_EXCEL {
+  background: #16a34a;
+}
+
+.btnGenerar_EXCEL:hover {
+  background: #15803d;
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 9999;
+
+  padding: 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.65);
+
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================================
+   CONTENIDO MODAL
+   ========================================================= */
+
+.modals-content {
+  width: 100%;
+  max-width: 650px;
+
+  max-height: 90vh;
+
+  margin: 0;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+
+  flex-direction: column;
+
+  animation: modalEntrada 0.2s ease-out;
+}
+
+@keyframes modalEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   HEADER MODAL
+   ========================================================= */
+
+.modal-header {
+  min-height: 65px;
+
+  padding: 15px 20px;
+
+  background: #3b76fb;
+
+  color: #ffffff;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 {
+  margin: 0;
+
+  font-size: 20px;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   BODY MODAL
+   ========================================================= */
+
+.modal-body {
+  width: 100%;
+
+  padding: 24px;
+
+  overflow-y: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.modal-body p {
+  margin: 0;
+
+  color: #334155;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+.modal-body strong {
+  color: #0f172a;
+}
+
+/* =========================================================
+   FOOTER MODAL
+   ========================================================= */
+
+.modal-footer {
+  width: 100%;
+
+  padding: 15px 20px;
+
+  border-top: 1px solid #e2e8f0;
+
+  background: #f8fafc;
+
+  display: flex;
+
   justify-content: center;
   align-items: center;
 }
 
+/* El botón cerrar dentro del modal */
 
-.btnGenerar_PDF{
-    height: 50px;
-    width: 150px;
-    font-size: 20px;
-    color: #fff;
-    background-color: #3672ff;
-    margin: 10px;
-    border-radius: 10px;
+.modal-footer .btn-segundario {
+  width: 180px;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.contenedor-scroll::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.contenedor-scroll::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.contenedor-scroll::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+
+  border-radius: 10px;
+}
+
+.contenedor-scroll::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .filtros-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .bitacoras-page {
+    padding: 15px;
+  }
+
+  .bitacoras-header {
+    flex-direction: column;
+
     text-align: center;
-    box-shadow: 0px 4px 10px #000;
+
+    padding: 20px;
+  }
+
+  .bitacoras-header h2 {
+    font-size: 22px;
+  }
+
+  .bitacoras-header p {
+    font-size: 13px;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros-card {
+    padding: 16px;
+  }
+
+  .contenedor-scroll {
+    max-height: 600px;
+
+    border-radius: 12px;
+  }
+
+  .tabla-card {
+    border-radius: 12px;
+  }
+
+  .tabla-bitacoras {
+    min-width: 1100px;
+  }
+
+  .ContainerBotonesGenerar {
+    flex-direction: column;
+  }
+
+  .btnGenerar_PDF,
+  .btnGenerar_EXCEL {
+    width: 100%;
+
+    max-width: 300px;
+  }
+
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modals-content {
+    max-height: 95vh;
+
+    border-radius: 14px;
+  }
+
+  .modal-body {
+    padding: 18px;
+  }
+
+  .modal-footer {
+    padding: 12px;
+  }
+
+  .modal-footer .btn-segundario {
+    width: 100%;
+  }
 }
 
-.btnGenerar_PDF:hover{
-  background:linear-gradient(90deg, #3377c5,#044085);
-  color: #fff;
-  box-shadow: 0px 4px 10px #000;
-}
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
 
+@media (max-width: 480px) {
 
-.btnGenerar_EXCEL{
+  .bitacoras-page {
+    padding: 10px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-card > span {
+    width: 50px;
     height: 50px;
-    width: 150px;
-    font-size: 20px;
-    color: #fff;
-    background-color: #3672ff;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 4px 10px #000;
-}
 
-.btnGenerar_EXCEL:hover{
-  background:linear-gradient(90deg, #3377c5,#044085);
-  color: #fff;
-  box-shadow: 0px 4px 10px #000;
-}
-@media (max-width:768px){
-
-  .bitacoras-header{
-    align-items:flex-start;
+    font-size: 24px;
   }
 
-  .btn-primary{
-    width:100%;
+  .stat-card h3 {
+    font-size: 22px;
   }
 
-  .tabla-card{
-    overflow-x:auto;
+  .btn_VerBitacoras {
+    width: 90px;
   }
 
-  .tabla-bitacoras{
-    min-width:800px;
+  .modal-header h3 {
+    font-size: 17px;
   }
 }

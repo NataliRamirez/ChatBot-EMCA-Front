@@ -1,46 +1,128 @@
-import { useState, useEffect } from 'react';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import * as XLSX from 'xlsx';
+import { useState, useEffect, useRef } from 'react';
 import './BitacorasJefe.css';
 
-export default function BitacorasJefe() {
-  const [buscarEmpleado, setBuscarEmpleado] = useState('');
-  const [modulosOpciones, setModulosOpciones] = useState('Todos');
-  const [fechaFiltro, setFechaFiltro] = useState('');
-  const [bitacoras, setBitacoras] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [bitacoraSeleccionada, setBitacoraSeleccionada] = useState(null);
-  const [tituloFiltro, setTituloFiltro] = useState('');
-  const [fechaInicioFiltro, setFechaInicioFiltro] = useState('');
-  const [fechaFinalFiltro, setFechaFinalFiltro] = useState('');
-  const [cargoFiltro, setCargoFiltro] = useState('');
-  const [estadoOpciones, setEstadoOpciones] = useState('Todos');
-  const [descripcionFiltro, setDescripcionFiltro] = useState('');
+// =========================================================
+// FORMATEAR FECHA Y HORA
+// =========================================================
 
-  // ===============================================
-  // CARGAR REGISTROS DESDE LA BASE DE DATOS
-  // ===============================================
+const formatearFechaHora = (fecha) => {
+  if (!fecha || fecha === 'N/A') {
+    return 'N/A';
+  }
+
+  const fechaStr = String(fecha);
+
+  if (fechaStr.includes('T')) {
+    const [partFecha, partHora] =
+      fechaStr.split('T');
+
+    const horaLimpia = partHora
+      ? partHora.substring(0, 5)
+      : '';
+
+    return horaLimpia
+      ? `${partFecha} ${horaLimpia}`
+      : partFecha;
+  }
+
+  return fechaStr.length >= 10
+    ? fechaStr.substring(0, 16)
+    : fechaStr;
+};
+
+export default function BitacorasJefe() {
+
+  const [buscarEmpleado, setBuscarEmpleado] =
+    useState('');
+
+  const [modulosOpciones, setModulosOpciones] =
+    useState('Todos');
+
+  const [fechaFiltro, setFechaFiltro] =
+    useState('');
+
+  const [bitacoras, setBitacoras] =
+    useState([]);
+
+  const [cargando, setCargando] =
+    useState(true);
+
+  const [bitacoraSeleccionada, setBitacoraSeleccionada] =
+    useState(null);
+
+  const inputFechaRef =
+    useRef(null);
+
+  // =========================================================
+  // ABRIR CALENDARIO
+  // =========================================================
+
+  const abrirCalendario = () => {
+
+    if (!inputFechaRef.current) {
+      return;
+    }
+
+    if (
+      typeof inputFechaRef.current.showPicker ===
+      'function'
+    ) {
+      inputFechaRef.current.showPicker();
+    } else {
+      inputFechaRef.current.focus();
+    }
+  };
+
+  // =========================================================
+  // CARGAR BITÁCORAS
+  // =========================================================
+
   const cargarBitacoras = async () => {
+
     setCargando(true);
+
     try {
-      const res = await fetch('http://127.0.0.1:4000/v1/bitacora', {
-        headers: {
-          'x-api-key': 'EmcaSecret2026'
+
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/bitacora',
+        {
+          headers: {
+            'x-api-key': 'EmcaSecret2026'
+          }
         }
-      });
+      );
 
       if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+        throw new Error(
+          `HTTP ${res.status}`
+        );
       }
 
       const data = await res.json();
-      setBitacoras(Array.isArray(data) ? data : data.data || []);
+
+      setBitacoras(
+        Array.isArray(data)
+          ? data
+          : data.data || []
+      );
+
     } catch (error) {
-      console.error('Error al cargar bitácoras:', error);
-      alert('Error de conexión con la base de datos');
+
+      console.error(
+        'Error al cargar bitácoras:',
+        error
+      );
+
+      setBitacoras([]);
+
+      alert(
+        'Error de conexión con la base de datos'
+      );
+
     } finally {
+
       setCargando(false);
+
     }
   };
 
@@ -48,11 +130,15 @@ export default function BitacorasJefe() {
     cargarBitacoras();
   }, []);
 
-  // ===============================================
-  // MAPEO DE VALORES SEGURO (Múltiples alias)
-  // ===============================================
+  // =========================================================
+  // OBTENER DATOS DE BITÁCORA
+  // =========================================================
+
   const obtenerValoresBitacora = (bit) => {
-    const titulo = bit.titulo || 'N/A';
+
+    const titulo =
+      bit.titulo ||
+      'N/A';
 
     const nombre =
       bit.empleado_nombre ||
@@ -64,493 +150,860 @@ export default function BitacorasJefe() {
       'Sin empleado';
 
     const fechaInicio =
-      bit.fechaInicio ||
-      bit.fechaFinal ||
-      bit.created_at ||
-      bit.createdAt ||
-      bit.fecha_registro ||
-      'N/A';
+      formatearFechaHora(
+        bit.fechaInicio ||
+        bit.created_at ||
+        bit.createdAt ||
+        bit.fecha_registro
+      );
 
     const fechaFinal =
-      bit.fecha ||
-      bit.created_at ||
-      bit.createdAt ||
-      bit.fecha_registro ||
+      formatearFechaHora(
+        bit.fechaFinal ||
+        bit.fecha ||
+        bit.created_at ||
+        bit.createdAt ||
+        bit.fecha_registro
+      );
+
+    const cargo =
+      bit.cargo ||
+      bit.rol ||
+      bit.puesto ||
       'N/A';
 
-    const cargo = bit.cargo || bit.rol || bit.puesto || 'N/A';
+    const estado =
+      bit.estado ||
+      bit.status ||
+      'Completado';
 
-    const estado = bit.estado || bit.status || 'Completado';
+    const descripcion =
+      bit.descripcion ||
+      'N/A';
 
-    const descripcion = bit.descripcion || 'N/A';
+    const modulo =
+      bit.modulo ||
+      bit.tipo ||
+      titulo;
 
-    return { titulo, nombre, fechaInicio, fechaFinal, cargo, estado, descripcion };
+    return {
+      titulo,
+      nombre,
+      fechaInicio,
+      fechaFinal,
+      cargo,
+      estado,
+      descripcion,
+      modulo
+    };
   };
 
-  // ===============================================
-  // FILTRADO DINÁMICO
-  // ===============================================
-  const bitacorasFiltradas = bitacoras.filter((bit) => {
-    const { titulo, nombre, fechaInicio, fechaFinal, cargo, estado, descripcion } =
-      obtenerValoresBitacora(bit);
+  // =========================================================
+  // FILTROS
+  // =========================================================
 
-    const coincideTitulo =
-      !tituloFiltro || titulo.toLowerCase().includes(tituloFiltro.toLowerCase());
+  const bitacorasFiltradas =
+    bitacoras.filter((bit) => {
 
-    const coincideEmpleado =
-      !buscarEmpleado || nombre.toLowerCase().includes(buscarEmpleado.toLowerCase());
+      const {
+        nombre,
+        fechaInicio,
+        fechaFinal,
+        modulo
+      } = obtenerValoresBitacora(bit);
 
-    const coincideCargo =
-      !cargoFiltro ||
-      cargoFiltro === 'Todos' ||
-      cargo.toLowerCase().includes(cargoFiltro.toLowerCase());
+      // ---------------------------------------------
+      // EMPLEADO
+      // ---------------------------------------------
 
-    const coincideEstado =
-      estadoOpciones === 'Todos' ||
-      !estadoOpciones ||
-      estado.toLowerCase() === estadoOpciones.toLowerCase();
+      const textoEmpleado =
+        buscarEmpleado
+          .toLowerCase()
+          .trim();
 
-    const coincideFechaInicio =
-      !fechaInicioFiltro || (fechaInicio && fechaInicio.includes(fechaInicioFiltro));
+      const coincideEmpleado =
+        !textoEmpleado ||
+        nombre
+          .toLowerCase()
+          .includes(textoEmpleado);
 
-    const coincideFechaFinal =
-      !fechaFinalFiltro || (fechaFinal && fechaFinal.includes(fechaFinalFiltro));
+      // ---------------------------------------------
+      // FECHA
+      // ---------------------------------------------
 
-    const coincideFechaGeneral =
-      !fechaFiltro ||
-      (fechaInicio && fechaInicio.includes(fechaFiltro)) ||
-      (fechaFinal && fechaFinal.includes(fechaFiltro));
+      const filtroLimpio =
+        fechaFiltro.replace('T', ' ');
 
-    const coincideDescripcion =
-      !descripcionFiltro ||
-      descripcion.toLowerCase().includes(descripcionFiltro.toLowerCase());
+      const coincideFechaHora =
+        !fechaFiltro ||
+        (
+          fechaInicio &&
+          fechaInicio.includes(filtroLimpio)
+        ) ||
+        (
+          fechaFinal &&
+          fechaFinal.includes(filtroLimpio)
+        );
 
-    return (
-      coincideTitulo &&
-      coincideEmpleado &&
-      coincideCargo &&
-      coincideEstado &&
-      coincideFechaInicio &&
-      coincideFechaFinal &&
-      coincideFechaGeneral &&
-      coincideDescripcion
-    );
-  });
+      // ---------------------------------------------
+      // MÓDULO
+      // ---------------------------------------------
 
-  // ===============================================
-<<<<<<< HEAD
-  // GENERAR PDF
-  // ===============================================
-  const handleGenerarPDF = () => {
-    try {
-      const doc = new jsPDF();
+      const coincideModulo =
+        modulosOpciones === 'Todos' ||
+        (
+          modulo &&
+          modulo
+            .toLowerCase()
+            .includes(
+              modulosOpciones.toLowerCase()
+            )
+        );
 
-      doc.setFontSize(14);
-      doc.text('EMCA E.S.P. - Reporte de Bitácoras', 14, 15);
-
-      const columnas = [
-        'Título', 'Nombre', 'Fecha Inicio', 'Fecha Final', 'Cargo', 'Estado'
-      ];
-
-      const filas = bitacorasFiltradas.map((bit) => {
-        const valores = obtenerValoresBitacora(bit);
-        return [
-          valores.titulo,
-          valores.nombre,
-          valores.fechaInicio,
-          valores.fechaFinal,
-          valores.cargo,
-          valores.estado
-=======
-  // GENERAR PDF AUTOMÁTICO
-  // ===============================================
-  const generarPDF = () => {
-    if (bitacorasFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
-
-    try {
-      const doc = new jsPDF();
-      doc.setFontSize(14);
-      doc.text('Reporte de Bitácoras del Sistema', 14, 15);
-
-      const columnas = [
-        'Titulo',
-        'Nombre',
-        'FechaInicio',
-        'FechaFinal',
-        'Cargo',
-        'Estado',
-        'Descripcion'
-      ];
-
-      const filas = bitacorasFiltradas.map((bit) => {
-        const data = obtenerValoresBitacora(bit);
-        return [
-          data.titulo,
-          data.nombre,
-          data.fechaInicio,
-          data.fechaFinal,
-          data.cargo,
-          data.estado,
-          data.descripcion
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-        ];
-      });
-
-      autoTable(doc, {
-<<<<<<< HEAD
-        head: [columnas],
-        body: filas,
-        startY: 25,
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [0, 51, 102] }
-      });
-
-      doc.save('Reporte_Bitacoras_EMCA.pdf');
-    } catch (error) {
-      console.error('Error al generar el PDF local:', error);
-      alert('Error al generar el PDF');
-=======
-        startY: 22,
-        head: [columnas],
-        body: filas,
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [41, 128, 185] }
-      });
-
-      doc.save(`Bitacoras_${new Date().toISOString().split('T')[0]}.pdf`);
-    } catch (error) {
-      console.error('Error al generar PDF:', error);
-      alert('Ocurrió un error al generar el archivo PDF.');
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    }
-  };
-
-  // ===============================================
-<<<<<<< HEAD
-  // GENERAR EXCEL
-  // ===============================================
-  const handleGenerarExcel = () => {
-    try {
-      const datosExcel = bitacorasFiltradas.map((bit, index) => {
-        const valores = obtenerValoresBitacora(bit);
-        return {
-          ID: bit.id || index + 1,
-          'Título': valores.titulo,
-          'Nombre': valores.nombre,
-          'Fecha Inicio': valores.fechaInicio,
-          'Fecha Final': valores.fechaFinal,
-          'Cargo': valores.cargo,
-          'Estado': valores.estado,
-          'Descripción': valores.descripcion
-        };
-      });
-
-      const hoja = XLSX.utils.json_to_sheet(datosExcel);
-      const libro = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libro, hoja, 'Bitacoras');
-
-      XLSX.writeFile(libro, `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`);
-    } catch (error) {
-      console.error('Error al generar el Excel local:', error);
-      alert('Error al generar el Excel');
-=======
-  // GENERAR EXCEL AUTOMÁTICO
-  // ===============================================
-  const generarExcel = () => {
-    if (bitacorasFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
-
-    try {
-      const datosExcel = bitacorasFiltradas.map((bit, index) => {
-        const data = obtenerValoresBitacora(bit);
-        return {
-          ID: bit.id || index + 1,
-          Titulo: data.titulo,
-          Nombre: data.nombre,
-          FechaInicio: data.fechaInicio,
-          FechaFinal: data.fechaFinal,
-          Cargo: data.cargo,
-          Estado: data.estado,
-          Descripcion: data.descripcion
-        };
-      });
-
-      const hojaTrabajo = XLSX.utils.json_to_sheet(datosExcel);
-      const libroTrabajo = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libroTrabajo, hojaTrabajo, 'Bitácoras');
-
-      XLSX.writeFile(
-        libroTrabajo,
-        `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`
+      return (
+        coincideEmpleado &&
+        coincideFechaHora &&
+        coincideModulo
       );
+    });
+
+  // =========================================================
+  // LIMPIAR FILTROS
+  // =========================================================
+
+  const limpiarFiltros = () => {
+
+    setBuscarEmpleado('');
+    setModulosOpciones('Todos');
+    setFechaFiltro('');
+
+  };
+
+  // =========================================================
+  // PDF
+  // =========================================================
+
+  const generarPDF = async () => {
+
+    try {
+
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/bitacora/pdf',
+        {
+          method: 'GET',
+          headers: {
+            'x-api-key': 'EmcaSecret2026'
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          'Error al generar el PDF'
+        );
+      }
+
+      const blob =
+        await res.blob();
+
+      const url =
+        window.URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        `Reporte_Bitacoras_EMCA_${new Date()
+          .toISOString()
+          .split('T')[0]}.pdf`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+
     } catch (error) {
-      console.error('Error al generar Excel:', error);
-      alert('Ocurrió un error al generar el archivo Excel.');
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
+
+      console.error(
+        'Error al generar PDF:',
+        error
+      );
+
+      alert(
+        'Error al obtener el archivo PDF desde el servidor.'
+      );
     }
   };
+
+  // =========================================================
+  // EXCEL
+  // =========================================================
+
+  const generarExcel = async () => {
+
+    try {
+
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/bitacora/excel',
+        {
+          method: 'GET',
+          headers: {
+            'x-api-key': 'EmcaSecret2026'
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          'Error al generar Excel'
+        );
+      }
+
+      const blob =
+        await res.blob();
+
+      const url =
+        window.URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        `Reporte_Bitacoras_EMCA_${new Date()
+          .toISOString()
+          .split('T')[0]}.xlsx`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+
+      console.error(
+        'Error al generar Excel:',
+        error
+      );
+
+      alert(
+        'Error al obtener el archivo Excel desde el servidor.'
+      );
+    }
+  };
+
+  // =========================================================
+  // DATOS ESTADÍSTICAS
+  // =========================================================
+
+  const empleadosUnicos =
+    new Set(
+      bitacoras.map(
+        (b) =>
+          obtenerValoresBitacora(b).nombre
+      )
+    ).size;
+
+  const fechaHoy =
+    new Date()
+      .toISOString()
+      .split('T')[0];
+
+  const registrosHoy =
+    bitacoras.filter((b) =>
+      obtenerValoresBitacora(b)
+        .fechaInicio
+        ?.startsWith(fechaHoy)
+    ).length;
+
+  const registrosRevision =
+    bitacoras.filter((b) =>
+      obtenerValoresBitacora(b)
+        .estado
+        .toLowerCase()
+        .includes('revisión')
+    ).length;
+
+  // =========================================================
+  // RENDER
+  // =========================================================
 
   return (
+
     <div className="bitacoras-page">
+
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
+
       <div className="bitacoras-header">
+
         <div>
-          <h2>📒 Bitácoras del Sistema</h2>
-          <p>Consulta las actividades realizadas por los empleados</p>
+
+          <h2>
+            📒 Bitácoras del Sistema
+          </h2>
+
+          <p>
+            Consulta las actividades realizadas
+            por los empleados
+          </p>
+
         </div>
 
-        <button className="btn-primary" onClick={cargarBitacoras}>
+        <button
+          className="btn-primary"
+          onClick={cargarBitacoras}
+        >
           🔄 Actualizar
         </button>
+
       </div>
+
+      {/* =====================================================
+          ESTADÍSTICAS
+      ===================================================== */}
 
       <div className="stats-grid">
+
         <div className="stat-card">
+
           <span>📝</span>
+
           <div>
-            <h3>{bitacoras.length}</h3>
-            <p>Registros Totales</p>
+            <h3>
+              {bitacoras.length}
+            </h3>
+
+            <p>
+              Registros Totales
+            </p>
           </div>
+
         </div>
 
         <div className="stat-card">
+
           <span>👥</span>
+
           <div>
             <h3>
-              {[...new Set(bitacoras.map((b) => obtenerValoresBitacora(b).nombre))].length}
+              {empleadosUnicos}
             </h3>
-            <p>Empleados activos</p>
+
+            <p>
+              Empleados activos
+            </p>
           </div>
+
         </div>
 
         <div className="stat-card">
-          <span>📅</span>
+
+
           <div>
             <h3>
-              {
-                bitacoras.filter((b) =>
-                  obtenerValoresBitacora(b).fechaInicio?.startsWith(
-                    new Date().toISOString().split('T')[0]
-                  )
-                ).length
-              }
+              {registrosHoy}
             </h3>
-            <p>Hoy</p>
+
+            <p>
+              Hoy
+            </p>
           </div>
+
         </div>
 
         <div className="stat-card">
+
           <span>⚠️</span>
+
           <div>
             <h3>
-              {
-                bitacoras.filter(
-                  (b) => obtenerValoresBitacora(b).estado === 'Revisión'
-                ).length
-              }
+              {registrosRevision}
             </h3>
-            <p>En revisión</p>
+
+            <p>
+              En revisión
+            </p>
           </div>
+
         </div>
+
       </div>
 
+      {/* =====================================================
+          FILTROS
+      ===================================================== */}
+
       <div className="filtros-card">
+
         <div className="filtros-grid">
-          <div className="Campos">
-            <label>Buscar empleado</label>
+
+          {/* EMPLEADO */}
+
+          <div className="campo">
+
+            <label>
+              Buscar empleado
+            </label>
+
             <input
               type="text"
               placeholder="Nombre del empleado"
               value={buscarEmpleado}
-              onChange={(e) => setBuscarEmpleado(e.target.value)}
+              onChange={(e) =>
+                setBuscarEmpleado(
+                  e.target.value
+                )
+              }
             />
+
           </div>
 
-          <div className="Campos">
-            <label>Módulo</label>
+          {/* MÓDULO */}
+
+          <div className="campo">
+
+            <label>
+              Módulo
+            </label>
+
             <select
               value={modulosOpciones}
-              onChange={(e) => setModulosOpciones(e.target.value)}
+              onChange={(e) =>
+                setModulosOpciones(
+                  e.target.value
+                )
+              }
             >
-              <option value="Todos">Todos</option>
-              <option value="Solicitudes">Solicitudes</option>
-              <option value="Respuestas">Respuestas</option>
-              <option value="Informes">Informes</option>
-              <option value="Configuración">Configuración</option>
+
+              <option value="Todos">
+                Todos
+              </option>
+
+              <option value="Solicitudes">
+                Solicitudes
+              </option>
+
+              <option value="Respuestas">
+                Respuestas
+              </option>
+
+              <option value="Informes">
+                Informes
+              </option>
+
+              <option value="Configuración">
+                Configuración
+              </option>
+
             </select>
+
           </div>
 
-          <div className="Campos">
-            <label>Fecha</label>
-            <input
-              type="date"
-              value={fechaFiltro}
-              onChange={(e) => setFechaFiltro(e.target.value)}
-            />
+          {/* FECHA */}
+
+          <div className="campo">
+
+            <label>
+              Fecha y Hora
+            </label>
+
+            <div className="input-fecha-wrapper">
+
+              <input
+                ref={inputFechaRef}
+                type="datetime-local"
+                value={fechaFiltro}
+                onChange={(e) =>
+                  setFechaFiltro(
+                    e.target.value
+                  )
+                }
+                className="input-fecha"
+              />
+
+              
+
+            </div>
+
           </div>
+
+          {/* LIMPIAR */}
+
+          <div className="campo">
+
+            <label>
+              Acciones
+            </label>
+
+            <button
+              className="btn-segundario"
+              onClick={limpiarFiltros}
+            >
+             Limpiar Filtros
+            </button>
+
+          </div>
+
         </div>
+
       </div>
 
-<<<<<<< HEAD
-=======
-   
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
+      {/* =====================================================
+          TABLA
+      ===================================================== */}
+
       <div className="contenedor-scroll">
+
         <div className="tabla-card">
+
           <div className="tabla-header">
-            <h3>Últimos movimientos</h3>
+
+            <h3>
+              Últimos movimientos
+            </h3>
+
           </div>
 
           <table className="tabla-bitacoras">
+
             <thead>
+
               <tr>
-                <th>Titulo</th>
+                <th>Título</th>
                 <th>Nombre</th>
-                <th>FechaInicio</th>
-                <th>FechaFinal</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Final</th>
                 <th>Cargo</th>
                 <th>Estado</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
               </tr>
+
             </thead>
 
             <tbody>
+
               {cargando ? (
+
                 <tr>
-                  <td colSpan="8" style={{ textAlign: 'center', padding: '1rem' }}>
-                    Cargando bitácoras...
+
+                  <td
+                    colSpan="8"
+                    style={{
+                      textAlign: 'center',
+                      padding: '40px'
+                    }}
+                  >
+                     Cargando bitácoras...
                   </td>
+
                 </tr>
+
               ) : bitacorasFiltradas.length > 0 ? (
-                bitacorasFiltradas.map((bit, index) => {
-                  const item = obtenerValoresBitacora(bit);
-                  return (
-                    <tr key={bit.id || index}>
-                      <td className="empleado-info">
-                        <div className="avatar-sm">
-                          {item.nombre && item.nombre !== 'Sin empleado'
-                            ? item.nombre.substring(0, 2).toUpperCase()
-                            : 'EM'}
-                        </div>
-                        <div>
-                          <strong>{item.titulo}</strong>
-                        </div>
-                      </td>
-                      <td>{item.nombre}</td>
-                      <td>{item.fechaInicio}</td>
-                      <td>{item.fechaFinal}</td>
-                      <td>{item.cargo}</td>
-                      <td>
-                        <span
-                          className={`badge ${
-                            item.estado === 'Completado' ? 'completado' : 'revision'
-                          }`}
-                        >
-                          {item.estado}
-                        </span>
-                      </td>
-                      <td>{item.descripcion}</td>
-                      <td className="acciones">
-                        <button
-                          className="btn_VerBitacoras"
-                          onClick={() => setBitacoraSeleccionada(bit)}
-                        >
-                          👁️ Ver
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
+
+                bitacorasFiltradas.map(
+                  (bit, index) => {
+
+                    const item =
+                      obtenerValoresBitacora(bit);
+
+                    const iniciales =
+                      item.nombre &&
+                      item.nombre !==
+                        'Sin empleado'
+                        ? item.nombre
+                            .substring(0, 2)
+                            .toUpperCase()
+                        : 'EM';
+
+                    return (
+
+                      <tr
+                        key={
+                          bit.id ||
+                          index
+                        }
+                      >
+
+                        {/* TÍTULO */}
+
+                        <td className="empleado-info">
+
+                          <div className="avatar-sm">
+                            {iniciales}
+                          </div>
+
+                          <div>
+
+                            <strong>
+                              {item.titulo}
+                            </strong>
+
+                          </div>
+
+                        </td>
+
+                        {/* NOMBRE */}
+
+                        <td>
+                          {item.nombre}
+                        </td>
+
+                        {/* FECHA INICIO */}
+
+                        <td>
+                          {item.fechaInicio}
+                        </td>
+
+                        {/* FECHA FINAL */}
+
+                        <td>
+                          {item.fechaFinal}
+                        </td>
+
+                        {/* CARGO */}
+
+                        <td>
+                          {item.cargo}
+                        </td>
+
+                        {/* ESTADO */}
+
+                        <td>
+
+                          <span
+                            className={`badge ${
+                              item.estado
+                                ?.toLowerCase()
+                                .includes(
+                                  'completado'
+                                )
+                                ? 'completado'
+                                : 'revision'
+                            }`}
+                          >
+                            {item.estado}
+                          </span>
+
+                        </td>
+
+                        {/* DESCRIPCIÓN */}
+
+                        <td>
+                          {item.descripcion}
+                        </td>
+
+                        {/* ACCIONES */}
+
+                        <td className="acciones">
+
+                          <button
+                            className="btn_VerBitacoras"
+                            onClick={() =>
+                              setBitacoraSeleccionada(
+                                bit
+                              )
+                            }
+                          >
+                            👁️ Ver
+                          </button>
+
+                        </td>
+
+                      </tr>
+
+                    );
+                  }
+                )
+
               ) : (
+
                 <tr>
-                  <td colSpan="8" style={{ textAlign: 'center', padding: '1rem' }}>
-                    No se encontraron registros.
+
+                  <td
+                    colSpan="8"
+                    style={{
+                      textAlign: 'center',
+                      padding: '40px',
+                      color: '#64748b'
+                    }}
+                  >
+                    🔍 No se encontraron
+                    registros con los filtros
+                    seleccionados.
                   </td>
+
                 </tr>
+
               )}
+
             </tbody>
+
           </table>
 
-<<<<<<< HEAD
+          {/* =================================================
+              DESCARGAS
+          ================================================= */}
+
           <div className="ContainerBotonesGenerar">
-            <button className="btnGenerar_PDF" onClick={handleGenerarPDF}>
-              Generar PDF
+
+            <button
+              className="btnGenerar_PDF"
+              onClick={generarPDF}
+            >
+              📄 Generar PDF
             </button>
-            <button className="btnGenerar_EXCEL" onClick={handleGenerarExcel}>
-=======
-          
-          <div className="ContainerBotonesGenerar">
-            <button className="btnGenerar_PDF" onClick={generarPDF}>
-              Generar PDF
+
+            <button
+              className="btnGenerar_EXCEL"
+              onClick={generarExcel}
+            >
+              📊 Generar Excel
             </button>
-            <button className="btnGenerar_EXCEL" onClick={generarExcel}>
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-              Generar Excel
-            </button>
+
           </div>
+
         </div>
+
       </div>
 
-<<<<<<< HEAD
-=======
-      
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-      {bitacoraSeleccionada && (() => {
-        const modalData = obtenerValoresBitacora(bitacoraSeleccionada);
-        return (
-          <div className="modal-overlay">
-            <div className="modals-content">
-              <div className="modal-header">
-<<<<<<< HEAD
-                <div className="btnCerrarContenido"></div>
-=======
-                <div className="btnCerrarContenido">
-                </div>
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-                <h3>Detalle de Bitácora</h3>
-              </div>
+      {/* =====================================================
+          MODAL
+      ===================================================== */}
 
-              <div className="modal-body">
-                <p>
-                  <strong>Titulo:</strong> {modalData.titulo}
-                </p>
-                <p>
-                  <strong>Nombre:</strong> {modalData.nombre}
-                </p>
-                <p>
-                  <strong>FechaInicio:</strong> {modalData.fechaInicio}
-                </p>
-                <p>
-                  <strong>FechaFinal:</strong> {modalData.fechaFinal}
-                </p>
-                <p>
-                  <strong>Cargo:</strong> {modalData.cargo}
-                </p>
-                <p>
-                  <strong>Estado:</strong> {modalData.estado}
-                </p>
-                <p>
-                  <strong>Descripcion:</strong> {modalData.descripcion}
-                </p>
-              </div>
+      {bitacoraSeleccionada && (
 
-              <div className="modal-footer">
-                <button
-                  className="btn-segundario"
-                  onClick={() => setBitacoraSeleccionada(null)}
-                >
-                  Cerrar
-                </button>
-              </div>
+        <div
+          className="modal-overlay"
+          onClick={() =>
+            setBitacoraSeleccionada(null)
+          }
+        >
+
+          <div
+            className="modals-content"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
+
+            {/* HEADER */}
+
+            <div className="modal-header">
+
+              <h3>
+                📒 Detalle de Bitácora
+              </h3>
+
             </div>
+
+            {/* BODY */}
+
+            <div className="modal-body">
+
+              {(() => {
+
+                const modalData =
+                  obtenerValoresBitacora(
+                    bitacoraSeleccionada
+                  );
+
+                return (
+                  <>
+                    <p>
+                      <strong>
+                        Título:
+                      </strong>{' '}
+                      {modalData.titulo}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Nombre:
+                      </strong>{' '}
+                      {modalData.nombre}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Fecha Inicio:
+                      </strong>{' '}
+                      {modalData.fechaInicio}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Fecha Final:
+                      </strong>{' '}
+                      {modalData.fechaFinal}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Cargo:
+                      </strong>{' '}
+                      {modalData.cargo}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Estado:
+                      </strong>{' '}
+                      {modalData.estado}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Módulo:
+                      </strong>{' '}
+                      {modalData.modulo}
+                    </p>
+
+                    <p>
+                      <strong>
+                        Descripción:
+                      </strong>{' '}
+                      {modalData.descripcion}
+                    </p>
+                  </>
+                );
+
+              })()}
+
+            </div>
+
+            {/* FOOTER */}
+
+            <div className="modal-footer">
+
+              <button
+                className="btn-segundario"
+                onClick={() =>
+                  setBitacoraSeleccionada(null)
+                }
+              >
+                Cerrar
+              </button>
+
+            </div>
+
           </div>
-        );
-      })()}
+
+        </div>
+
+      )}
+
     </div>
   );
 }
