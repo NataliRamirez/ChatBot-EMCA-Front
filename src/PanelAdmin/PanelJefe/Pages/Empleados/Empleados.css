@@ -172,6 +172,7 @@ label{
 
 .empleados-table tbody tr:hover{
   background:#f8fafc;
+  color: #000;
 }
 
 /* =========================================

@@ -1,36 +1,75 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './SolicitudesJefe.css';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import * as XLSX from 'xlsx';
+
+// ===============================================
+// FORMATEAR FECHA
+// ===============================================
+const formatearFecha = (fecha) => {
+  if (!fecha || fecha === 'N/A') return 'N/A';
+
+  const fechaStr = String(fecha);
+
+  if (fechaStr.includes('T')) {
+    const [fechaParte, horaParte] = fechaStr.split('T');
+    const hora = horaParte ? horaParte.substring(0, 5) : '';
+
+    return hora
+      ? `${fechaParte} ${hora}`
+      : fechaParte;
+  }
+
+  return fechaStr.length >= 16
+    ? fechaStr.substring(0, 16)
+    : fechaStr;
+};
+
+// ===============================================
+// CONVERTIR FECHA PARA COMPARAR CON DATETIME-LOCAL
+// ===============================================
+const normalizarFechaFiltro = (fecha) => {
+  if (!fecha || fecha === 'N/A') return '';
+
+  const fechaStr = String(fecha);
+
+  if (fechaStr.includes('T')) {
+    return fechaStr.substring(0, 16).replace('T', ' ');
+  }
+
+  return fechaStr.substring(0, 16);
+};
 
 export default function SolicitudesJefe() {
-
   const [solicitudes, setSolicitudes] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [filtroEstado, setFiltroEstado] = useState('Todas');
+  const [fechaFiltro, setFechaFiltro] = useState('');
   const [solicitudSeleccionada, setSolicitudSeleccionada] = useState(null);
+  const [cargando, setCargando] = useState(false);
 
-  const [tituloFiltro, setTitulo] = useState('');
-  const [nombreFiltro, setNombre] = useState('');
-  const [radicadoFiltro, setRadicado] = useState('');
-  const [tipoFiltro, setTipo] = useState('');
-  const [usuarioFiltro, setUsuario] = useState('');
-  const [asuntoFiltro, setAsunto] = useState('');
-  const [fechaInicioFiltro, setFechaInicio] = useState('');
-  const [fechaFinalFiltro, setFechaFinal] = useState('');
-  const [cargoFiltro, setCargo] = useState('');
-  const [estadoFiltro, setEstado] = useState('');
-  const [estadoOpciones, setEstadoOpciones] = useState('Todos');
-  const [observacionFiltro, setObservacion] = useState('');
+  const inputFechaRef = useRef(null);
 
-  // =========================
+  // ===============================================
+  // ABRIR CALENDARIO NATIVO
+  // ===============================================
+  const abrirCalendario = () => {
+    if (!inputFechaRef.current) return;
+
+    if (
+      'showPicker' in HTMLInputElement.prototype
+    ) {
+      inputFechaRef.current.showPicker();
+    } else {
+      inputFechaRef.current.focus();
+    }
+  };
+
+  // ===============================================
   // OBTENER SOLICITUDES
-  // =========================
+  // ===============================================
   const obtenerSolicitudes = async () => {
+    setCargando(true);
 
     try {
-
       const res = await fetch(
         'http://127.0.0.1:4000/v1/solicitudes',
         {
@@ -41,19 +80,31 @@ export default function SolicitudesJefe() {
       );
 
       if (!res.ok) {
-        throw new Error('Error al obtener solicitudes');
+        throw new Error(
+          `Error HTTP ${res.status}`
+        );
       }
 
       const data = await res.json();
 
-      setSolicitudes(data);
-
+      setSolicitudes(
+        Array.isArray(data)
+          ? data
+          : data.data || []
+      );
     } catch (error) {
-
-      console.error('Error al conectar con la API:', error);
+      console.error(
+        'Error al conectar con la API:',
+        error
+      );
 
       setSolicitudes([]);
 
+      alert(
+        'Error de conexión con el servidor.'
+      );
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -61,544 +112,824 @@ export default function SolicitudesJefe() {
     obtenerSolicitudes();
   }, []);
 
+  // ===============================================
+  // MAPEO DE SOLICITUD
+  // ===============================================
+  const obtenerValoresSolicitudes = (bit) => {
+    const titulo =
+      bit.titulo || 'N/A';
 
-  //===============================
-  //MAPEO DE SOLICITUDES
-  //===============================
-  const obtenerValoresSolicitudes = (bit) =>{
-       
-     const titulo = bit.titulo ||
-       'N/A'
-      
+    const nombre =
+      bit.nombre ||
+      bit.empleado_nombre ||
+      bit.empleado ||
+      bit.usuario_nombre ||
+      bit.usuario ||
+      'Sin empleado';
 
-       //TENER EN CUENTA ES VALIDAR ESTOS DATOS , asi como bienen del panel admin deben 
-       // llegar al panel del jefe y n caso de que no concidan llegara nulo
-     const nombre =
-       bit.empleado_nombre ||
-       bit.empleado ||
-       bit.usuario_nombre ||
-       bit.usuario ||
-       bit.nombre ||
-       bit.user ||
-       'Sin empleado'
+    const radicado =
+      bit.radicado ||
+      bit.Nradicado ||
+      'N/A';
 
-       const radicado =
-         bit.Nradicado ||
-         bit.radicado ||
-         'N/A'
+    const tipo =
+      bit.tipo ||
+      bit.tipo_solicitud ||
+      'N/A';
 
-         const tipo =
-          bit.tipo_solicitud ||
-          bit.tipo  ||
-          bit.radicado_solicitud ||
-          bit.radicado ||
-          'N/A'
+    const usuario =
+      bit.usuario ||
+      bit.usuario_nombre ||
+      'N/A';
 
-         const usuario =
-           bit.usuario_nombre ||
-           bit.usuario_nombre ||
-           bit.nombre ||
-           bit.user ||
-           'N/A'
+    const asunto =
+      bit.asunto ||
+      bit.descripcion_asunto ||
+      bit.descripcion ||
+      'N/A';
 
-           const asunto =
-            bit.descripcion_asunto ||
-            bit.descripcion ||
-            bit.asunto ||
-            'N/A'
+    const fechaInicioOriginal =
+      bit.fechaInicio ||
+      bit.created_at ||
+      bit.createdAt ||
+      bit.fecha_registro;
 
+    const fechaFinalOriginal =
+      bit.fechaFinal ||
+      bit.fecha ||
+      bit.updated_at;
 
-           const fechaInicio =
-           bit.fechaInicio ||
-             bit.fechaFinal ||
-             bit.created_at ||
-             bit.createdAt  ||
-             bit.fecha_registro ||
-             'N/A';
+    const fechaInicio =
+      formatearFecha(fechaInicioOriginal);
 
-             const fechaFinal =
-               bit.fecha ||
-               bit.created_at ||
-               bit.createdAt ||
-               bit.fecha_registro ||
-               'N/A'
+    const fechaFinal =
+      formatearFecha(fechaFinalOriginal);
 
-               const cargo =
-                 bit.cargo ||
-                 bit.rol  ||
-                 bit.puesto ||
-                 'N/A'
+    const cargo =
+      bit.cargo ||
+      bit.rol ||
+      bit.puesto ||
+      'N/A';
 
-                 const estado =
-                   bit.estado ||
-                   bit.status ||
-                   '';
+    const estado =
+      bit.estado ||
+      bit.status ||
+      'N/A';
 
-                   const observacion =
-                     bit.reporte_observacion ||
-                     bit.reporte ||
-                     bit.observacion ||
-                     bit.descripcion ||
-                     'N/A'
+    const observacion =
+      bit.observacion ||
+      bit.reporte_observacion ||
+      'N/A';
 
-    return { titulo, nombre, radicado, tipo, usuario, asunto, fechaInicio, fechaFinal, cargo, estado, observacion}
-  }
-
-  // =========================
-  // FILTROS
-  // =========================
-const solicitudesFiltradas = solicitudes.filter((bit) =>{
-  const {titulo, nombre, radicado, tipo, usuario, asunto, fechaInicio, fechaFinal, cargo, estado, observacion} = 
-  obtenerValoresSolicitudes(bit);
-
-  const coincideTitulo =
-    !tituloFiltro || titulo.toLowerCase().includes(tituloFiltro);
-
-  const coincideNombre =
-    !nombreFiltro || nombre.toLowerCase().includes(nombreFiltro);
-
-  const coincideRadicado =
-    !radicadoFiltro || radicado.toLowerCase().includes(radicadoFiltro);
-
-  const coincideTipo =
-    !tipoFiltro || tipo.toLocaleLowerCase().includes(tipoFiltro);
-  
-  const coincideUsuario =
-    !usuario || usuario.toLocaleLowerCase().includes(usuarioFiltro);
-
-  const coincideAsunto =
-     !asuntoFiltro || asunto.toLocaleLowerCase().includes(asuntoFiltro);
-
-  const coincideFechaInicio =
-    !fechaInicio || (fechaInicio && fechaInicio.includes(fechaInicioFiltro));
-  
-  const coincideFechaFinal = 
-    !fechaFinal || (fechaFinal && fechaFinal.includes(fechaFinalFiltro));
-
-  const coincideCargo =
-    !cargoFiltro ||
-    cargoFiltro =='todos' ||
-    cargo.toLowerCase() === estadoOpciones.toLowerCase();
-
-  const coincideEstado =
-    !estadoFiltro
-    estadoFiltro ||
-    estado.toLowerCase()===estadoOpciones.toLowerCase();
-
-  const coincideObservacion = 
-   !observacionFiltro || observacion.toLocaleLowerCase().includes(observacionFiltro);
-
-  return (coincideTitulo && coincideNombre && coincideRadicado && coincideTipo && coincideUsuario && coincideAsunto && coincideFechaInicio && coincideFechaFinal && coincideCargo && coincideEstado && coincideObservacion);
-})
-
-//============================
-//Generar PDF
-//============================
-<<<<<<< HEAD
-// ============================
-  // Generar PDF desde el Frontend (jsPDF + AutoTable)
-  // ============================
-  const generarPDF = () => {
-    try {
-      const doc = new jsPDF();
-
-      doc.setFontSize(14);
-      doc.text('EMCA E.S.P. - Reporte de Solicitudes', 14, 15);
-
-      const columnas = [
-        'Título', 'Nombre', 'Radicado', 'Tipo', 'Asunto', 'Fecha Inicio', 'Estado'
-      ];
-
-      const filas = solicitudesFiltradas.map((sol) => {
-        const valores = obtenerValoresSolicitudes(sol);
-        return [
-          valores.titulo,
-          valores.nombre,
-          valores.radicado,
-          valores.tipo,
-          valores.asunto,
-          valores.fechaInicio,
-          valores.estado
-=======
-
-const generarPDF = () => {
-    if (solicitudesFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
-
-    try {
-      const doc = new jsPDF();
-      doc.setFontSize(14);
-      doc.text('Reporte de Bitácoras del Sistema', 14, 15);
-
-      const columnas = [
-        'Titulo',
-        'Nombre',
-        'Radicado',
-        'Tipo',
-        'Usuario',
-        'asunto',
-        'FechaInicio',
-        'FechaFinal',
-        'Cargo',
-        'Estado',
-        'Observacion'
-      ];
-
-      const filas = solicitudesFiltradas.map((bit) => {
-        const data = obtenerValoresSolicitudes(bit);
-        return [
-          data.titulo,
-          data.nombre,
-          data.radicado,
-          data.tipo,
-          data.usuario,
-          data.asunto,
-          data.fechaInicio,
-          data.fechaFinal,
-          data.cargo,
-          data.estado,
-          data.observacion
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-        ];
-      });
-
-      autoTable(doc, {
-<<<<<<< HEAD
-        head: [columnas],
-        body: filas,
-        startY: 25,
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [0, 51, 102] }
-      });
-
-      doc.save('Reporte_Solicitudes_EMCA.pdf');
-    } catch (error) {
-      console.error('Error al generar el PDF local:', error);
-      alert('Error al generar el PDF');
-    }
-  };
-
-  // ============================
-  // Generar Excel desde el Frontend (SheetJS XLSX)
-  // ============================
-  const generarExcel = () => {
-    try {
-      const datosExcel = solicitudesFiltradas.map((sol) => {
-        const valores = obtenerValoresSolicitudes(sol);
-        return {
-          'Título': valores.titulo,
-          'Nombre': valores.nombre,
-          'Radicado': valores.radicado,
-          'Tipo': valores.tipo,
-          'Usuario': valores.usuario,
-          'Asunto': valores.asunto,
-          'Fecha Inicio': valores.fechaInicio,
-          'Fecha Final': valores.fechaFinal,
-          'Cargo': valores.cargo,
-          'Estado': valores.estado,
-          'Observaciones': valores.observacion
-        };
-      });
-
-      const hoja = XLSX.utils.json_to_sheet(datosExcel);
-      const libro = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libro, hoja, 'Solicitudes');
-
-      XLSX.writeFile(libro, 'Reporte_Solicitudes_EMCA.xlsx');
-    } catch (error) {
-      console.error('Error al generar el Excel local:', error);
-      alert('Error al generar el Excel');
-=======
-        startY: 22,
-        head: [columnas],
-        body: filas,
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [41, 128, 185] }
-      });
-
-      doc.save(`Bitacoras_${new Date().toISOString().split('T')[0]}.pdf`);
-    } catch (error) {
-      console.error('Error al generar PDF:', error);
-      alert('Ocurrió un error al generar el archivo PDF.');
-    }
+    return {
+      titulo,
+      nombre,
+      radicado,
+      tipo,
+      usuario,
+      asunto,
+      fechaInicio,
+      fechaFinal,
+      cargo,
+      estado,
+      observacion,
+      fechaInicioOriginal,
+      fechaFinalOriginal
+    };
   };
 
   // ===============================================
-  // GENERAR EXCEL AUTOMÁTICO
+  // FILTRAR SOLICITUDES
   // ===============================================
-  const generarExcel = () => {
-    if (solicitudesFiltradas.length === 0) {
-      alert('No hay registros de bitácoras para descargar.');
-      return;
-    }
+  const solicitudesFiltradas =
+    solicitudes.filter((bit) => {
+      const data =
+        obtenerValoresSolicitudes(bit);
 
-    try {
-      const datosExcel = solicitudesFiltradas.map((bit, index) => {
-        const data = obtenerValoresSolicitudes(bit);
-        return {
-          ID: bit.id || index + 1,
-          Titulo: data.titulo,
-          Nombre: data.nombre,
-          Radicado: data.radicado,
-          Tipo: data.tipo,
-          Usuario: data.usuario,
-          Asunto: data.Asunto,
-          FechaInicio: data.fechaInicio,
-          FechaFinal: data.fechaFinal,
-          Cargo: data.cargo,
-          Estado: data.estado,
-          Observacion: data.observacion
-        };
-      });
+      const texto =
+        busqueda
+          .toLowerCase()
+          .trim();
 
-      const hojaTrabajo = XLSX.utils.json_to_sheet(datosExcel);
-      const libroTrabajo = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libroTrabajo, hojaTrabajo, 'Bitácoras');
+      const coincideBusqueda =
+        !texto ||
+        String(data.radicado)
+          .toLowerCase()
+          .includes(texto) ||
+        String(data.nombre)
+          .toLowerCase()
+          .includes(texto) ||
+        String(data.titulo)
+          .toLowerCase()
+          .includes(texto) ||
+        String(data.tipo)
+          .toLowerCase()
+          .includes(texto) ||
+        String(data.usuario)
+          .toLowerCase()
+          .includes(texto) ||
+        String(data.asunto)
+          .toLowerCase()
+          .includes(texto);
 
-      XLSX.writeFile(
-        libroTrabajo,
-        `Bitacoras_${new Date().toISOString().split('T')[0]}.xlsx`
+      const coincideEstado =
+        filtroEstado === 'Todas' ||
+        data.estado
+          .toLowerCase()
+          .trim() ===
+          filtroEstado
+            .toLowerCase()
+            .trim();
+
+      let coincideFecha = true;
+
+      if (fechaFiltro) {
+        const filtro =
+          fechaFiltro
+            .replace('T', ' ');
+
+        const inicio =
+          normalizarFechaFiltro(
+            data.fechaInicioOriginal
+          );
+
+        const final =
+          normalizarFechaFiltro(
+            data.fechaFinalOriginal
+          );
+
+        coincideFecha =
+          inicio.includes(filtro) ||
+          final.includes(filtro);
+      }
+
+      return (
+        coincideBusqueda &&
+        coincideEstado &&
+        coincideFecha
       );
+    });
+
+  // ===============================================
+  // LIMPIAR FILTROS
+  // ===============================================
+  const limpiarFiltros = () => {
+    setBusqueda('');
+    setFiltroEstado('Todas');
+    setFechaFiltro('');
+  };
+
+  const hayFiltros =
+    busqueda ||
+    filtroEstado !== 'Todas' ||
+    fechaFiltro;
+
+  // ===============================================
+  // GENERAR PDF
+  // ===============================================
+  const generarPDF = async () => {
+    try {
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/solicitudes/pdf',
+        {
+          method: 'GET',
+          headers: {
+            'x-api-key': 'EmcaSecret2026'
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          'Error al generar PDF'
+        );
+      }
+
+      const blob =
+        await res.blob();
+
+      const url =
+        window.URL.createObjectURL(
+          blob
+        );
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        `Reporte_Solicitudes_EMCA_${new Date()
+          .toISOString()
+          .split('T')[0]}.pdf`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error al generar Excel:', error);
-      alert('Ocurrió un error al generar el archivo Excel.');
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
+      console.error(error);
+
+      alert(
+        'Error al obtener el archivo PDF.'
+      );
     }
   };
-  return (
 
+  // ===============================================
+  // GENERAR EXCEL
+  // ===============================================
+  const generarExcel = async () => {
+    try {
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/solicitudes/excel',
+        {
+          method: 'GET',
+          headers: {
+            'x-api-key': 'EmcaSecret2026'
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          'Error al generar Excel'
+        );
+      }
+
+      const blob =
+        await res.blob();
+
+      const url =
+        window.URL.createObjectURL(
+          blob
+        );
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        `Reporte_Solicitudes_EMCA_${new Date()
+          .toISOString()
+          .split('T')[0]}.xlsx`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        'Error al obtener el archivo Excel.'
+      );
+    }
+  };
+
+  return (
     <div className="solicitudes-page">
 
+      {/* =========================================
+          HEADER
+      ========================================== */}
       <div className="solicitudes-header">
-
         <div>
-          <h2>📥 Gestor de Solicitudes</h2>
+          <h2>
+            📥 Gestor de Solicitudes
+          </h2>
+
           <p>
-            Administra y consulta los requerimientos recibidos
+            Administra y consulta los
+            requerimientos recibidos
           </p>
         </div>
 
         <button
           className="btn-actualizar"
           onClick={obtenerSolicitudes}
+          disabled={cargando}
         >
-          🔄 Actualizar
+          {cargando
+            ? '⏳ Cargando...'
+            : '🔄 Actualizar'}
         </button>
+      </div>
+
+      {/* =========================================
+          ESTADÍSTICAS
+      ========================================== */}
+      <div className="stats-grid">
+
+        <div className="stat-card">
+          <span>📋</span>
+
+          <div>
+            <h3>
+              {solicitudes.length}
+            </h3>
+
+            <p>
+              Solicitudes totales
+            </p>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <span>⏳</span>
+
+          <div>
+            <h3>
+              {
+                solicitudes.filter(
+                  (s) =>
+                    obtenerValoresSolicitudes(s)
+                      .estado
+                      .toLowerCase() ===
+                    'pendiente'
+                ).length
+              }
+            </h3>
+
+            <p>
+              Pendientes
+            </p>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <span>🔄</span>
+
+          <div>
+            <h3>
+              {
+                solicitudes.filter(
+                  (s) =>
+                    obtenerValoresSolicitudes(s)
+                      .estado
+                      .toLowerCase() ===
+                    'en proceso'
+                ).length
+              }
+            </h3>
+
+            <p>
+              En proceso
+            </p>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <span>✅</span>
+
+          <div>
+            <h3>
+              {
+                solicitudes.filter(
+                  (s) =>
+                    obtenerValoresSolicitudes(s)
+                      .estado
+                      .toLowerCase() ===
+                    'respondida'
+                ).length
+              }
+            </h3>
+
+            <p>
+              Respondidas
+            </p>
+          </div>
+        </div>
 
       </div>
 
-      {/* Filtros */}
-      <div className="filtros-bar">
+      {/* =========================================
+          FILTROS
+      ========================================== */}
+      <div className="filtros-card">
 
-        <input
-          type="text"
-          placeholder="🔍 Buscar por radicado o ciudadano..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          className="input-busqueda"
-        />
+        <div className="filtros-grid">
 
-        <div className="grupo-select">
+          <div className="campo">
+            <label>
+              Buscar solicitud
+            </label>
 
-          <label>Filtrar por Estado:</label>
+            <input
+              type="text"
+              placeholder="🔍 Radicado, título, ciudadano..."
+              value={busqueda}
+              onChange={(e) =>
+                setBusqueda(e.target.value)
+              }
+            />
+          </div>
 
-          <select
-            value={filtroEstado}
-            onChange={(e) => setFiltroEstado(e.target.value)}
+          <div className="campo">
+            <label>
+              Estado
+            </label>
+
+            <select
+              value={filtroEstado}
+              onChange={(e) =>
+                setFiltroEstado(
+                  e.target.value
+                )
+              }
+            >
+              <option value="Todas">
+                Todos los estados
+              </option>
+
+              <option value="Pendiente">
+                Pendientes
+              </option>
+
+              <option value="En proceso">
+                En proceso
+              </option>
+
+              <option value="Respondida">
+                Respondidas
+              </option>
+            </select>
+          </div>
+
+          <div className="campo">
+            <label>
+              Fecha y hora
+            </label>
+
+            <div className="input-fecha-wrapper">
+
+              <input
+                ref={inputFechaRef}
+                type="datetime-local"
+                value={fechaFiltro}
+                onChange={(e) =>
+                  setFechaFiltro(
+                    e.target.value
+                  )
+                }
+              />
+
+            
+
+            </div>
+          </div>
+
+          <div className="campo campo-boton">
+
+            <button
+              className="btn-limpiar"
+              onClick={limpiarFiltros}
+              disabled={!hayFiltros}
+            >
+               Limpiar filtros
+            </button>
+
+          </div>
+
+        </div>
+
+        <div className="resultado-filtros">
+          Mostrando{' '}
+          <strong>
+            {solicitudesFiltradas.length}
+          </strong>{' '}
+          de{' '}
+          <strong>
+            {solicitudes.length}
+          </strong>{' '}
+          solicitudes
+        </div>
+
+      </div>
+
+      {/* =========================================
+          TABLA
+      ========================================== */}
+      <div className="tabla-card">
+
+        <div className="tabla-header">
+          <div>
+            <h3>
+              Solicitudes registradas
+            </h3>
+
+            <p>
+              Consulta la información
+              detallada de cada solicitud.
+            </p>
+          </div>
+        </div>
+
+        <div className="tabla-scroll">
+
+          <table className="tabla-solicitudes">
+
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Nombre</th>
+                <th>Radicado</th>
+                <th>Tipo</th>
+                <th>Usuario</th>
+                <th>Asunto</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Final</th>
+                <th>Cargo</th>
+                <th>Estado</th>
+                <th>Observación</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {cargando ? (
+
+                <tr>
+                  <td
+                    colSpan="12"
+                    className="sin-resultados"
+                  >
+                     Cargando solicitudes...
+                  </td>
+                </tr>
+
+              ) : solicitudesFiltradas.length > 0 ? (
+
+                solicitudesFiltradas.map(
+                  (sol, index) => {
+
+                    const data =
+                      obtenerValoresSolicitudes(
+                        sol
+                      );
+
+                    const estadoClase =
+                      data.estado
+                        .toLowerCase()
+                        .replace(
+                          /\s+/g,
+                          '-'
+                        );
+
+                    return (
+                      <tr
+                        key={
+                          sol.id ||
+                          sol.ID ||
+                          index
+                        }
+                      >
+
+                        <td>
+                          <strong>
+                            {data.titulo}
+                          </strong>
+                        </td>
+
+                        <td>
+                          {data.nombre}
+                        </td>
+
+                        <td>
+                          <strong className="radicado">
+                            {data.radicado}
+                          </strong>
+                        </td>
+
+                        <td>
+                          <span className="badge-tipo">
+                            {data.tipo}
+                          </span>
+                        </td>
+
+                        <td>
+                          {data.usuario}
+                        </td>
+
+                        <td className="celda-descripcion">
+                          {data.asunto}
+                        </td>
+
+                        <td>
+                          {data.fechaInicio}
+                        </td>
+
+                        <td>
+                          {data.fechaFinal}
+                        </td>
+
+                        <td>
+                          {data.cargo}
+                        </td>
+
+                        <td>
+                          <span
+                            className={`badge-estado ${estadoClase}`}
+                          >
+                            {data.estado}
+                          </span>
+                        </td>
+
+                        <td className="celda-descripcion">
+                          {data.observacion}
+                        </td>
+
+                        <td>
+
+                          <button
+                            className="btn-accion"
+                            onClick={() =>
+                              setSolicitudSeleccionada(
+                                data
+                              )
+                            }
+                          >
+                            👁️ Ver
+                          </button>
+
+                        </td>
+
+                      </tr>
+                    );
+                  }
+                )
+
+              ) : (
+
+                <tr>
+                  <td
+                    colSpan="12"
+                    className="sin-resultados"
+                  >
+                    📭 No se encontraron
+                    solicitudes con los
+                    filtros seleccionados.
+                  </td>
+                </tr>
+
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        {/* =========================================
+            BOTONES DESCARGA
+        ========================================== */}
+
+        <div className="contenidoBotones">
+
+          <button
+            className="btn-descargar btn-pdf"
+            onClick={generarPDF}
           >
+            📄 Descargar PDF
+          </button>
 
-            <option value="Todas">Todas</option>
-            <option value="Pendiente">Pendientes</option>
-            <option value="En proceso">En proceso</option>
-            <option value="Respondida">Respondidas</option>
-
-          </select>
+          <button
+            className="btn-descargar btn-excel"
+            onClick={generarExcel}
+          >
+            📊 Descargar Excel
+          </button>
 
         </div>
 
       </div>
 
-      {/* Tabla */}
-      <div className="tablas-card">
+      {/* =========================================
+          MODAL
+      ========================================== */}
 
-        <table className="tablas-solicitudes">
-
-          <thead>
-
-            <tr>
-              <th>Titulo</th>
-              <th>Nombre</th>
-              <th>Radicado</th>
-              <th>tipo</th>
-              <th>usuario</th>
-              <th>Asunto</th>
-              <th>Fecha Inicio</th>
-              <th>Fecha Final</th>
-              <th>Cargo</th>
-              <th>Estado</th>
-              <th>Observaciones</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {solicitudesFiltradas.length > 0 ? (
-
-              solicitudesFiltradas.map((sol) => (
-
-                <tr key={sol.id}>
-
-                  <td>
-                    <strong>{sol.titulo}</strong>
-                  </td>
-
-                  <td>
-                      <strong>{sol.nombre}</strong>
-                  </td>
-
-                  <td>
-                    <strong>{sol.radicado}</strong>
-                  </td>
-                    
-                  <td>
-                    <span className="badge-tipo">
-                      {sol.tipo}
-                    </span>
-                  </td>
-
-                  <td>
-                    <strong>{sol.asunto}</strong>
-                  </td>
-
-                  <td>
-                    <strong>{sol.fechaInicio}</strong>
-                  </td>
-
-                  <td>
-                    <strong>{sol.fechaFinal}</strong>
-                  </td>
-
-                  <td>
-                    <strong>{sol.cargo}</strong>
-                  </td>
-
-                  <td>
-
-                    <span
-                      className={`badge-estado ${sol.estado
-                        .toLowerCase()
-                        .replace(' ', '-')}`}
-                    >
-                      {sol.estado}
-                    </span>
-
-                  </td>
-
-                  <td>
-                    <strong>{sol.Observacion}</strong>
-                  </td>
-
-                  <td>
-
-                    <button
-                      className="btn-accion"
-                      onClick={() => setSolicitudSeleccionada(sol)}
-                    >
-                      👁️ Ver
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              ))
-
-            ) : (
-
-              <tr>
-
-                <td
-                  colSpan="8"
-                  className="sin-resultados"
-                >
-                  No se encontraron solicitudes.
-                </td>
-
-              </tr>
-
-            )}
-
-          </tbody>
-        </table>
-               
-               <div className='contenidoBotones'>
-                    <button className='btn_descagarPDF' onClick={generarPDF}>Descargar PDF</button>
-                    <button className='btn_descargarEXCEL' onClick={generarExcel}>Descargar Excel</button>
-               </div>
-      </div>
-
-      {/* Modal */}
       {solicitudSeleccionada && (
 
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div
+          className="modal-overlay"
+          onClick={() =>
+            setSolicitudSeleccionada(null)
+          }
+        >
+
+          <div
+            className="modal-content"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
 
             <div className="modal-header">
-                <div className='Contenido_Cerrar'>
-                </div>
-              <h3>
-                Solicitud {solicitudSeleccionada.radicado}
-              </h3>
+
+              <div>
+                <span className="modal-etiqueta">
+                  SOLICITUD
+                </span>
+
+                <h3>
+                  #{solicitudSeleccionada.radicado}
+                </h3>
+              </div>
+
             </div>
 
             <div className="modal-body">
 
-              <p>
-                <strong>Ciudadano:</strong>{' '}
-                {solicitudSeleccionada.nombre}
-              </p>
+              <div className="detalle-grid">
 
-              <p>
-                <strong>Tipo:</strong>{' '}
-                {solicitudSeleccionada.tipo}
-              </p>
+                <div className="detalle-item">
+                  <span>Título</span>
+                  <strong>
+                    {solicitudSeleccionada.titulo}
+                  </strong>
+                </div>
 
-              <p>
-                <strong>Fecha Inicio:</strong>{' '}
-                {solicitudSeleccionada.fechaInicio}
-              </p>
+                <div className="detalle-item">
+                  <span>Ciudadano / Empleado</span>
+                  <strong>
+                    {solicitudSeleccionada.nombre}
+                  </strong>
+                </div>
 
-              <p>
-                <strong>Fecha Final:</strong>{' '}
-                {solicitudSeleccionada.fechaFinal}
-              </p>
+                <div className="detalle-item">
+                  <span>Tipo</span>
+                  <strong>
+                    {solicitudSeleccionada.tipo}
+                  </strong>
+                </div>
 
-              <p>
-                <strong>Estado:</strong>{' '}
-                {solicitudSeleccionada.estado}
-              </p>
+                <div className="detalle-item">
+                  <span>Usuario registra</span>
+                  <strong>
+                    {solicitudSeleccionada.usuario}
+                  </strong>
+                </div>
 
-              
+                <div className="detalle-item">
+                  <span>Cargo</span>
+                  <strong>
+                    {solicitudSeleccionada.cargo}
+                  </strong>
+                </div>
 
-              <p>
-                <strong>Asunto:</strong>
-              </p>
+                <div className="detalle-item">
+                  <span>Fecha inicio</span>
+                  <strong>
+                    {solicitudSeleccionada.fechaInicio}
+                  </strong>
+                </div>
 
-              <div className="box-detalle">
-                {solicitudSeleccionada.asunto}
+                <div className="detalle-item">
+                  <span>Fecha final</span>
+                  <strong>
+                    {solicitudSeleccionada.fechaFinal}
+                  </strong>
+                </div>
+
+                <div className="detalle-item">
+                  <span>Estado</span>
+                  <strong>
+                    {solicitudSeleccionada.estado}
+                  </strong>
+                </div>
+
               </div>
 
-            
+              <div className="detalle-bloque">
 
-              <p>
-                <strong>Observación:</strong>
-              </p>
+                <span>
+                  Asunto
+                </span>
 
-              <div className="box-detalle">
-                {solicitudSeleccionada.observacion}
+                <div className="box-detalle">
+                  {solicitudSeleccionada.asunto}
+                </div>
+
+              </div>
+
+              <div className="detalle-bloque">
+
+                <span>
+                  Observación
+                </span>
+
+                <div className="box-detalle">
+                  {solicitudSeleccionada.observacion}
+                </div>
+
               </div>
 
             </div>
@@ -606,8 +937,12 @@ const generarPDF = () => {
             <div className="modal-footer">
 
               <button
-                className="btn-segundario"
-                onClick={() => setSolicitudSeleccionada(null)}
+                className="btn-secundario"
+                onClick={() =>
+                  setSolicitudSeleccionada(
+                    null
+                  )
+                }
               >
                 Cerrar
               </button>

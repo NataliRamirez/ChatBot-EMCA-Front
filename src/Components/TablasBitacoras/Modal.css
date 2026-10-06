@@ -1,407 +1,572 @@
-/* =======================
-   VARIABLES GLOBALES
-========================== */
+/* =========================================================
+   MODALES DE BITÁCORAS - EMCA
+   ESTILOS COMPLETAMENTE AISLADOS
+========================================================= */
+
 :root {
-  --bg-primary: #005dca;
-  --bg-primary-dark: #0048a0;
-  --bg-input: #ffffff;
-  --text-main: #ffffff;
-  --text-dark: #1e293b;
-  --btn-blue: #3b76fb;
-  --btn-red: #ff1100;
-  --btn-red-hover: #ce0303;
-  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.25);
-  --shadow-input: 0 2px 6px rgba(0, 0, 0, 0.12);
-  --radius-lg: 16px;
-  --radius-md: 8px;
-}
+    --bitacora-bg-header: #3B76FB;
+    --bitacora-bg-body: #ffffff;
+    --bitacora-bg-input: #ffffff;
 
-/* =======================
-   FONDO DEL MODAL
-========================== */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(18, 26, 56, 0.88);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  padding: 16px;
-  box-sizing: border-box;
-}
+    --bitacora-text-light: #ffffff;
+    --bitacora-text-dark: #1e293b;
+    --bitacora-text-label: #475569;
 
-/* =======================
-   MODAL CREAR, EDITAR Y VER
-========================== */
-.modal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: var(--radius-lg);
-  color: var(--text-dark);
-  background-color: #3B76FB;
-  width: 100%;
-  max-width: 520px;
-  max-height: 90vh; 
-  padding: 28px 24px;
-  box-shadow: var(--shadow-soft);
-  box-sizing: border-box;
-}
+    --bitacora-border: #e2e8f0;
 
-.modals {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-radius: var(--radius-lg);
-  color: var(--text-dark);
-  background-color:#3B76FB;
-  width: 100%;
-  max-width: 440px;
-  padding: 24px;
-  box-shadow: var(--shadow-soft);
-  box-sizing: border-box;
-}
+    --bitacora-radius-lg: 16px;
+    --bitacora-radius-md: 10px;
+    --bitacora-radius-sm: 6px;
 
-/* =======================
-   TITULOS Y CAMPOS DE TEXTO
-========================== */
-h2 {
-  color: var(--text-main);
-  font-size: 27px;
-  font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
-  letter-spacing: 0.3px;
-}
+    --bitacora-shadow-main:
+        0px 10px 25px rgba(0, 0, 0, 0.15);
 
-.campos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
-  width: 100%;
-  margin-bottom: 14px;
-  color: var(--text-main);
-  font-size: 14px;
-}
+    --bitacora-shadow-input:
+        0px 2px 6px rgba(0, 0, 0, 0.08);
 
-.campos strong {
-  margin-bottom: 6px;
-  font-weight: 600;
-<<<<<<< HEAD
-  font-size: 20px;
-=======
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  letter-spacing: 0.2px;
-}
-
-.campos p {
-  background-color: var(--bg-input);
-  text-align: left;
-  color: var(--text-dark);
-  min-height: 42px;
-  height: auto; 
-  width: 100%; 
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-<<<<<<< HEAD
-  margin: 0;
-  font-size: 20px;
-=======
-  box-shadow: var(--shadow-input);
-  box-sizing: border-box;
-  margin: 0;
-  font-size: 15px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-/* =======================
-   LABELS, INPUTS, SELECTS Y TEXTAREA
-========================== */
-.contenidos_crear,
-.contenidos_editar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
- 
-}
-
-.contenidos_crear label,
-.contenidos_editar label {
-  width: 100%;
-  color: var(--text-main);
-  font-size: 25px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  text-align: left;
+    --bitacora-transition:
+        all 0.25s ease;
 }
 
 
-/*CONTENIDO GENERAL DE LOS CAMPOS DEL MODULO DEL MODAL*/
-.contenidos_crear input,
-.contenidos_editar input,
-.contenidos_crear select,
-.contenidos_editar select,
-.contenidos_crear textarea,
-.contenidos_editar textarea {
-  width: 100%; 
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-<<<<<<< HEAD
-  font-size: 20px;
-=======
-  font-size: 15px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  background-color: var(--bg-input);
-  padding: 10px 14px;
-  box-sizing: border-box;
-  outline: none;
-  margin-bottom: 16px;
-  color: var(--text-dark);
-  box-shadow: var(--shadow-input);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.bitacora-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    padding: 16px;
+
+    background: rgba(15, 23, 42, 0.75);
+
+    backdrop-filter: blur(4px);
+
+    box-sizing: border-box;
 }
 
-/*ACTIVACION DEL FOCUS DE LOS CONTENIDOS*/
-.contenidos_crear input:focus,
-.contenidos_editar input:focus,
-.contenidos_crear select:focus,
-.contenidos_editar select:focus,
-.contenidos_crear textarea:focus,
-.contenidos_editar textarea:focus {
-  border-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+
+/* =========================================================
+   MODAL BASE
+========================================================= */
+
+.bitacora-modal {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+
+    max-width: 620px;
+
+    max-height: 99vh;
+
+    overflow: hidden;
+
+    background: var(--bitacora-bg-body);
+
+    border-radius: var(--bitacora-radius-lg);
+
+    box-shadow: var(--bitacora-shadow-main);
+
+    box-sizing: border-box;
 }
 
-.contenidos_crear input,
-.contenidos_editar input,
-.contenidos_crear select,
-.contenidos_editar select {
-  height: 44px;
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.bitacora-modal-header {
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 24px;
+
+    background-color: var(--bitacora-bg-header);
+
+    color: var(--bitacora-text-light);
 }
 
-.contenidos_crear select,
-.contenidos_editar select {
-  cursor: pointer;
+.bitacora-modal-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 22px;
+
+    font-weight: 700;
 }
 
-.contenidos_crear textarea{
-  height: 110px;
-  resize: vertical;
+
+/* =========================================================
+   BOTÓN CERRAR
+========================================================= */
+
+.bitacora-modal-close {
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: var(--bitacora-radius-sm);
+
+    background: rgba(255, 255, 255, 0.2);
+
+    color: var(--bitacora-text-light);
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: var(--bitacora-transition);
 }
 
-.contenidos_editar textarea {
-  height: 110px;
-  resize: vertical;
+.bitacora-modal-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+
+    transform: scale(1.04);
 }
 
-/* =======================
+
+/* =========================================================
+   CUERPO
+========================================================= */
+
+.bitacora-modal-body {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 24px;
+
+    background-color: var(--bitacora-bg-body);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.bitacora-form-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 16px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.bitacora-form-field {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    box-sizing: border-box;
+}
+
+.bitacora-form-field-full {
+    grid-column: 1 / -1;
+}
+
+.bitacora-form-field label {
+    margin: 0;
+
+    color: var(--bitacora-text-label);
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS / SELECTS / TEXTAREA
+========================================================= */
+
+.bitacora-form-field input,
+.bitacora-form-field select,
+.bitacora-form-field textarea {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    background-color: var(--bitacora-bg-input);
+
+    color: var(--bitacora-text-dark);
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    border: 1px solid var(--bitacora-border);
+
+    border-radius: var(--bitacora-radius-md);
+
+    box-shadow: var(--bitacora-shadow-input);
+
+    box-sizing: border-box;
+
+    outline: none;
+
+    transition: var(--bitacora-transition);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.bitacora-form-field textarea {
+    height: auto;
+
+    min-height: 100px;
+
+    padding: 10px 14px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.bitacora-form-field input:focus,
+.bitacora-form-field select:focus,
+.bitacora-form-field textarea:focus {
+    border-color: var(--bitacora-bg-header);
+
+    box-shadow:
+        0 0 0 3px rgba(59, 118, 251, 0.15);
+}
+
+
+/* =========================================================
+   VALORES - MODAL VER
+========================================================= */
+
+.bitacora-form-value {
+    width: 100%;
+
+    min-height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    margin: 0;
+
+    padding: 10px 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid var(--bitacora-border);
+
+    border-radius: var(--bitacora-radius-md);
+
+    color: var(--bitacora-text-dark);
+
+    line-height: 1.5;
+
+    box-sizing: border-box;
+
+    word-break: break-word;
+
+    box-shadow:
+        0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bitacora-form-value-large {
+    min-height: 80px;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.bitacora-modal-footer {
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 24px;
+
+    background-color: var(--bitacora-bg-body);
+
+    border-top: 1px solid var(--bitacora-border);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
    BOTONES
-========================== */
-.Containers_modal{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+========================================================= */
 
-.Contentino_edit{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
+.bitacora-btn {
+    min-width: 140px;
 
-.botones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.btns_Guardar{
-  background-color: #3B76FB;
-  min-width: 160px;
-  height: 44px;
-  margin: 10px;
-  border: none;
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  font-weight: 600;
-<<<<<<< HEAD
-  font-size: 20px;
-=======
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  color: #fff;
-  transition: var(--transition-fast);
-  box-shadow: 0px 4px 10px #000;
-  margin-top: 10px;
-}
-.btns_Actualizar{
-    background-color: #3B76FB;
-    min-width:160px ;
     height: 44px;
+
     padding: 0 20px;
+
     border: none;
-    border-radius: var(--border-radius-md);
+
+    border-radius: var(--bitacora-radius-md);
+
     cursor: pointer;
-<<<<<<< HEAD
-    font-size: 20px;
-=======
-    font-size: 17px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
+
+    font-family: inherit;
+
     font-weight: 600;
-    color: #fff;
-    transition: var(--transition-fast);
-    box-shadow: 0px 4px 10px #000;
+
+    font-size: 15px;
+
+    transition: var(--bitacora-transition);
 }
 
-.btns_Cancelar{
+.bitacora-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+========================================================= */
+
+.bitacora-btn-primary {
+    background-color: var(--bitacora-bg-header);
+
+    color: #ffffff;
+}
+
+.bitacora-btn-primary:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            90deg,
+            #2155ff,
+            #3d8cff
+        );
+
+    box-shadow:
+        0 4px 12px rgba(59, 118, 251, 0.3);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÓN SECUNDARIO
+========================================================= */
+
+.bitacora-btn-secondary {
     background-color: #3B76FB;
-    min-width:160px ;
-    height: 44px;
-    border: none;
-    margin: 10px;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    font-weight: 600;
-<<<<<<< HEAD
-    font-size: 20px;
-=======
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-    color: #fff;
-    transition: var(--transition-fast);
-    box-shadow: 0px 4px 10px #000;
-    margin-top: 10px;
+
+    color: #ffffff;
 }
 
-.btnEliminarSi{
-  min-width: 120px;
-  height: 42px;
-  padding: 0 16px;
-  margin: 0;
-  border: none;
-  border-radius: var(--radius-md);
-  background: var(--btn-blue);
-  color: var(--text-main);
-<<<<<<< HEAD
-  font-size: 20px;
-=======
-  font-size: 15px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 10px #000;
-}
+.bitacora-btn-secondary:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            90deg,
+            #2155ff,
+            #3d8cff
+        );
 
-.btnEliminarNo {
-  min-width: 120px;
-  height: 42px;
-  padding: 0 16px;
-  margin: 0;
-  border: none;
-  border-radius: var(--radius-md);
-  background: var(--btn-blue);
-  color: var(--text-main);
-<<<<<<< HEAD
-  font-size: 20px;
-=======
-  font-size: 15px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-  box-shadow: 0px 4px 10px #000;
-}
+    box-shadow:
+        0 4px 12px rgba(59, 118, 251, 0.3);
 
-.btns_Guardar:hover{
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0px 4px 10px #000;
-  transform: translateY(-1px);
+    transform: translateY(-1px);
 }
 
 
-.btns_Actualizar:hover{
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0px 4px 10px #000;
-  transform: translateY(-1px);
+/* =========================================================
+   BOTÓN PELIGRO
+========================================================= */
+
+.bitacora-btn-danger {
+    background-color: #ef4444;
+
+    color: #ffffff;
 }
 
-.btns_Cancelar:hover{
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0px 4px 10px #000;
-  transform: translateY(-1px);
+.bitacora-btn-danger:hover {
+    background-color: #dc2626;
+
+    box-shadow:
+        0 4px 12px rgba(239, 68, 68, 0.3);
+
+    transform: translateY(-1px);
 }
 
-.btnEliminarNo:hover {
-  background: linear-gradient(90deg, #2155ff, #3d8cff);
-  box-shadow: 0px 4px 10px #000;
-  transform: translateY(-1px);
+
+/* =========================================================
+   CONFIRMACIÓN DE ELIMINACIÓN
+========================================================= */
+
+.bitacora-confirmacion-body {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 130px;
 }
 
-.btnEliminarSi {
-  background: var(--btn-red);
-  margin: 10px;
+.bitacora-confirmacion-texto {
+    margin: 0;
+
+    color: var(--bitacora-text-dark);
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    text-align: center;
 }
 
-.btnEliminarSi:hover {
-  background: var(--btn-red-hover);
-  transform: translateY(-1px);
-  box-shadow: 0px 4px 10px #000;
+.bitacora-confirmacion-texto strong {
+    color: var(--bitacora-bg-header);
+
+    font-weight: 700;
 }
 
-/* =======================
-   TEXTO MODAL ELIMINAR
-========================== */
-.contenido_Eliminar p {
-  color: var(--text-main);
-<<<<<<< HEAD
-  font-size: 20px;
-=======
-  font-size: 16px;
->>>>>>> 9062b6ad61025fe79b83e8cfb65c1fb600ebb306
-  text-align: center;
-  margin: 16px 0 24px 0;
-  line-height: 1.5;
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 640px) {
+
+    .bitacora-modal-overlay {
+        padding: 10px;
+    }
+
+    .bitacora-modal {
+        width: 100%;
+
+        max-width: 100%;
+
+        max-height: 96vh;
+
+        border-radius: 12px;
+    }
+
+    .bitacora-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bitacora-form-field-full {
+        grid-column: auto;
+    }
+
+    .bitacora-modal-header {
+        padding: 16px;
+    }
+
+    .bitacora-modal-header h2 {
+        font-size: 19px;
+    }
+
+    .bitacora-modal-body {
+        padding: 16px;
+    }
+
+    .bitacora-modal-footer {
+        flex-direction: column;
+
+        padding: 16px;
+    }
+
+    .bitacora-btn {
+        width: 100%;
+    }
 }
 
-/* =======================
-   RESPONSIVE & SCROLLBAR
-========================== */
-.modal::-webkit-scrollbar {
-  width: 6px;
-}
 
-.modal::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
+/* =========================================================
+   PANTALLAS PEQUEÑAS
+========================================================= */
 
-@media(max-width: 700px) {
-  .modal,
-  .modals,
-  .modal_crear,
-  .modals_editar {
-    width: 100%;
-    padding: 20px 16px;
-  }
+@media (max-width: 400px) {
 
-  .botones,
-  .Container_modal,
-  .Content_edit {
-    flex-direction: column-reverse;
-    width: 100%;
-  }
+    .bitacora-modal-header h2 {
+        font-size: 17px;
+    }
 
-  .btnGuardar,
-  .btnActualizar,
-  .btnCancelar,
-  .btnEliminarSi,
-  .btnEliminarNo {
-    width: 100%;
-  }
+    .bitacora-modal-body {
+        padding: 13px;
+    }
+
+    .bitacora-modal-footer {
+        padding: 13px;
+    }
+
+    .bitacora-modal-close {
+        width: 32px;
+
+        height: 32px;
+    }
 }

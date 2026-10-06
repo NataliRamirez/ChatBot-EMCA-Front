@@ -12,6 +12,10 @@
     align-items:center;
 }
 
+h1, p{
+    color: #000;
+    font-size: 20px;
+}
 .buscarSolicitud{
     width:520px;
     padding:12px;
