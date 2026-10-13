@@ -63,11 +63,7 @@ p{
 }
 
 .botonesInforme{
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    flex-direction: column;
-    gap:15px;
+   margin: 20px;
 }
 
 .btnCrear{
@@ -76,10 +72,10 @@ p{
     height:48px;
     border:none;
     height: 50px;
-    width: 70px;
+    width: 130px;
     border-radius:12px;
     cursor:pointer;
-    font-size:17px;
+    font-size:20px;
     font-weight:600;
     margin: 10px;
     color: #fff;
@@ -99,7 +95,7 @@ p{
     border:none;
     border-radius:12px;
     cursor:pointer;
-    font-size:17px;
+    font-size:20px;
     font-weight:600;
     margin: 10px;
     color: #fff;
@@ -119,7 +115,7 @@ p{
     border:none;
     border-radius:12px;
     cursor:pointer;
-    font-size:17px;
+    font-size:20px;
     font-weight:600;
     margin: 10px;
     color: #fff;

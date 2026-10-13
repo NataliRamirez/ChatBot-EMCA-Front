@@ -791,7 +791,7 @@ export default function Panelusuario() {
       <aside id="chat-list">
 
         <div className="sidebar-header">
-          EMCA Admin
+          <img src="public/logo.png" alt="logo" />
         </div>
 
         <hr />

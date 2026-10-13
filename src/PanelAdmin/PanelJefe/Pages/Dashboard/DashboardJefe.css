@@ -36,11 +36,8 @@
     width: 100%;
     height: 100vh;
     min-height: 0;
-
     box-sizing: border-box;
-
     padding: 30px 38px 0;
-
     background:
         radial-gradient(
             circle at top right,
@@ -114,7 +111,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 28px;
-
     margin-bottom: 28px;
 }
 
@@ -122,29 +118,20 @@
     display: flex;
     align-items: center;
     gap: 18px;
-
     min-width: 0;
 }
 
 .jefe-header-icon {
     width: 58px;
     height: 58px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 17px;
-
     background: rgba(255, 255, 255, 0.15);
-
     border: 1px solid rgba(255, 255, 255, 0.22);
-
-    box-shadow:
-        0 8px 22px rgba(15, 23, 42, 0.12);
-
+    box-shadow:0 8px 22px rgba(15, 23, 42, 0.12);
     font-size: 27px;
 }
 
@@ -154,11 +141,8 @@
 
 .jefe-header-label {
     display: block;
-
     margin-bottom: 4px;
-
     color: var(--jefe-text-soft);
-
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -166,21 +150,16 @@
 
 .jefe-header-info h1 {
     margin: 0;
-
     font-size: clamp(25px, 3vw, 34px);
     line-height: 1.1;
     font-weight: 800;
-
     letter-spacing: -0.8px;
 }
 
 .jefe-header-info p {
     margin: 8px 0 0;
-
     max-width: 720px;
-
     color: var(--jefe-text-soft);
-
     font-size: 14px;
     line-height: 1.5;
 }
@@ -189,9 +168,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
     gap: 16px;
-
     flex-shrink: 0;
 }
 
@@ -199,30 +176,21 @@
     display: flex;
     align-items: center;
     gap: 10px;
-
     padding: 11px 15px;
-
     border-radius: 12px;
-
     background: rgba(255, 255, 255, 0.10);
-
     border: 1px solid var(--jefe-border);
-
     backdrop-filter: blur(10px);
 }
 
 .jefe-status-indicator {
     width: 9px;
     height: 9px;
-
     border-radius: 50%;
-
     background: var(--jefe-green);
-
     box-shadow:
         0 0 0 4px rgba(16, 185, 129, 0.14),
         0 0 12px rgba(16, 185, 129, 0.55);
-
     animation: jefe-pulse 2s infinite;
 }
 
@@ -239,7 +207,6 @@
 
 .jefe-system-status span:last-child {
     color: var(--jefe-text-muted);
-
     font-size: 10px;
 }
 
@@ -248,23 +215,15 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-
     min-height: 44px;
-
     padding: 0 17px;
-
     border: 1px solid rgba(255, 255, 255, 0.20);
     border-radius: 12px;
-
     background: rgba(255, 255, 255, 0.16);
-
     color: var(--jefe-white);
-
     font-size: 13px;
     font-weight: 700;
-
     cursor: pointer;
-
     transition:
         transform 0.2s ease,
         background 0.2s ease,
@@ -273,9 +232,7 @@
 
 .jefe-main-button:hover {
     background: rgba(255, 255, 255, 0.23);
-
     transform: translateY(-2px);
-
     box-shadow:
         0 10px 22px rgba(15, 23, 42, 0.18);
 }
@@ -287,41 +244,27 @@
 
 .jefe-stats {
     display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
+    grid-template-columns:repeat(4, minmax(0, 1fr));
     gap: 16px;
-
     margin-bottom: 30px;
 }
 
 .jefe-stat-card {
     position: relative;
-
     overflow: hidden;
-
     min-height: 160px;
-
     padding: 19px;
-
     box-sizing: border-box;
-
     border-radius: var(--jefe-radius);
-
     background:
         linear-gradient(
             145deg,
             rgba(255, 255, 255, 0.14),
             rgba(255, 255, 255, 0.07)
         );
-
     border: 1px solid var(--jefe-border);
-
     box-shadow: var(--jefe-shadow);
-
     backdrop-filter: blur(12px);
-
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
@@ -330,23 +273,17 @@
 
 .jefe-stat-card::after {
     content: "";
-
     position: absolute;
-
     width: 110px;
     height: 110px;
-
     right: -42px;
     bottom: -50px;
-
     border-radius: 50%;
-
     background: rgba(255, 255, 255, 0.08);
 }
 
 .jefe-stat-card:hover {
     transform: translateY(-5px);
-
     background:
         linear-gradient(
             145deg,
@@ -366,23 +303,17 @@
 .jefe-stat-icon {
     width: 42px;
     height: 42px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 12px;
-
     background: rgba(255, 255, 255, 0.14);
-
     border: 1px solid rgba(255, 255, 255, 0.15);
-
     font-size: 20px;
 }
 
 .jefe-stat-arrow {
     color: rgba(255, 255, 255, 0.65);
-
     font-size: 20px;
     font-weight: 700;
 }
@@ -390,33 +321,26 @@
 .jefe-stat-content {
     display: flex;
     flex-direction: column;
-
     margin-top: 17px;
 }
 
 .jefe-stat-label {
     color: var(--jefe-text-soft);
-
     font-size: 12px;
     font-weight: 600;
 }
 
 .jefe-stat-number {
     margin-top: 3px;
-
     font-size: 30px;
     line-height: 1;
-
     font-weight: 800;
-
     letter-spacing: -1px;
 }
 
 .jefe-stat-detail {
     margin-top: 7px;
-
     color: #bfdbfe;
-
     font-size: 11px;
 }
 
@@ -433,19 +357,14 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-
     gap: 20px;
-
     margin-bottom: 14px;
 }
 
 .jefe-section-label {
     display: block;
-
     margin-bottom: 4px;
-
     color: #bfdbfe;
-
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -453,16 +372,13 @@
 
 .jefe-section-heading h2 {
     margin: 0;
-
     font-size: 21px;
     font-weight: 800;
 }
 
 .jefe-section-heading p {
     margin: 0;
-
     color: var(--jefe-text-soft);
-
     font-size: 12px;
 }
 
@@ -473,34 +389,23 @@
 
 .jefe-actions-grid {
     display: grid;
-
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
-
     gap: 14px;
 }
 
 .jefe-action-card {
     display: flex;
     align-items: center;
-
     min-width: 0;
-
     padding: 17px;
-
     border: 1px solid var(--jefe-border);
     border-radius: 15px;
-
     background: rgba(255, 255, 255, 0.10);
-
     color: var(--jefe-white);
-
     text-align: left;
-
     cursor: pointer;
-
     backdrop-filter: blur(10px);
-
     transition:
         transform 0.2s ease,
         background 0.2s ease,
@@ -509,35 +414,26 @@
 
 .jefe-action-card:hover {
     transform: translateY(-3px);
-
     background: rgba(255, 255, 255, 0.16);
-
     border-color: rgba(255, 255, 255, 0.30);
 }
 
 .jefe-action-icon {
     width: 43px;
     height: 43px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-right: 12px;
-
     border-radius: 12px;
-
     background: rgba(255, 255, 255, 0.13);
-
     font-size: 19px;
 }
 
 .jefe-action-content {
     display: flex;
     flex-direction: column;
-
     min-width: 0;
 }
 
@@ -548,11 +444,8 @@
 
 .jefe-action-content span {
     margin-top: 3px;
-
     color: var(--jefe-text-soft);
-
     font-size: 10px;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -560,11 +453,8 @@
 
 .jefe-action-arrow {
     margin-left: auto;
-
     padding-left: 8px;
-
     color: rgba(255, 255, 255, 0.65);
-
     font-size: 18px;
 }
 
@@ -575,13 +465,10 @@
 
 .jefe-content-grid {
     display: grid;
-
     grid-template-columns:
         minmax(0, 1.5fr)
         minmax(320px, 1fr);
-
     gap: 16px;
-
     margin-bottom: 18px;
 }
 
@@ -592,13 +479,9 @@
 
 .jefe-panel {
     min-width: 0;
-
     padding: 20px;
-
     box-sizing: border-box;
-
     border-radius: var(--jefe-radius);
-
     background:
         linear-gradient(
             145deg,
@@ -607,9 +490,7 @@
         );
 
     border: 1px solid var(--jefe-border);
-
     box-shadow: var(--jefe-shadow);
-
     backdrop-filter: blur(12px);
 }
 
@@ -617,35 +498,26 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 15px;
-
     margin-bottom: 18px;
 }
 
 .jefe-panel-title {
     display: flex;
     align-items: center;
-
     min-width: 0;
-
     gap: 11px;
 }
 
 .jefe-panel-icon {
     width: 38px;
     height: 38px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 11px;
-
     background: rgba(255, 255, 255, 0.13);
-
     font-size: 17px;
 }
 
@@ -659,33 +531,24 @@
 
 .jefe-panel-title h3 {
     margin: 0;
-
     font-size: 14px;
     font-weight: 750;
 }
 
 .jefe-panel-title span {
     display: block;
-
     margin-top: 3px;
-
     color: var(--jefe-text-muted);
-
     font-size: 10px;
 }
 
 .jefe-panel-link {
     padding: 0;
-
     border: none;
-
     background: transparent;
-
     color: #dbeafe;
-
     font-size: 11px;
     font-weight: 700;
-
     cursor: pointer;
 }
 
@@ -705,7 +568,6 @@
 
 .jefe-activity-item {
     display: grid;
-
     grid-template-columns:
         7px
         36px
@@ -713,11 +575,8 @@
         auto;
 
     align-items: center;
-
     gap: 10px;
-
     min-height: 58px;
-
     border-bottom: 1px solid var(--jefe-border-soft);
 }
 
@@ -728,7 +587,6 @@
 .jefe-activity-dot {
     width: 7px;
     height: 7px;
-
     border-radius: 50%;
 }
 
@@ -750,54 +608,40 @@
 .jefe-activity-icon {
     width: 36px;
     height: 36px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 10px;
-
     background: rgba(255, 255, 255, 0.10);
-
     font-size: 15px;
 }
 
 .jefe-activity-info {
     display: flex;
     flex-direction: column;
-
     min-width: 0;
 }
 
 .jefe-activity-info strong {
     overflow: hidden;
-
     color: var(--jefe-white);
-
     font-size: 12px;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .jefe-activity-info span {
     margin-top: 2px;
-
     overflow: hidden;
-
     color: var(--jefe-text-muted);
-
     font-size: 10px;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .jefe-activity-item time {
     color: #bfdbfe;
-
     font-size: 9px;
-
     white-space: nowrap;
 }
 
@@ -809,21 +653,14 @@
 .jefe-pending-total {
     min-width: 30px;
     height: 30px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 0 8px;
-
     box-sizing: border-box;
-
     border-radius: 9px;
-
     background: rgba(245, 158, 11, 0.15);
-
     color: #fef3c7;
-
     font-size: 11px;
     font-weight: 800;
 }
@@ -831,7 +668,6 @@
 .jefe-pending-list {
     display: flex;
     flex-direction: column;
-
     gap: 8px;
 }
 
@@ -839,19 +675,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     min-height: 52px;
-
     padding: 8px 10px;
-
     box-sizing: border-box;
-
     border-radius: 11px;
-
     background: rgba(255, 255, 255, 0.07);
-
     border: 1px solid rgba(255, 255, 255, 0.08);
-
     transition:
         background 0.2s ease,
         transform 0.2s ease;
@@ -859,44 +688,33 @@
 
 .jefe-pending-item:hover {
     background: rgba(255, 255, 255, 0.12);
-
     transform: translateX(3px);
 }
 
 .jefe-pending-left {
     display: flex;
     align-items: center;
-
     min-width: 0;
-
     gap: 10px;
 }
 
 .jefe-pending-icon {
     width: 34px;
     height: 34px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 9px;
-
     background: rgba(255, 255, 255, 0.09);
-
     font-size: 14px;
 }
 
 .jefe-pending-left > span {
     overflow: hidden;
-
     color: #e0e7ff;
-
     font-size: 11px;
     font-weight: 600;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -904,21 +722,14 @@
 .jefe-pending-badge {
     min-width: 28px;
     height: 26px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 0 7px;
-
     box-sizing: border-box;
-
     border-radius: 8px;
-
     background: rgba(255, 255, 255, 0.13);
-
     color: var(--jefe-white);
-
     font-size: 10px;
     font-weight: 800;
 }
@@ -935,58 +746,41 @@
 .jefe-chart-badge,
 .jefe-online-badge {
     padding: 7px 10px;
-
     border-radius: 8px;
-
     background: rgba(255, 255, 255, 0.10);
-
     border: 1px solid rgba(255, 255, 255, 0.10);
-
     color: #dbeafe;
-
     font-size: 9px;
     font-weight: 700;
-
     white-space: nowrap;
 }
 
 .jefe-chart-wrapper {
     display: flex;
-
     height: 220px;
-
     margin-top: 5px;
 }
 
 .jefe-chart-y {
     width: 34px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     padding: 4px 0 22px;
-
     box-sizing: border-box;
-
     color: rgba(219, 234, 254, 0.70);
-
     font-size: 9px;
 }
 
 .jefe-chart-area {
     position: relative;
-
     flex: 1;
-
     min-width: 0;
 }
 
 .jefe-chart-lines {
     position: absolute;
-
     inset: 0 0 22px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -994,66 +788,48 @@
 
 .jefe-chart-lines span {
     width: 100%;
-
     border-top: 1px dashed rgba(255, 255, 255, 0.13);
 }
 
 .jefe-chart-bars {
     position: relative;
-
     height: 100%;
-
     display: grid;
-
     grid-template-columns:
         repeat(6, minmax(0, 1fr));
-
     align-items: end;
-
     gap: 12px;
-
     padding: 4px 8px 0;
-
     box-sizing: border-box;
 }
 
 .jefe-chart-column {
     height: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-
     position: relative;
 }
 
 .jefe-chart-value {
     margin-bottom: 5px;
-
     color: #eff6ff;
-
     font-size: 9px;
     font-weight: 800;
 }
 
 .jefe-chart-bar {
     width: min(38px, 70%);
-
     min-height: 8px;
-
     border-radius: 8px 8px 3px 3px;
-
     background:
         linear-gradient(
             to top,
             rgba(255, 255, 255, 0.35),
             rgba(255, 255, 255, 0.78)
         );
-
-    box-shadow:
-        0 5px 15px rgba(15, 23, 42, 0.14);
-
+    box-shadow:0 5px 15px rgba(15, 23, 42, 0.14);
     transition:
         height 0.4s ease,
         transform 0.2s ease;
@@ -1089,14 +865,10 @@
 
 .jefe-chart-month {
     height: 22px;
-
     display: flex;
     align-items: flex-end;
-
     margin-top: 5px;
-
     color: #bfdbfe;
-
     font-size: 9px;
 }
 
@@ -1108,45 +880,31 @@
 .jefe-employees-list {
     display: flex;
     flex-direction: column;
-
     gap: 8px;
 }
 
 .jefe-employee {
     display: flex;
     align-items: center;
-
     min-height: 55px;
-
     padding: 7px 9px;
-
     box-sizing: border-box;
-
     border-radius: 11px;
-
     background: rgba(255, 255, 255, 0.07);
-
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .jefe-avatar {
     width: 38px;
     height: 38px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-right: 10px;
-
     border-radius: 11px;
-
     background: rgba(255, 255, 255, 0.15);
-
     color: var(--jefe-white);
-
     font-size: 10px;
     font-weight: 800;
 }
@@ -1154,30 +912,22 @@
 .jefe-employee-info {
     display: flex;
     flex-direction: column;
-
     min-width: 0;
 }
 
 .jefe-employee-info strong {
     overflow: hidden;
-
     color: var(--jefe-white);
-
     font-size: 11px;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .jefe-employee-info span {
     margin-top: 2px;
-
     overflow: hidden;
-
     color: var(--jefe-text-muted);
-
     font-size: 9px;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -1185,41 +935,27 @@
 .jefe-employee-status {
     width: 8px;
     height: 8px;
-
     flex-shrink: 0;
-
     margin-left: auto;
-
     border-radius: 50%;
-
     background: var(--jefe-green);
-
-    box-shadow:
-        0 0 0 3px rgba(16, 185, 129, 0.13);
+    box-shadow:0 0 0 3px rgba(16, 185, 129, 0.13);
 }
 
 .jefe-view-employees {
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin-top: 12px;
     padding: 10px 12px;
-
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
-
     background: rgba(255, 255, 255, 0.07);
-
     color: #dbeafe;
-
     font-size: 10px;
     font-weight: 700;
-
     cursor: pointer;
-
     transition:
         background 0.2s ease,
         transform 0.2s ease;
@@ -1227,7 +963,6 @@
 
 .jefe-view-employees:hover {
     background: rgba(255, 255, 255, 0.13);
-
     transform: translateY(-1px);
 }
 

@@ -45,6 +45,7 @@ export default function SolicitudesJefe() {
   const [fechaFiltro, setFechaFiltro] = useState('');
   const [solicitudSeleccionada, setSolicitudSeleccionada] = useState(null);
   const [cargando, setCargando] = useState(false);
+  const [RespuestaSeleccionada ,setRespuestaSeleccionada] = useState('');
 
   const inputFechaRef = useRef(null);
 
@@ -843,6 +844,16 @@ export default function SolicitudesJefe() {
                   #{solicitudSeleccionada.radicado}
                 </h3>
               </div>
+
+              <button
+                className="btnCerrar"
+                onClick={() =>
+                  setRespuestaSeleccionada(null)
+                }
+                title="Cerrar modal"
+              >
+                ✕
+              </button>
 
             </div>
 

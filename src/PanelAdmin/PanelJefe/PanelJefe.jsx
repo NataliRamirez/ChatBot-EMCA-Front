@@ -17,13 +17,13 @@ export default function PanelJefe() {
 
   return (
     <div className="panel">
-
-      {/* Sidebar de Navegación del Jefe */}
       <aside className="sidebar">
 
         <div className="logo">
-          <h2>EMCA</h2>
-          <span>Panel Administrativo</span>
+          <div className='Container_logo'>
+               <img src="../public/logo.png" alt="logo" />
+          </div>
+            <span>Panel Administrativo</span>
         </div>
 
         <nav className="menu">

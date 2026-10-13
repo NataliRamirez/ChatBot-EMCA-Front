@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './Modal.css'
 
 export default function FormInforme({ onGenerar }) {
   const [tipo, setTipo] = useState("");

@@ -52,6 +52,7 @@ body{
   flex-shrink:0;
 }
 
+
 .logo h2{
   font-size:32px;
   font-weight:800;
@@ -66,7 +67,12 @@ body{
   margin-top:4px;
 }
 
-
+.Container_logo img{
+   width: 150px;
+   height: 150px;
+   border-radius: 10px;
+   box-shadow: 0xp 4px 10px #000;
+}
 
 /* =========================================
    MENÚ

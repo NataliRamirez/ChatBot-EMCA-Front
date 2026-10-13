@@ -14,7 +14,24 @@ export default function CrearRespuesta({ cerrar, onExito }) {
     const [fechaFinal, setFechaFinal] = useState("");
     const [cargando, setCargando] = useState(false);
 
+    // Crear respuesta
     const TablascrearRespuestas = async () => {
+        // Validar teléfono del usuario
+        if (!/^\d{10}$/.test(telefono)) {
+            alert(
+                "El teléfono del usuario debe tener exactamente 10 dígitos."
+            );
+            return;
+        }
+
+        // Validar teléfono de la empresa
+        if (!/^\d{10}$/.test(telefonoEmpresa)) {
+            alert(
+                "El teléfono de la empresa debe tener exactamente 10 dígitos."
+            );
+            return;
+        }
+
         try {
             setCargando(true);
 
@@ -60,11 +77,9 @@ export default function CrearRespuesta({ cerrar, onExito }) {
                     "Error al guardar"
                 );
             }
-
         } catch (error) {
             console.error(error);
             alert("Error de conexión con el backend");
-
         } finally {
             setCargando(false);
         }
@@ -74,6 +89,7 @@ export default function CrearRespuesta({ cerrar, onExito }) {
         <div className="respuesta-modal-overlay">
             <div className="respuesta-modal respuesta-modal-crear">
 
+                {/* Encabezado */}
                 <div className="respuesta-modal-header">
                     <h2>Panel De Creación Respuesta</h2>
 
@@ -82,11 +98,13 @@ export default function CrearRespuesta({ cerrar, onExito }) {
                         onClick={cerrar}
                         title="Cerrar"
                         type="button"
+                        disabled={cargando}
                     >
                         ✕
                     </button>
                 </div>
 
+                {/* Formulario */}
                 <div className="respuesta-modal-body">
                     <div className="respuesta-form-grid">
 
@@ -129,30 +147,54 @@ export default function CrearRespuesta({ cerrar, onExito }) {
                             />
                         </div>
 
+                        {/* Teléfono del usuario */}
                         <div className="respuesta-form-field">
                             <label>Teléfono del Usuario</label>
 
                             <input
                                 id="Telefono"
                                 type="text"
+                                inputMode="numeric"
+                                maxLength={10}
+                                placeholder="Ej. 3001234567"
                                 value={telefono}
                                 onChange={(e) =>
-                                    setTelefono(e.target.value)
+                                    setTelefono(
+                                        e.target.value
+                                            .replace(/\D/g, "")
+                                            .slice(0, 10)
+                                    )
                                 }
                             />
+
+                            <small>
+                                Ingresa exactamente 10 dígitos.
+                            </small>
                         </div>
 
+                        {/* Teléfono de la empresa */}
                         <div className="respuesta-form-field">
                             <label>Teléfono de la Empresa</label>
 
                             <input
                                 id="TelefonoEmpresa"
                                 type="text"
+                                inputMode="numeric"
+                                maxLength={10}
+                                placeholder="Ej. 6067420000"
                                 value={telefonoEmpresa}
                                 onChange={(e) =>
-                                    setTelefonoEmpresa(e.target.value)
+                                    setTelefonoEmpresa(
+                                        e.target.value
+                                            .replace(/\D/g, "")
+                                            .slice(0, 10)
+                                    )
                                 }
                             />
+
+                            <small>
+                                Ingresa exactamente 10 dígitos.
+                            </small>
                         </div>
 
                         <div className="respuesta-form-field">
@@ -238,6 +280,7 @@ export default function CrearRespuesta({ cerrar, onExito }) {
                     </div>
                 </div>
 
+                {/* Botones */}
                 <div className="respuesta-modal-footer">
 
                     <button
@@ -264,3 +307,4 @@ export default function CrearRespuesta({ cerrar, onExito }) {
         </div>
     );
 }
+
