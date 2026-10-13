@@ -116,7 +116,7 @@ export default function EditarInforme({ informe, onGuardar, onClose }) {
           </select>
         </div>
 
-        <div className="botonesModal">
+        <div className="botonesModals">
           <button className="btn_Guardar" onClick={handleSave}>
             Guardar
           </button>

@@ -10,9 +10,10 @@ export default function PanelAdmin() {
       {/* Menú lateral */}
       <aside className="sidebar">
 
-         
                 <div className="logo">
-                      <h2>EMCA</h2>
+                   <div className="Logo_admin">
+                        <img src="../public/logo.png" alt="logo" />
+                   </div>
                           <span>Panel Administrativo</span>
                 </div>
 

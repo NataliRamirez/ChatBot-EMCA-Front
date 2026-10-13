@@ -4,8 +4,14 @@ import { Eye, EyeOff } from 'lucide-react';
 import './login.css';
 
 export const Login = ({ setAuth }) => {
+
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
@@ -18,15 +24,21 @@ export const Login = ({ setAuth }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. Validar formato de correo electrónico
+    // =====================================================
+    // 1. VALIDAR CORREO
+    // =====================================================
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(credentials.email)) {
       alert('Por favor, ingresa un correo electrónico válido.');
       return;
     }
 
-    // 2. Validar restricciones de contraseña (mínimo 8 caracteres, 1 mayúscula, 1 minúscula y 1 número)
+    // =====================================================
+    // 2. VALIDAR CONTRASEÑA
+    // =====================================================
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     if (!passwordRegex.test(credentials.password)) {
       alert(
         'La contraseña debe contener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.'
@@ -35,54 +47,176 @@ export const Login = ({ setAuth }) => {
     }
 
     try {
-      const res = await fetch('http://127.0.0.1:4000/v1/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'EmcaSecret2026'
-        },
-        body: JSON.stringify({
-          email: credentials.email.trim(),
-          password: credentials.password
-        })
-      });
+
+      // =====================================================
+      // 3. PETICIÓN AL BACKEND
+      // =====================================================
+      const res = await fetch(
+        'http://127.0.0.1:4000/v1/auth/login',
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'EmcaSecret2026'
+          },
+
+          body: JSON.stringify({
+            email: credentials.email.trim(),
+            password: credentials.password
+          })
+        }
+      );
 
       const data = await res.json();
 
+      console.log('Respuesta del login:', data);
+
+      // =====================================================
+      // 4. LOGIN CORRECTO
+      // =====================================================
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('usuario', JSON.stringify(data.empleado));
 
-        if (setAuth) setAuth(true);
+        console.log('Empleado recibido:', data.empleado);
 
-        const userRol = data.empleado?.rol?.toUpperCase();
+        // ===================================================
+        // GUARDAR TOKEN
+        // ===================================================
+        localStorage.setItem(
+          'token',
+          data.token
+        );
 
-        if (userRol === 'ADMIN') {
-          navigate('/panel-admin');
-        } else if (userRol === 'JEFE') {
-          navigate('/panel-jefe');
-        } else if (userRol === 'ASESOR' || userRol === 'USUARIO') {
-          navigate('/panel-usuario');
+        // ===================================================
+        // GUARDAR EMPLEADO COMPLETO
+        // ===================================================
+        localStorage.setItem(
+          'usuario',
+          JSON.stringify(data.empleado)
+        );
+
+        // ===================================================
+        // GUARDAR ID DEL EMPLEADO
+        // ===================================================
+        const empleadoId =
+          data.empleado?.empleado_id ??
+          data.empleado?.id ??
+          data.empleado?.usuario_id;
+
+        // ===================================================
+        // GUARDAR NOMBRE DEL EMPLEADO
+        // ===================================================
+        const empleadoNombre =
+          data.empleado?.nombre ??
+          data.empleado?.nombre_completo ??
+          data.empleado?.nombre_usuario ??
+          '';
+
+        console.log('ID empleado:', empleadoId);
+        console.log('Nombre empleado:', empleadoNombre);
+
+        if (empleadoId) {
+
+          localStorage.setItem(
+            'empleado_id',
+            String(empleadoId)
+          );
+
         } else {
-          alert(`Rol no asignado o desconocido: ${userRol}`);
+
+          console.warn(
+            'El backend no devolvió un ID de empleado.'
+          );
+
+        }
+
+        if (empleadoNombre) {
+
+          localStorage.setItem(
+            'empleado_nombre',
+            empleadoNombre
+          );
+
+        }
+
+        // ===================================================
+        // AUTENTICACIÓN
+        // ===================================================
+        if (setAuth) {
+          setAuth(true);
+        }
+
+        // ===================================================
+        // OBTENER ROL
+        // ===================================================
+        const userRol =
+          data.empleado?.rol?.toUpperCase();
+
+        // ===================================================
+        // REDIRECCIONAR SEGÚN ROL
+        // ===================================================
+        if (userRol === 'ADMIN') {
+
+          navigate('/panel-admin');
+
+        } else if (userRol === 'JEFE') {
+
+          navigate('/panel-jefe');
+
+        } else if (
+          userRol === 'ASESOR' ||
+          userRol === 'USUARIO'
+        ) {
+
+          navigate('/panel-usuario');
+
+        } else {
+
+          alert(
+            `Rol no asignado o desconocido: ${userRol}`
+          );
+
           navigate('/');
         }
+
       } else {
-        alert(data.mensaje || 'Credenciales incorrectas');
+
+        alert(
+          data.mensaje ||
+          'Credenciales incorrectas'
+        );
       }
+
     } catch (error) {
-      console.error('Error Login:', error);
-      alert('Error al conectar con el servidor');
+
+      console.error(
+        'Error Login:',
+        error
+      );
+
+      alert(
+        'Error al conectar con el servidor'
+      );
     }
   };
 
   return (
+
     <div className="auth-form">
-      <form onSubmit={handleSubmit} className="Containers_login">
+
+      <form
+        onSubmit={handleSubmit}
+        className="Containers_login"
+      >
+
         <h2>Iniciar Sesión</h2>
 
         <div className="input-group">
-          <label htmlFor="correo">Ingrese su correo electrónico:</label>
+
+          <label htmlFor="correo">
+            Ingrese su correo electrónico:
+          </label>
+
           <input
             type="email"
             id="correo"
@@ -92,13 +226,23 @@ export const Login = ({ setAuth }) => {
             onChange={handleChange}
             required
           />
+
         </div>
 
         <div className="input-group">
-          <label htmlFor="password">Ingrese su contraseña:</label>
+
+          <label htmlFor="password">
+            Ingrese su contraseña:
+          </label>
+
           <div className="password-wrapper">
+
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={
+                showPassword
+                  ? 'text'
+                  : 'password'
+              }
               id="password"
               name="password"
               value={credentials.password}
@@ -106,21 +250,37 @@ export const Login = ({ setAuth }) => {
               onChange={handleChange}
               required
             />
+
             <button
               type="button"
               className="toggle-password-btn"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
               tabIndex={-1}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+
+              {showPassword ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
+
             </button>
+
           </div>
+
         </div>
 
         <div className="contenedor_principal">
-          <button type="submit" className="btn_entrar">
+
+          <button
+            type="submit"
+            className="btn_entrar"
+          >
             Entrar al Sistema
           </button>
+
           <button
             type="button"
             onClick={() => navigate('/registro')}
@@ -128,6 +288,7 @@ export const Login = ({ setAuth }) => {
           >
             Regístrese
           </button>
+
           <button
             type="button"
             onClick={() => navigate('/recuperar')}
@@ -136,8 +297,11 @@ export const Login = ({ setAuth }) => {
           >
             ¿Olvidó su contraseña?
           </button>
+
         </div>
+
       </form>
+
     </div>
   );
 };

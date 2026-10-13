@@ -35,22 +35,14 @@
 
 .bitacora-modal-overlay {
     position: fixed;
-
     inset: 0;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     z-index: 9999;
-
     padding: 16px;
-
     background: rgba(15, 23, 42, 0.75);
-
     backdrop-filter: blur(4px);
-
     box-sizing: border-box;
 }
 
@@ -61,23 +53,14 @@
 
 .bitacora-modal {
     display: flex;
-
     flex-direction: column;
-
     width: 100%;
-
     max-width: 620px;
-
     max-height: 99vh;
-
     overflow: hidden;
-
     background: var(--bitacora-bg-body);
-
     border-radius: var(--bitacora-radius-lg);
-
     box-shadow: var(--bitacora-shadow-main);
-
     box-sizing: border-box;
 }
 
@@ -88,26 +71,18 @@
 
 .bitacora-modal-header {
     flex-shrink: 0;
-
     display: flex;
-
     justify-content: space-between;
     align-items: center;
-
     padding: 20px 24px;
-
     background-color: var(--bitacora-bg-header);
-
     color: var(--bitacora-text-light);
 }
 
 .bitacora-modal-header h2 {
     margin: 0;
-
     color: #ffffff;
-
     font-size: 22px;
-
     font-weight: 700;
 }
 
@@ -118,34 +93,22 @@
 
 .bitacora-modal-close {
     width: 36px;
-
     height: 36px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     padding: 0;
-
     border: none;
-
     border-radius: var(--bitacora-radius-sm);
-
     background: rgba(255, 255, 255, 0.2);
-
     color: var(--bitacora-text-light);
-
     font-size: 18px;
-
     cursor: pointer;
-
     transition: var(--bitacora-transition);
 }
 
 .bitacora-modal-close:hover {
     background: rgba(255, 255, 255, 0.35);
-
     transform: scale(1.04);
 }
 
@@ -156,15 +119,10 @@
 
 .bitacora-modal-body {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
-
     padding: 24px;
-
     background-color: var(--bitacora-bg-body);
-
     box-sizing: border-box;
 }
 
@@ -175,15 +133,11 @@
 
 .bitacora-form-grid {
     width: 100%;
-
     display: grid;
-
     grid-template-columns:
         minmax(0, 1fr)
         minmax(0, 1fr);
-
     gap: 16px;
-
     box-sizing: border-box;
 }
 
@@ -194,13 +148,9 @@
 
 .bitacora-form-field {
     min-width: 0;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 7px;
-
     box-sizing: border-box;
 }
 
@@ -210,11 +160,8 @@
 
 .bitacora-form-field label {
     margin: 0;
-
     color: var(--bitacora-text-label);
-
-    font-size: 15px;
-
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -227,33 +174,19 @@
 .bitacora-form-field select,
 .bitacora-form-field textarea {
     width: 100%;
-
     max-width: 100%;
-
     min-width: 0;
-
     height: 44px;
-
     padding: 0 14px;
-
     background-color: var(--bitacora-bg-input);
-
     color: var(--bitacora-text-dark);
-
     font-family: inherit;
-
-    font-size: 15px;
-
+    font-size: 20px;
     border: 1px solid var(--bitacora-border);
-
     border-radius: var(--bitacora-radius-md);
-
     box-shadow: var(--bitacora-shadow-input);
-
     box-sizing: border-box;
-
     outline: none;
-
     transition: var(--bitacora-transition);
 }
 
@@ -264,13 +197,9 @@
 
 .bitacora-form-field textarea {
     height: auto;
-
     min-height: 100px;
-
     padding: 10px 14px;
-
     resize: vertical;
-
     line-height: 1.5;
 }
 
@@ -283,7 +212,6 @@
 .bitacora-form-field select:focus,
 .bitacora-form-field textarea:focus {
     border-color: var(--bitacora-bg-header);
-
     box-shadow:
         0 0 0 3px rgba(59, 118, 251, 0.15);
 }
@@ -295,38 +223,23 @@
 
 .bitacora-form-value {
     width: 100%;
-
     min-height: 44px;
-
     display: flex;
-
     align-items: center;
-
     margin: 0;
-
     padding: 10px 14px;
-
     background: #f8fafc;
-
     border: 1px solid var(--bitacora-border);
-
     border-radius: var(--bitacora-radius-md);
-
     color: var(--bitacora-text-dark);
-
     line-height: 1.5;
-
     box-sizing: border-box;
-
     word-break: break-word;
-
-    box-shadow:
-        0px 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .bitacora-form-value-large {
     min-height: 80px;
-
     align-items: flex-start;
 }
 
@@ -337,21 +250,13 @@
 
 .bitacora-modal-footer {
     flex-shrink: 0;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     gap: 20px;
-
     padding: 18px 24px;
-
     background-color: var(--bitacora-bg-body);
-
     border-top: 1px solid var(--bitacora-border);
-
     box-sizing: border-box;
 }
 
@@ -362,31 +267,20 @@
 
 .bitacora-btn {
     min-width: 140px;
-
     height: 44px;
-
     padding: 0 20px;
-
     border: none;
-
     border-radius: var(--bitacora-radius-md);
-
     cursor: pointer;
-
     font-family: inherit;
-
     font-weight: 600;
-
     font-size: 15px;
-
     transition: var(--bitacora-transition);
 }
 
 .bitacora-btn:disabled {
     opacity: 0.6;
-
     cursor: not-allowed;
-
     transform: none;
 }
 
@@ -396,22 +290,14 @@
 ========================================================= */
 
 .bitacora-btn-primary {
-    background-color: var(--bitacora-bg-header);
-
-    color: #ffffff;
+   background-color: #e2e8f0;
+    font-size: 20px;
+    color: #000;
 }
 
 .bitacora-btn-primary:hover:not(:disabled) {
-    background:
-        linear-gradient(
-            90deg,
-            #2155ff,
-            #3d8cff
-        );
-
-    box-shadow:
-        0 4px 12px rgba(59, 118, 251, 0.3);
-
+    background: #e2e8f0;
+    box-shadow:0 4px 12px rgba(59, 118, 251, 0.3);
     transform: translateY(-1px);
 }
 
@@ -422,21 +308,14 @@
 
 .bitacora-btn-secondary {
     background-color: #3B76FB;
-
+    font-size: 20px;
     color: #ffffff;
 }
 
 .bitacora-btn-secondary:hover:not(:disabled) {
-    background:
-        linear-gradient(
-            90deg,
-            #2155ff,
-            #3d8cff
-        );
-
-    box-shadow:
-        0 4px 12px rgba(59, 118, 251, 0.3);
-
+    background:linear-gradient(90deg, #2155ff, #3d8cff);
+    box-shadow: 0 4px 12px rgba(59, 118, 251, 0.3);
+    font-size: 20px;
     transform: translateY(-1px);
 }
 
@@ -447,16 +326,12 @@
 
 .bitacora-btn-danger {
     background-color: #ef4444;
-
     color: #ffffff;
 }
 
 .bitacora-btn-danger:hover {
     background-color: #dc2626;
-
-    box-shadow:
-        0 4px 12px rgba(239, 68, 68, 0.3);
-
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     transform: translateY(-1px);
 }
 
@@ -467,29 +342,21 @@
 
 .bitacora-confirmacion-body {
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     min-height: 130px;
 }
 
 .bitacora-confirmacion-texto {
     margin: 0;
-
     color: var(--bitacora-text-dark);
-
     font-size: 16px;
-
     line-height: 1.6;
-
     text-align: center;
 }
 
 .bitacora-confirmacion-texto strong {
     color: var(--bitacora-bg-header);
-
     font-weight: 700;
 }
 
@@ -506,11 +373,8 @@
 
     .bitacora-modal {
         width: 100%;
-
         max-width: 100%;
-
         max-height: 96vh;
-
         border-radius: 12px;
     }
 

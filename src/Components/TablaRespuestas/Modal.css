@@ -30,19 +30,13 @@
 .respuesta-modal-overlay {
     position: fixed;
     inset: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     z-index: 9999;
-
     padding: 16px;
-
     background: rgba(15, 23, 42, 0.75);
-
     backdrop-filter: blur(4px);
-
     box-sizing: border-box;
 }
 
@@ -54,19 +48,13 @@
 .respuesta-modal {
     display: flex;
     flex-direction: column;
-
     width: 750px;
     max-width: 620px;
     max-height: 99vh;
-
     overflow: hidden;
-
     background: var(--respuesta-bg-body);
-
     border-radius: var(--respuesta-radius-lg);
-
     box-shadow: var(--respuesta-shadow);
-
     box-sizing: border-box;
 }
 
@@ -77,23 +65,17 @@
 
 .respuesta-modal-header {
     flex-shrink: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 20px 24px;
-
     background-color: var(--respuesta-bg-header);
-
     color: #ffffff;
 }
 
 .respuesta-modal-header h2 {
     margin: 0;
-
     color: #ffffff;
-
     font-size: 22px;
     font-weight: 700;
 }
@@ -106,31 +88,21 @@
 .respuesta-modal-close {
     width: 36px;
     height: 36px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 0;
-
     border: none;
-
     border-radius: var(--respuesta-radius-sm);
-
     background: rgba(255, 255, 255, 0.2);
-
     color: #ffffff;
-
     font-size: 18px;
-
     cursor: pointer;
-
     transition: var(--respuesta-transition);
 }
 
 .respuesta-modal-close:hover {
     background: rgba(255, 255, 255, 0.35);
-
     transform: scale(1.04);
 }
 
@@ -141,15 +113,10 @@
 
 .respuesta-modal-body {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
-
     padding: 24px;
-
     background-color: var(--respuesta-bg-body);
-
     box-sizing: border-box;
 }
 
@@ -160,15 +127,11 @@
 
 .respuesta-form-grid {
     width: 100%;
-
     display: grid;
-
     grid-template-columns:
         minmax(0, 1fr)
         minmax(0, 1fr);
-
     gap: 16px;
-
     box-sizing: border-box;
 }
 
@@ -179,12 +142,9 @@
 
 .respuesta-form-field {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
-
     gap: 7px;
-
     box-sizing: border-box;
 }
 
@@ -194,10 +154,8 @@
 
 .respuesta-form-field label {
     margin: 0;
-
     color: var(--respuesta-text-label);
-
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -211,27 +169,16 @@
 .respuesta-form-field textarea {
     width: 100%;
     max-width: 100%;
-
     padding: 0 14px;
-
     background-color: var(--respuesta-bg-input);
-
     color: var(--respuesta-text-dark);
-
     font-family: inherit;
-    font-size: 15px;
-
+    font-size: 20px;
     border: 1px solid var(--respuesta-border);
-
     border-radius: var(--respuesta-radius-md);
-
-    box-shadow:
-        0px 2px 6px rgba(0, 0, 0, 0.08);
-
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
     box-sizing: border-box;
-
     outline: none;
-
     transition: var(--respuesta-transition);
 }
 
@@ -244,11 +191,8 @@
 
 .respuesta-form-field textarea {
     min-height: 100px;
-
     padding: 10px 14px;
-
     resize: vertical;
-
     line-height: 1.5;
 }
 
@@ -261,9 +205,7 @@
 .respuesta-form-field select:focus,
 .respuesta-form-field textarea:focus {
     border-color: var(--respuesta-bg-header);
-
-    box-shadow:
-        0 0 0 3px rgba(59, 118, 251, 0.15);
+    box-shadow: 0 0 0 3px rgba(59, 118, 251, 0.15);
 }
 
 
@@ -274,35 +216,23 @@
 .respuesta-form-value {
     width: 100%;
     min-height: 44px;
-
     display: flex;
     align-items: center;
-
     margin: 0;
-
     padding: 10px 14px;
-
+    font-size: 20px;
     background: #f8fafc;
-
     border: 1px solid var(--respuesta-border);
-
     border-radius: var(--respuesta-radius-md);
-
     color: var(--respuesta-text-dark);
-
     line-height: 1.5;
-
     box-sizing: border-box;
-
     word-break: break-word;
-
-    box-shadow:
-        0px 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow:0px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .respuesta-form-value-large {
     min-height: 80px;
-
     align-items: flex-start;
 }
 
@@ -313,20 +243,13 @@
 
 .respuesta-modal-footer {
     flex-shrink: 0;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     gap: 20px;
-
     padding: 18px 24px;
-
     background-color: var(--respuesta-bg-body);
-
     border-top: 1px solid var(--respuesta-border);
-
     box-sizing: border-box;
 }
 
@@ -337,31 +260,20 @@
 
 .respuesta-btn {
     min-width: 140px;
-
     height: 44px;
-
     padding: 0 20px;
-
     border: none;
-
     border-radius: var(--respuesta-radius-md);
-
     cursor: pointer;
-
     font-family: inherit;
-
     font-weight: 600;
-
     font-size: 15px;
-
     transition: var(--respuesta-transition);
 }
 
 .respuesta-btn:disabled {
     opacity: 0.6;
-
     cursor: not-allowed;
-
     transform: none;
 }
 
@@ -371,22 +283,15 @@
 ========================================================= */
 
 .respuesta-btn-primary {
-    background-color: var(--respuesta-bg-header);
-
-    color: #ffffff;
+    background-color: #e5e7eb;
+    font-size: 20px;
+    color: #000;
 }
 
 .respuesta-btn-primary:hover:not(:disabled) {
-    background:
-        linear-gradient(
-            90deg,
-            #2155ff,
-            #3d8cff
-        );
+    background: #cbccce;
 
-    box-shadow:
-        0 4px 12px rgba(59, 118, 251, 0.3);
-
+    box-shadow:  0 4px 12px rgba(59, 118, 251, 0.3);
     transform: translateY(-1px);
 }
 
@@ -397,7 +302,7 @@
 
 .respuesta-btn-secondary {
     background-color: #3B76FB;
-
+    font-size: 20px;
     color: #ffffff;
 }
 
@@ -408,10 +313,7 @@
             #2155ff,
             #3d8cff
         );
-
-    box-shadow:
-        0 4px 12px rgba(59, 118, 251, 0.3);
-
+    box-shadow: 0 4px 12px rgba(59, 118, 251, 0.3);
     transform: translateY(-1px);
 }
 
@@ -422,16 +324,14 @@
 
 .respuesta-btn-danger {
     background-color: #ef4444;
-
+    font-size: 20px;
     color: #ffffff;
 }
 
 .respuesta-btn-danger:hover {
     background-color: #dc2626;
-
-    box-shadow:
-        0 4px 12px rgba(239, 68, 68, 0.3);
-
+    font-size: 20px;
+    box-shadow:0 4px 12px rgba(239, 68, 68, 0.3);
     transform: translateY(-1px);
 }
 
@@ -442,22 +342,16 @@
 
 .respuesta-modal-body-confirmacion {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     min-height: 130px;
 }
 
 .respuesta-confirmacion-texto {
     margin: 0;
-
     color: var(--respuesta-text-dark);
-
-    font-size: 15px;
-
+    font-size: 20px;
     line-height: 1.6;
-
     text-align: center;
 }
 
@@ -482,7 +376,6 @@
         width: 100%;
         max-width: 100%;
         max-height: 96vh;
-
         border-radius: 12px;
     }
 

@@ -26,7 +26,7 @@
 
 /* Modal Eliminar */
 .modalInforme_eliminar {
-  background-color: white;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 10px;
   width: 90%;
@@ -43,7 +43,7 @@
 }
 
 .modalInforme_eliminar p {
-  font-size: 1rem;
+  font-size: 25px;
   color: #555;
   margin: 1.5rem 0;
 }
@@ -91,9 +91,10 @@
 }
 
 /* Contenedor de botones */
-.botonesModal {
+.botonesModals {
   display: flex;
   gap: 1rem;
+  background-color: #f8fafc;
   margin-top: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
@@ -102,10 +103,11 @@
 /* Botones — TUS MISMAS CLASES */
 .btn_Guardar {
   background-color: #27ae60;
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 6px;
+  font-size: 20px;
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s;
@@ -117,11 +119,13 @@
 
 .btn_Eliminar {
   background-color: #e74c3c;
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 6px;
+  margin: 20px;
   cursor: pointer;
+  font-size: 20px;
   font-weight: 600;
   transition: background-color 0.2s;
 }
@@ -132,10 +136,11 @@
 
 .btn_Cancelar {
   background-color: #95a5a6;
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 6px;
+  font-size: 20px;
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s;
@@ -152,11 +157,11 @@
     padding: 1.5rem;
   }
 
-  .botonesModal {
+  .botonesModals {
     flex-direction: column;
   }
 
-  .botonesModal button {
+  .botonesModals button {
     width: 100%;
   }
 }

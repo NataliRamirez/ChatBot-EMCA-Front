@@ -23,17 +23,14 @@
   width: 100%;
   max-width: 1600px;
   margin: 0 auto 25px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-
   background: #ffffff;
   padding: 22px 25px;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
@@ -61,23 +58,17 @@
 .btn-actualizar {
   min-width: 140px;
   height: 45px;
-
   border: none;
   border-radius: 10px;
-
   background: #3b76fb;
   color: #ffffff;
-
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 600;
-
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-
   transition: all 0.2s ease;
   box-shadow: 0 4px 10px rgba(59, 118, 251, 0.25);
 }
@@ -99,22 +90,16 @@
 .filtros-bar {
   width: 100%;
   max-width: 1600px;
-
   margin: 0 auto 25px;
   padding: 20px;
-
   background: #ffffff;
-
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
-
   flex-wrap: wrap;
 }
 
@@ -176,20 +161,14 @@
 .btn-limpiar {
   height: 48px;
   min-width: 120px;
-
   padding: 0 18px;
-
   border: none;
   border-radius: 10px;
-
   background: #64748b;
   color: #ffffff;
-
   font-size: 15px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
@@ -205,16 +184,11 @@
 .tabla-card {
   width: 100%;
   max-width: 1600px;
-
   margin: 0 auto;
-
   background: #ffffff;
-
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-
   overflow: hidden;
 }
 
@@ -234,9 +208,7 @@
 .tabla-respuestas {
   width: 100%;
   min-width: 1250px;
-
   border-collapse: collapse;
-
   color: #1e293b;
 }
 
@@ -247,26 +219,18 @@
 
 .tabla-respuestas th {
   padding: 15px 12px;
-
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
-
   text-align: center;
-
   white-space: nowrap;
 }
 
 .tabla-respuestas td {
   padding: 14px 12px;
-
   color: #1e293b;
-
-  font-size: 14px;
-
+  font-size: 20px;
   text-align: center;
-
   border-bottom: 1px solid #e2e8f0;
-
   vertical-align: middle;
 }
 
@@ -292,9 +256,7 @@
 
 .tabla-respuestas td:nth-child(8) {
   max-width: 280px;
-
   text-align: left;
-
   white-space: normal;
   word-break: break-word;
 }
@@ -305,19 +267,13 @@
 
 .badge-estado {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   min-width: 90px;
-
   padding: 6px 12px;
-
   border-radius: 999px;
-
   font-size: 12px;
   font-weight: 700;
-
   background: #e2e8f0;
   color: #334155;
 }
@@ -352,25 +308,18 @@
 .btn-ver {
   width: 100px;
   height: 42px;
-
   border: none;
   border-radius: 9px;
-
   background: #3b76fb;
   color: #ffffff;
-
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
-
   cursor: pointer;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-
   transition: all 0.2s ease;
-
   box-shadow: 0 3px 8px rgba(59, 118, 251, 0.25);
 }
 
@@ -386,9 +335,7 @@
 
 .sin-resultados {
   height: 120px;
-
   color: #64748b !important;
-
   font-size: 15px !important;
   font-weight: 500;
 }
@@ -399,17 +346,12 @@
 
 .containerBotones {
   width: 100%;
-
   padding: 20px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   gap: 15px;
-
   flex-wrap: wrap;
-
   border-top: 1px solid #e2e8f0;
   background: #f8fafc;
 }
@@ -418,21 +360,14 @@
 .btn_EXCELdescargar {
   width: 170px;
   height: 46px;
-
   margin: 0;
-
   border: none;
   border-radius: 10px;
-
   color: #ffffff;
-
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: all 0.2s ease;
-
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
 }
 
@@ -460,22 +395,15 @@
 
 .modal-overlay {
   position: fixed;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   background: rgba(15, 23, 42, 0.65);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 20px;
-
   z-index: 9999;
-
   backdrop-filter: blur(4px);
 }
 
@@ -487,18 +415,12 @@
   width: 100%;
   max-width: 650px;
   max-height: 90vh;
-
   background: #ffffff;
-
   border-radius: 18px;
-
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-
   display: flex;
   flex-direction: column;
-
   overflow: hidden;
-
   animation: modalEntrada 0.2s ease-out;
 }
 
@@ -520,22 +442,17 @@
 
 .modal-header {
   min-height: 70px;
-
   padding: 15px 20px;
-
   background: #3b76fb;
   color: #ffffff;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
 }
 
 .modal-header h3 {
   margin: 0;
-
   font-size: 20px;
   font-weight: 700;
 }
@@ -547,25 +464,19 @@
 
 .modal-body {
   width: 100%;
-
   padding: 25px;
-
+  font-size: 20px;
   overflow-y: auto;
-
   display: flex;
   flex-direction: column;
-
   gap: 12px;
-
   color: #334155;
 }
 
 .modal-body p {
   margin: 0;
-
   line-height: 1.5;
-
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .modal-body strong {
@@ -597,35 +508,25 @@
 
 .modal-footer {
   width: 100%;
-
   padding: 15px 20px;
-
   border-top: 1px solid #e2e8f0;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: #f8fafc;
 }
 
 .btn_segundario {
   width: 180px;
   height: 45px;
-
   margin: 0;
-
   border: none;
   border-radius: 10px;
-
   background: #3b76fb;
   color: #ffffff;
-
   font-size: 15px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
@@ -664,6 +565,21 @@
   background: #64748b;
 }
 
+.btnCerrar{
+  height: 40px;
+  width: 50px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #3b76fb;
+  border-radius:10px;
+  box-shadow: 0px 4px 10px #000;
+}
+
+.btnCerrar:hover{
+   background-color: #477cf8;
+   color: #fff;
+   box-shadow: 0px 4px 10px #000;
+}
 /* =========================================================
    RESPONSIVE TABLET
    ========================================================= */
